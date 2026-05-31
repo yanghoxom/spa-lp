@@ -12,7 +12,7 @@
       property="og:description"
       content="Chọn loại da, vấn đề và ngân sách để nhận mã tư vấn. Shop kiểm tra lại bộ sản phẩm trước khi bạn quyết định mua."
     />
-    <meta property="og:image" content="assets/fanpage-hero.jpg" />
+    <meta property="og:image" content="assets/fanpage-product.jpg" />
     <title>Phùng Hà KOREA | Tư vấn da 30 giây</title>
   </head>
   <body>
@@ -54,9 +54,9 @@
             </div>
           </div>
 
-          <div class="hero-visual" aria-label="Hình ảnh phong cách Phùng Hà KOREA">
+          <div class="hero-visual" aria-label="Hình ảnh sản phẩm và phong cách Phùng Hà KOREA">
             <div class="image-card image-card-main">
-              <img src="assets/fanpage-hero.jpg" alt="Hình ảnh từ fanpage Phùng Hà KOREA" />
+              <img src="assets/fanpage-product.jpg" alt="Người mẫu cùng bộ sản phẩm dưỡng sáng từ Phùng Hà KOREA" />
             </div>
             <div class="floating-card card-top">
               <span class="spark"></span>
@@ -83,7 +83,7 @@
           </article>
           <article>
             <span>03</span>
-            <strong>Shop kiểm tra lại trước khi chốt sản phẩm</strong>
+            <strong>Shop kiểm tra lại trước khi gợi ý sản phẩm</strong>
             <p>Kết quả chỉ là tham khảo ban đầu, shop vẫn xem lại tình trạng da và sản phẩm bạn đang dùng.</p>
           </article>
         </section>
@@ -113,7 +113,10 @@
             <aside class="result-card" id="result-card" aria-live="polite">
               <p class="eyebrow">Kết quả của bạn</p>
               <h3 id="result-title">Chưa có kết quả</h3>
-              <p id="result-note">Hoàn thành 5 câu để nhận mã tư vấn và cách dùng sáng/tối.</p>
+              <p class="result-summary" id="result-note">
+                <span>Hoàn thành 5 câu để nhận mã tư vấn.</span>
+                <span>Shop sẽ kiểm tra lại trước khi bạn quyết định mua.</span>
+              </p>
               <div class="result-code" id="result-code">PK-0000</div>
               <div class="fit-badge">
                 <span>Mức độ phù hợp</span>
@@ -140,7 +143,7 @@
                   <input name="customerName" type="text" placeholder="Ví dụ: Hà Anh" />
                 </label>
                 <label>
-                  SĐT/Zalo nếu bạn muốn shop tư vấn nhanh hơn
+                  SĐT/Zalo nếu bạn muốn shop nhắn nhanh hơn
                   <input name="customerContact" type="text" placeholder="Không bắt buộc" />
                 </label>
                 <label>
@@ -149,10 +152,14 @@
                 </label>
                 <div class="lead-actions">
                   <a class="button button-primary" id="messenger-link" href="https://m.me/PhungHa29" target="_blank" rel="noreferrer">
-                    Gửi kết quả cho shop
+                    Gửi qua Messenger cho shop
                   </a>
                   <button type="button" class="button button-secondary" id="copy-result">Copy mã tư vấn</button>
                 </div>
+                <p class="form-reassurance">
+                  Không bắt buộc mua, shop kiểm tra lại trước khi tư vấn.
+                  <span>SĐT không bắt buộc, shop không gọi nếu bạn không để số.</span>
+                </p>
               </form>
             </aside>
           </div>
@@ -166,17 +173,17 @@
           </div>
           <div class="service-grid">
             <article>
-              <img src="assets/fanpage-service-1.jpg" alt="Hình ảnh sản phẩm chăm da từ fanpage Phùng Hà KOREA" />
+              <img class="service-image--brightening" src="assets/fanpage-product.jpg" alt="Người mẫu và bộ sản phẩm dưỡng sáng từ fanpage Phùng Hà KOREA" />
               <h3>Nám, sạm, da không đều màu</h3>
               <p>Shop sẽ ưu tiên chống nắng, dưỡng sáng và phục hồi để da đều màu hơn theo hướng an toàn.</p>
             </article>
             <article>
-              <img src="assets/fanpage-service-2.jpg" alt="Hình ảnh chăm da từ fanpage Phùng Hà KOREA" />
+              <img class="service-image--calm" src="assets/fanpage-service-2.jpg" alt="Người mẫu cầm sản phẩm chăm da từ fanpage Phùng Hà KOREA" />
               <h3>Mụn, thâm, lỗ chân lông</h3>
               <p>Gợi ý cách làm sạch, phục hồi và bảo vệ da để hạn chế dùng quá nhiều sản phẩm cùng lúc.</p>
             </article>
             <article>
-              <img src="assets/fanpage-service-3.jpg" alt="Hình ảnh sản phẩm từ fanpage Phùng Hà KOREA" />
+              <img class="service-image--glow" src="assets/fanpage-product.jpg" alt="Bộ sản phẩm dưỡng ẩm và dưỡng sáng từ fanpage Phùng Hà KOREA" />
               <h3>Da khô, xỉn màu, kém căng</h3>
               <p>Gợi ý dưỡng ẩm, làm dịu và chăm đều mỗi ngày để da nhìn mướt hơn.</p>
             </article>
@@ -229,7 +236,7 @@
           <div class="faq-list">
             <details open>
               <summary>Da nhạy cảm có dùng được không?</summary>
-              <p>Shop sẽ ưu tiên hướng phục hồi, ít bước. Shop vẫn cần kiểm tra lại sản phẩm bạn đang dùng trước khi chốt.</p>
+              <p>Shop sẽ ưu tiên hướng phục hồi, ít bước. Shop vẫn cần kiểm tra lại sản phẩm bạn đang dùng trước khi gợi ý.</p>
             </details>
             <details>
               <summary>Bao lâu thì thấy thay đổi?</summary>
@@ -249,7 +256,7 @@
             </details>
             <details>
               <summary>Sản phẩm có phải hàng Hàn Quốc nội địa không?</summary>
-              <p>Fanpage Phùng Hà KOREA tập trung mỹ phẩm Hàn Quốc nội địa. Khi chốt đơn, bạn có thể yêu cầu shop gửi ảnh sản phẩm, tem nhãn và hướng dẫn dùng.</p>
+              <p>Fanpage Phùng Hà KOREA tập trung mỹ phẩm Hàn Quốc nội địa. Khi đặt hàng, bạn có thể yêu cầu shop gửi ảnh sản phẩm, tem nhãn và hướng dẫn dùng.</p>
             </details>
             <details>
               <summary>Nếu dùng không hợp thì shop hỗ trợ thế nào?</summary>

@@ -17,8 +17,8 @@ describe("buildConsultationResult", () => {
     expect(result.title).toBe("Dưỡng sáng dịu nhẹ");
     expect(result.priceRange).toBe("Khoảng 300k - 700k");
     expect(result.fitLevel).toBe("Cao");
-    expect(result.reasons).toContain("Da dễ đổ dầu nên ưu tiên sản phẩm mỏng nhẹ, không bí.");
-    expect(result.reasons).toContain("Nám/sạm cần hướng làm sáng an toàn, kiên trì và chống nắng kỹ.");
+    expect(result.reasons).toContain("Da dễ đổ dầu, nên ưu tiên lớp dưỡng mỏng nhẹ.");
+    expect(result.reasons).toContain("Nám/sạm cần dưỡng sáng an toàn và chống nắng kỹ.");
     expect(result.morning).toEqual(["Làm sạch dịu nhẹ", "Serum làm sáng", "Kem chống nắng"]);
     expect(result.evening).toEqual(["Làm sạch", "Serum phục hồi", "Kem dưỡng mỏng"]);
     expect(result.followUpQuestions).toContain("Bạn đang dùng sản phẩm nào?");
@@ -36,9 +36,9 @@ describe("buildConsultationResult", () => {
     expect(result.title).toBe("Phục hồi da dễ kích ứng");
     expect(result.priceRange).toBe("Dưới 300k");
     expect(result.fitLevel).toBe("Cần shop kiểm tra thêm");
-    expect(result.reasons).toContain("Da nhạy cảm cần giảm tải hoạt chất mạnh trước khi đổi sản phẩm.");
-    expect(result.reasons).toContain("Mụn/thâm nên được xử lý theo hướng làm sạch - phục hồi - bảo vệ.");
-    expect(result.note).toContain("Shop sẽ kiểm tra lại tình trạng da trước khi chốt sản phẩm cụ thể.");
+    expect(result.reasons).toContain("Da nhạy cảm cần ưu tiên phục hồi, giảm sản phẩm mạnh.");
+    expect(result.reasons).toContain("Mụn/thâm cần làm sạch nhẹ, phục hồi và bảo vệ da.");
+    expect(result.note).toContain("Shop sẽ kiểm tra lại tình trạng da trước khi gợi ý sản phẩm cụ thể.");
     expect(result.followUpQuestions).toContain("Da có đang kích ứng, đỏ rát hoặc bong tróc không?");
   });
 });
@@ -89,6 +89,34 @@ describe("customer-facing copy", () => {
       .join("\n");
     const customerCopy = [visibleHtml, sourceCopy].join("\n");
 
-    expect(customerCopy).not.toMatch(/test da|routine|funnel|saler|chốt dễ hơn|lọc nhu cầu|K-beauty|Skin test|treatment/i);
+    expect(customerCopy).not.toMatch(/test da|routine|funnel|saler|chốt|lọc nhu cầu|K-beauty|Skin test|treatment/i);
+  });
+
+  it("clearly sends results through Messenger and reassures cautious customers", () => {
+    const indexHtml = readFileSync(resolve(process.cwd(), "index.html"), "utf8");
+
+    expect(indexHtml).toContain("Gửi qua Messenger cho shop");
+    expect(indexHtml).toContain("SĐT/Zalo nếu bạn muốn shop nhắn nhanh hơn");
+    expect(indexHtml).toContain("Không bắt buộc mua, shop kiểm tra lại trước khi tư vấn.");
+    expect(indexHtml).toContain("SĐT không bắt buộc, shop không gọi nếu bạn không để số.");
+  });
+
+  it("uses a non-acne image for the melasma and uneven-tone service card", () => {
+    const indexHtml = readFileSync(resolve(process.cwd(), "index.html"), "utf8");
+    const serviceGrid = indexHtml.match(/<div class="service-grid">([\s\S]*?)<\/div>/)?.[1] ?? "";
+    const firstServiceCard = serviceGrid.match(/<article>([\s\S]*?)<\/article>/)?.[1] ?? "";
+
+    expect(firstServiceCard).toContain("<h3>Nám, sạm, da không đều màu</h3>");
+    expect(firstServiceCard).toContain('src="assets/fanpage-product.jpg"');
+    expect(firstServiceCard).not.toContain("fanpage-service-1.jpg");
+  });
+
+  it("keeps service card images away from busy sales-text assets", () => {
+    const indexHtml = readFileSync(resolve(process.cwd(), "index.html"), "utf8");
+    const serviceGrid = indexHtml.match(/<div class="service-grid">([\s\S]*?)<\/div>/)?.[1] ?? "";
+
+    expect(serviceGrid).not.toContain("fanpage-service-1.jpg");
+    expect(serviceGrid).not.toContain("fanpage-service-3.jpg");
+    expect(serviceGrid).not.toContain("fanpage-hero.jpg");
   });
 });

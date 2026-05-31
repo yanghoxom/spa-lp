@@ -65,19 +65,19 @@ const goalLabels: Record<Goal, string> = {
 };
 
 const skinReasons: Record<SkinType, string> = {
-  oily: "Da dễ đổ dầu nên ưu tiên sản phẩm mỏng nhẹ, không bí.",
-  dry: "Da khô cần cấp ẩm và phục hồi hàng rào bảo vệ trước.",
-  combination: "Da hỗn hợp cần cân bằng dầu nước, tránh sản phẩm quá nặng.",
-  sensitive: "Da nhạy cảm cần giảm tải hoạt chất mạnh trước khi đổi sản phẩm.",
-  unknown: "Chưa rõ loại da nên shop sẽ ưu tiên cách dùng an toàn, dễ theo dõi.",
+  oily: "Da dễ đổ dầu, nên ưu tiên lớp dưỡng mỏng nhẹ.",
+  dry: "Da khô cần cấp ẩm và phục hồi hàng rào bảo vệ.",
+  combination: "Da hỗn hợp cần cân bằng dầu nước, tránh lớp dưỡng quá nặng.",
+  sensitive: "Da nhạy cảm cần ưu tiên phục hồi, giảm sản phẩm mạnh.",
+  unknown: "Chưa rõ loại da nên ưu tiên cách dùng an toàn, dễ theo dõi.",
 };
 
 const concernReasons: Record<Concern, string> = {
-  acne: "Mụn/thâm nên được xử lý theo hướng làm sạch - phục hồi - bảo vệ.",
-  melasma: "Nám/sạm cần hướng làm sáng an toàn, kiên trì và chống nắng kỹ.",
-  dull: "Da xỉn màu hợp với cách chăm làm sạch tốt, dưỡng sáng và khóa ẩm.",
-  pores: "Lỗ chân lông và bóng dầu cần kiểm soát dầu nhưng không làm khô căng.",
-  aging: "Da kém săn cần phục hồi nền da, chống nắng và dưỡng chất chống oxy hóa.",
+  acne: "Mụn/thâm cần làm sạch nhẹ, phục hồi và bảo vệ da.",
+  melasma: "Nám/sạm cần dưỡng sáng an toàn và chống nắng kỹ.",
+  dull: "Da xỉn màu cần làm sạch tốt, dưỡng sáng và khóa ẩm.",
+  pores: "Lỗ chân lông cần kiểm soát dầu nhưng không làm khô căng.",
+  aging: "Da kém săn cần phục hồi nền da và chống nắng đều.",
 };
 
 export const quizLabels = {
@@ -178,15 +178,15 @@ export function buildConsultationResult(answers: QuizAnswers): ConsultationResul
     reasons: [
       skinReasons[answers.skinType],
       concernReasons[answers.concern],
-      `Ngân sách ${budgetLabels[answers.budget].toLowerCase()} nên shop sẽ chọn bộ sản phẩm vừa tầm trước.`,
+      `Ngân sách ${budgetLabels[answers.budget].toLowerCase()}: shop ưu tiên vài món cần nhất trước.`,
       answers.goal === "safe"
-        ? "Bạn ưu tiên an toàn nên kết quả tránh lời hứa quá đà hoặc hoạt chất quá gắt."
-        : `Mục tiêu của bạn là ${goalLabels[answers.goal].toLowerCase()}, cách dùng sẽ được shop kiểm tra lại theo tình trạng thật.`,
+        ? "Ưu tiên an toàn: chọn cách dùng dịu, dễ theo dõi."
+        : `Mục tiêu: ${goalLabels[answers.goal].toLowerCase()}. Shop sẽ kiểm tra lại theo tình trạng thật.`,
     ],
     morning: baseMorning,
     evening,
     followUpQuestions: followUpQuestionsFor(answers),
-    note: "Shop sẽ kiểm tra lại tình trạng da trước khi chốt sản phẩm cụ thể.",
+    note: "Shop sẽ kiểm tra lại tình trạng da trước khi gợi ý sản phẩm cụ thể.",
   };
 }
 

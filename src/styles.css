@@ -268,6 +268,26 @@ h3 {
   object-fit: cover;
 }
 
+.image-card-main img {
+  object-position: center top;
+}
+
+.service-grid img {
+  object-position: center;
+}
+
+.service-image--brightening {
+  object-position: center 48%;
+}
+
+.service-image--calm {
+  object-position: 62% 42%;
+}
+
+.service-image--glow {
+  object-position: center bottom;
+}
+
 .floating-card {
   position: absolute;
   display: grid;
@@ -454,6 +474,31 @@ h3 {
 .result-card {
   position: sticky;
   top: 100px;
+  color: var(--ink);
+}
+
+.result-card h3 {
+  line-height: 1.05;
+}
+
+.result-summary {
+  display: grid;
+  gap: 8px;
+  margin: 14px 0 0;
+  color: #3f3028;
+  line-height: 1.55;
+}
+
+.result-summary span {
+  display: block;
+  padding: 10px 12px;
+  background: rgba(255, 255, 255, 0.56);
+  border: 1px solid rgba(31, 23, 19, 0.08);
+  border-radius: 16px;
+}
+
+.result-summary strong {
+  color: var(--pine);
 }
 
 .result-code,
@@ -492,11 +537,55 @@ h3 {
 
 .result-columns {
   display: grid;
-  gap: 18px;
+  gap: 14px;
   margin-bottom: 24px;
 }
 
-.result-columns ul,
+.result-columns > div {
+  padding: 14px;
+  background: rgba(255, 255, 255, 0.5);
+  border: 1px solid rgba(31, 23, 19, 0.08);
+  border-radius: 18px;
+}
+
+.result-columns h4 {
+  margin: 0 0 10px;
+  color: var(--pine);
+  font-size: 1rem;
+}
+
+.result-columns p {
+  margin: 8px 0;
+  color: #3f3028;
+  line-height: 1.55;
+}
+
+.result-columns ul {
+  display: grid;
+  gap: 8px;
+  padding-left: 0;
+  margin: 0;
+  color: var(--ink);
+  line-height: 1.55;
+  list-style: none;
+}
+
+.result-columns li {
+  position: relative;
+  padding-left: 18px;
+}
+
+.result-columns li::before {
+  position: absolute;
+  top: 0.72em;
+  left: 0;
+  width: 7px;
+  height: 7px;
+  content: "";
+  background: var(--rose-dark);
+  border-radius: 50%;
+}
+
 .policy-card ul {
   padding-left: 20px;
   color: var(--muted);
@@ -511,6 +600,25 @@ h3 {
 
 .lead-form {
   gap: 14px;
+}
+
+.form-reassurance {
+  margin: 0;
+  padding: 12px 14px;
+  color: var(--pine);
+  font-size: 0.92rem;
+  font-weight: 700;
+  line-height: 1.55;
+  background: rgba(215, 184, 117, 0.16);
+  border: 1px solid rgba(111, 128, 101, 0.18);
+  border-radius: 18px;
+}
+
+.form-reassurance span {
+  display: block;
+  margin-top: 4px;
+  color: #4d3b31;
+  font-weight: 600;
 }
 
 .lead-form input,
@@ -724,11 +832,15 @@ footer {
   }
 
   .hero-visual {
-    min-height: 430px;
+    min-height: 560px;
   }
 
   .image-card-main {
-    height: 420px;
+    width: min(100%, 410px);
+    height: 500px;
+    margin: 0 auto;
+    border-radius: 38px;
+    transform: none;
   }
 
   .floating-card {
@@ -736,11 +848,11 @@ footer {
   }
 
   .card-top {
-    left: 8px;
+    left: max(8px, calc(50% - 220px));
   }
 
   .card-bottom {
-    right: 8px;
+    right: max(8px, calc(50% - 220px));
     bottom: 32px;
   }
 

@@ -178,7 +178,12 @@ function showResult(): void {
   const encoded = encodeURIComponent(message);
 
   if (resultTitle) resultTitle.textContent = result.title;
-  if (resultNote) resultNote.textContent = `${result.priceRange}. ${result.note}`;
+  if (resultNote) {
+    resultNote.innerHTML = `
+      <span><strong>Giá tham khảo:</strong> ${result.priceRange}</span>
+      <span>${result.note}</span>
+    `;
+  }
   if (resultCode) resultCode.textContent = result.code;
   if (resultFit) resultFit.textContent = result.fitLevel;
   if (resultReasons) {
