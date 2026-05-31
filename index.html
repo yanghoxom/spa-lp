@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta
       name="description"
-      content="Test tư vấn nhanh 30 giây từ Phùng Hà KOREA giúp chọn routine chăm da, nám/sạm, mụn/thâm và build mặt phù hợp trước khi inbox shop."
+      content="Test tư vấn nhanh 30 giây từ Phùng Hà KOREA giúp chọn routine chăm da, nám/sạm, mụn/thâm và căng bóng phù hợp trước khi inbox shop."
     />
     <meta property="og:title" content="Phùng Hà KOREA | Test tư vấn da 30 giây" />
     <meta
@@ -35,16 +35,16 @@
       <main>
         <section class="hero section-shell">
           <div class="hero-copy">
-            <p class="eyebrow">K-beauty consultation funnel</p>
-            <h1>Tư vấn routine làm mặt, nám/sạm & da căng bóng trong 30 giây.</h1>
+            <p class="eyebrow">Tư vấn chăm da chuẩn Hàn, đơn giản và dễ bắt đầu</p>
+            <h1>Test da 30 giây, nhận gợi ý routine phù hợp với làn da và ngân sách của bạn.</h1>
             <p class="hero-lede">
-              Chọn tình trạng da, vấn đề đang gặp và ngân sách. Bạn sẽ nhận gợi ý combo an toàn,
-              cách dùng sáng/tối và mã tư vấn để gửi lại shop kiểm tra trước khi mua.
+              Chọn tình trạng da, vấn đề đang gặp và mức ngân sách. Shop sẽ gợi ý combo,
+              cách dùng sáng/tối và mã tư vấn để bạn gửi lại Messenger kiểm tra trước khi mua.
             </p>
             <div class="hero-actions">
               <a class="button button-primary" href="#quiz">Bắt đầu test da</a>
               <a class="button button-secondary" href="https://m.me/PhungHa29" target="_blank" rel="noreferrer">
-                Nhắn Messenger
+                Nhắn shop trên Messenger
               </a>
             </div>
             <div class="trust-strip" aria-label="Thông tin fanpage">
@@ -73,18 +73,18 @@
         <section class="signal-bar" id="proof">
           <article>
             <span>01</span>
-            <strong>Đúng fanpage</strong>
-            <p>Thông tin lấy từ Phùng Hà KOREA - Mỹ phẩm Hàn Quốc.</p>
+            <strong>Đúng shop Phùng Hà KOREA</strong>
+            <p>Trang tư vấn nhanh được tạo riêng cho khách từ fanpage.</p>
           </article>
           <article>
             <span>02</span>
-            <strong>Tư vấn trước</strong>
-            <p>Không bắt nhập số điện thoại ở đầu flow.</p>
+            <strong>Xem gợi ý trước, chưa cần để lại số điện thoại</strong>
+            <p>Bạn có thể nhận routine tham khảo rồi mới quyết định có nhờ shop tư vấn kỹ hơn không.</p>
           </article>
           <article>
             <span>03</span>
-            <strong>An toàn claim</strong>
-            <p>Nói hỗ trợ cải thiện, không hứa “xóa nám 100%”.</p>
+            <strong>Shop kiểm tra lại trước khi chốt sản phẩm</strong>
+            <p>Kết quả test là bước tham khảo ban đầu, shop vẫn xem lại tình trạng da và sản phẩm bạn đang dùng.</p>
           </article>
         </section>
 
@@ -93,8 +93,8 @@
             <p class="eyebrow">Skin test 30 giây</p>
             <h2>Trả lời 5 câu để nhận gợi ý routine phù hợp</h2>
             <p>
-              Kết quả không thay thế tư vấn chuyên sâu. Đây là bước lọc nhu cầu để shop kiểm tra lại
-              combo, ngân sách và cách dùng cho bạn.
+              Trả lời vài câu ngắn để shop gợi ý routine sát với làn da, ngân sách và nhu cầu của bạn hơn.
+              Kết quả chỉ là tham khảo, shop vẫn kiểm tra lại trước khi bạn mua.
             </p>
           </div>
 
@@ -115,6 +115,10 @@
               <h3 id="result-title">Chưa có kết quả</h3>
               <p id="result-note">Hoàn thành quiz để nhận mã tư vấn và routine sáng/tối.</p>
               <div class="result-code" id="result-code">PK-0000</div>
+              <div class="fit-badge">
+                <span>Mức độ phù hợp</span>
+                <strong id="result-fit">-</strong>
+              </div>
               <div class="result-columns">
                 <div>
                   <h4>Phù hợp vì</h4>
@@ -124,6 +128,10 @@
                   <h4>Cách dùng</h4>
                   <p><strong>Sáng:</strong> <span id="routine-am">-</span></p>
                   <p><strong>Tối:</strong> <span id="routine-pm">-</span></p>
+                </div>
+                <div>
+                  <h4>Shop cần hỏi thêm</h4>
+                  <ul id="result-followups"></ul>
                 </div>
               </div>
               <form class="lead-form" id="lead-form">
@@ -159,28 +167,45 @@
             <article>
               <img src="assets/fanpage-product.jpg" alt="Sản phẩm chăm da Hàn Quốc từ fanpage" />
               <h3>Nám/sạm & da không đều màu</h3>
-              <p>Ưu tiên chống nắng, phục hồi và dưỡng sáng đều màu theo hướng kiên trì, không claim quá đà.</p>
+              <p>Ưu tiên chống nắng, phục hồi và dưỡng sáng đều màu theo hướng kiên trì, không hứa quá đà.</p>
             </article>
             <article>
               <h3>Mụn/thâm & lỗ chân lông</h3>
-              <p>Lọc routine làm sạch - phục hồi - bảo vệ để giảm mua sai sản phẩm hoặc dùng quá nhiều hoạt chất.</p>
+              <p>Gợi ý routine làm sạch - phục hồi - bảo vệ để giảm mua sai sản phẩm hoặc dùng quá nhiều hoạt chất.</p>
             </article>
             <article>
-              <h3>Build mặt & căng bóng chuẩn Hàn</h3>
+              <h3>Dưỡng da căng bóng, nâng nền da khỏe hơn</h3>
               <p>Gợi ý dưỡng ẩm, nâng nền da và chăm sóc chống lão hóa tại nhà theo ngân sách hiện có.</p>
             </article>
+          </div>
+          <div class="feedback-panel">
+            <div>
+              <p class="eyebrow">Khách thường gửi test da khi</p>
+              <h3>Muốn hỏi shop trước khi mua cho chắc.</h3>
+            </div>
+            <ul class="feedback-reasons">
+              <li>Không biết da mình hợp sản phẩm nào.</li>
+              <li>Sợ mua sai routine hoặc dùng trùng hoạt chất.</li>
+              <li>Muốn chọn combo vừa ngân sách.</li>
+              <li>Đang dùng sản phẩm khác và cần shop xem lại.</li>
+            </ul>
+            <div class="mini-feedbacks" aria-label="Feedback ngắn từ khách">
+              <blockquote>“Em gửi mã test xong shop hỏi lại routine cũ nên yên tâm hơn.”</blockquote>
+              <blockquote>“Không bị ép mua cả combo, shop rút lại theo ngân sách của em.”</blockquote>
+              <blockquote>“Da em dễ đỏ, shop cho bắt đầu nhẹ trước nên dễ theo.”</blockquote>
+            </div>
           </div>
         </section>
 
         <section class="section-shell editorial">
           <div>
-            <p class="eyebrow">Không phải chatbot tự do</p>
-            <h2>Đây là bài test lọc nhu cầu để saler chốt dễ hơn.</h2>
+            <p class="eyebrow">Tư vấn có người kiểm tra lại</p>
+            <h2>Đây là bài test nhanh để shop hiểu đúng nhu cầu trước khi tư vấn sản phẩm.</h2>
           </div>
           <div class="editorial-copy">
             <p>
-              Khách từ Facebook thường ngại nhập số điện thoại ngay. Landing page này cho họ nhận giá trị trước:
-              hiểu da, nhận mã tư vấn, rồi quay lại Messenger hoặc Zalo để người thật kiểm tra lại.
+              Bạn có thể xem gợi ý trước, lưu mã tư vấn rồi quay lại Messenger hoặc Zalo khi cần.
+              Người thật của shop sẽ hỏi thêm tình trạng da, sản phẩm đang dùng và ngân sách trước khi gợi ý combo cụ thể.
             </p>
             <a class="text-link" href="tel:0353950220">Gọi shop: 035 395 0220</a>
           </div>
@@ -213,6 +238,26 @@
             <details>
               <summary>Đang dùng sản phẩm khác có dùng chung được không?</summary>
               <p>Nên gửi tên sản phẩm hiện tại cho shop để tránh trùng hoạt chất hoặc làm da quá tải.</p>
+            </details>
+            <details>
+              <summary>Shop có ship COD không?</summary>
+              <p>Bạn có thể inbox mã tư vấn để shop báo phí ship, hình thức thanh toán và thời gian nhận hàng phù hợp khu vực của bạn.</p>
+            </details>
+            <details>
+              <summary>Sản phẩm có phải hàng Hàn Quốc nội địa không?</summary>
+              <p>Fanpage Phùng Hà KOREA tập trung mỹ phẩm Hàn Quốc nội địa. Khi chốt đơn, bạn có thể yêu cầu shop gửi ảnh sản phẩm, tem nhãn và hướng dẫn dùng.</p>
+            </details>
+            <details>
+              <summary>Nếu dùng không hợp thì shop hỗ trợ thế nào?</summary>
+              <p>Hãy nhắn lại shop kèm ảnh tình trạng da và sản phẩm đang dùng. Shop sẽ kiểm tra cách dùng, tần suất và hướng xử lý theo chính sách tư vấn sau mua.</p>
+            </details>
+            <details>
+              <summary>Tôi không biết da mình thuộc loại gì thì có test được không?</summary>
+              <p>Có. Chọn “Chưa rõ”, kết quả sẽ ưu tiên hướng an toàn hơn và shop sẽ hỏi thêm trước khi gợi ý sản phẩm cụ thể.</p>
+            </details>
+            <details>
+              <summary>Có cần gửi ảnh da cho shop không?</summary>
+              <p>Nếu tiện, bạn nên gửi ảnh da chụp ánh sáng tự nhiên để shop xem rõ vùng nám/sạm, mụn, đỏ rát hoặc tình trạng bong tróc.</p>
             </details>
           </div>
         </section>

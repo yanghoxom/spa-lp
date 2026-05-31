@@ -17,71 +17,74 @@ type Question<T extends keyof QuizAnswers> = {
 };
 
 const questions: [
-  Question<"skinType">,
   Question<"concern">,
+  Question<"skinType">,
   Question<"history">,
   Question<"budget">,
   Question<"goal">,
 ] = [
+  {
+    key: "concern",
+    title: "Bạn đang quan tâm vấn đề nào nhất?",
+    options: [
+      { value: "melasma", label: "Nám/sạm", hint: "Da không đều màu" },
+      { value: "acne", label: "Mụn/thâm", hint: "Mụn ẩn, thâm sau mụn" },
+      { value: "dull", label: "Da xỉn màu", hint: "Muốn sáng mướt hơn" },
+      { value: "pores", label: "Lỗ chân lông", hint: "Bóng dầu, bề mặt sần" },
+      { value: "aging", label: "Căng bóng/chống lão hóa", hint: "Nâng nền da khỏe hơn" },
+    ],
+  },
   {
     key: "skinType",
     title: "Da bạn thuộc loại nào?",
     options: [
       { value: "oily", label: "Da dầu", hint: "Dễ bóng, bí da" },
       { value: "dry", label: "Da khô", hint: "Căng, thiếu ẩm" },
-      { value: "combination", label: "Hỗn hợp", hint: "Dầu vùng T" },
-      { value: "sensitive", label: "Nhạy cảm", hint: "Dễ đỏ rát" },
-      { value: "unknown", label: "Chưa rõ", hint: "Để shop lọc an toàn" },
-    ],
-  },
-  {
-    key: "concern",
-    title: "Bạn muốn cải thiện điều gì nhất?",
-    options: [
-      { value: "melasma", label: "Nám/sạm", hint: "Da không đều màu" },
-      { value: "acne", label: "Mụn/thâm", hint: "Mụn ẩn, thâm sau mụn" },
-      { value: "dull", label: "Da xỉn", hint: "Muốn sáng mướt" },
-      { value: "pores", label: "Lỗ chân lông", hint: "Bóng dầu, bề mặt sần" },
-      { value: "aging", label: "Chống lão hóa", hint: "Build mặt, căng bóng" },
+      { value: "combination", label: "Da hỗn hợp", hint: "Dầu vùng T" },
+      { value: "sensitive", label: "Da nhạy cảm", hint: "Dễ đỏ rát" },
+      { value: "unknown", label: "Chưa rõ", hint: "Vẫn test được" },
     ],
   },
   {
     key: "history",
-    title: "Tình trạng dùng mỹ phẩm hiện tại?",
+    title: "Hiện da bạn đang ở tình trạng nào?",
     options: [
-      { value: "beginner", label: "Mới bắt đầu", hint: "Cần routine dễ hiểu" },
-      { value: "used-many", label: "Đã dùng nhiều", hint: "Sợ da quá tải" },
+      { value: "healthy", label: "Đang khỏe", hint: "Muốn chăm đều hơn" },
       { value: "sensitive", label: "Dễ kích ứng", hint: "Cần phục hồi trước" },
-      { value: "simple", label: "Muốn đơn giản", hint: "Ít bước, dễ theo" },
+      { value: "treatment", label: "Đang treatment", hint: "Cần kiểm tra kỹ" },
+      { value: "beginner", label: "Mới bắt đầu chăm da", hint: "Cần routine dễ hiểu" },
+      { value: "used-many", label: "Đã dùng nhiều nhưng chưa hợp", hint: "Sợ da quá tải" },
     ],
   },
   {
     key: "budget",
-    title: "Ngân sách mong muốn?",
+    title: "Ngân sách bạn muốn bắt đầu?",
     options: [
-      { value: "low", label: "Dưới 300k", hint: "Combo tối giản" },
+      { value: "low", label: "Dưới 300k", hint: "Bắt đầu nhẹ nhàng" },
       { value: "mid", label: "300k - 700k", hint: "Đủ bước nền tảng" },
-      { value: "high", label: "Trên 700k", hint: "Routine đầy đủ hơn" },
+      { value: "upper", label: "700k - 1 triệu", hint: "Routine kỹ hơn" },
+      { value: "premium", label: "Trên 1 triệu", hint: "Combo đầy đủ hơn" },
     ],
   },
   {
     key: "goal",
-    title: "Bạn muốn kết quả theo hướng nào?",
+    title: "Bạn muốn routine theo hướng nào?",
     options: [
-      { value: "safe", label: "An toàn", hint: "Dịu nhẹ, theo dõi kỹ" },
-      { value: "fast", label: "Nhanh gọn", hint: "Có thay đổi nhưng không gắt" },
-      { value: "simple", label: "Tiết kiệm bước", hint: "Dễ duy trì mỗi ngày" },
-      { value: "full", label: "Chuẩn Hàn", hint: "Căng bóng, chăm kỹ" },
+      { value: "simple", label: "Đơn giản dễ dùng", hint: "Ít bước, dễ duy trì" },
+      { value: "safe", label: "Phục hồi an toàn", hint: "Dịu nhẹ, theo dõi kỹ" },
+      { value: "brightening", label: "Dưỡng sáng đều màu", hint: "Tập trung nám/sạm/xỉn" },
+      { value: "glow", label: "Căng bóng chuẩn Hàn", hint: "Nền da mướt hơn" },
+      { value: "complete", label: "Combo đầy đủ", hint: "Chăm kỹ sáng và tối" },
     ],
   },
 ];
 
 const state: Partial<QuizAnswers> = {
-  skinType: "oily",
   concern: "melasma",
+  skinType: "oily",
   history: "beginner",
   budget: "mid",
-  goal: "safe",
+  goal: "brightening",
 };
 
 const questionList = document.querySelector<HTMLDivElement>("#question-list");
@@ -91,9 +94,11 @@ const progressFill = document.querySelector<HTMLSpanElement>("#progress-fill");
 const resultTitle = document.querySelector<HTMLHeadingElement>("#result-title");
 const resultNote = document.querySelector<HTMLParagraphElement>("#result-note");
 const resultCode = document.querySelector<HTMLDivElement>("#result-code");
+const resultFit = document.querySelector<HTMLElement>("#result-fit");
 const resultReasons = document.querySelector<HTMLUListElement>("#result-reasons");
 const routineAm = document.querySelector<HTMLSpanElement>("#routine-am");
 const routinePm = document.querySelector<HTMLSpanElement>("#routine-pm");
+const resultFollowups = document.querySelector<HTMLUListElement>("#result-followups");
 const messengerLink = document.querySelector<HTMLAnchorElement>("#messenger-link");
 const copyButton = document.querySelector<HTMLButtonElement>("#copy-result");
 const leadForm = document.querySelector<HTMLFormElement>("#lead-form");
@@ -175,11 +180,15 @@ function showResult(): void {
   if (resultTitle) resultTitle.textContent = result.title;
   if (resultNote) resultNote.textContent = `${result.priceRange}. ${result.note}`;
   if (resultCode) resultCode.textContent = result.code;
+  if (resultFit) resultFit.textContent = result.fitLevel;
   if (resultReasons) {
     resultReasons.innerHTML = result.reasons.map((reason) => `<li>${reason}</li>`).join("");
   }
   if (routineAm) routineAm.textContent = result.morning.join(" + ");
   if (routinePm) routinePm.textContent = result.evening.join(" + ");
+  if (resultFollowups) {
+    resultFollowups.innerHTML = result.followUpQuestions.map((question) => `<li>${question}</li>`).join("");
+  }
   if (messengerLink) messengerLink.href = `https://m.me/PhungHa29?text=${encoded}`;
   if (copyButton) {
     copyButton.dataset.message = message;
@@ -203,11 +212,11 @@ quizForm?.addEventListener("submit", (event) => {
 });
 
 resetButton?.addEventListener("click", () => {
-  state.skinType = "oily";
   state.concern = "melasma";
+  state.skinType = "oily";
   state.history = "beginner";
   state.budget = "mid";
-  state.goal = "safe";
+  state.goal = "brightening";
   renderQuestions();
   updateProgress();
   showResult();
