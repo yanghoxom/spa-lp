@@ -42,7 +42,7 @@ const questions: [
       { value: "dry", label: "Da khô", hint: "Căng, thiếu ẩm" },
       { value: "combination", label: "Da hỗn hợp", hint: "Dầu vùng T" },
       { value: "sensitive", label: "Da nhạy cảm", hint: "Dễ đỏ rát" },
-      { value: "unknown", label: "Chưa rõ", hint: "Vẫn test được" },
+      { value: "unknown", label: "Chưa rõ", hint: "Shop sẽ hỏi thêm" },
     ],
   },
   {
@@ -51,8 +51,8 @@ const questions: [
     options: [
       { value: "healthy", label: "Đang khỏe", hint: "Muốn chăm đều hơn" },
       { value: "sensitive", label: "Dễ kích ứng", hint: "Cần phục hồi trước" },
-      { value: "treatment", label: "Đang treatment", hint: "Cần kiểm tra kỹ" },
-      { value: "beginner", label: "Mới bắt đầu chăm da", hint: "Cần routine dễ hiểu" },
+      { value: "active", label: "Đang dùng sản phẩm đặc trị", hint: "Cần kiểm tra kỹ" },
+      { value: "beginner", label: "Mới bắt đầu chăm da", hint: "Cần cách dùng dễ hiểu" },
       { value: "used-many", label: "Đã dùng nhiều nhưng chưa hợp", hint: "Sợ da quá tải" },
     ],
   },
@@ -62,13 +62,13 @@ const questions: [
     options: [
       { value: "low", label: "Dưới 300k", hint: "Bắt đầu nhẹ nhàng" },
       { value: "mid", label: "300k - 700k", hint: "Đủ bước nền tảng" },
-      { value: "upper", label: "700k - 1 triệu", hint: "Routine kỹ hơn" },
+      { value: "upper", label: "700k - 1 triệu", hint: "Chăm kỹ hơn" },
       { value: "premium", label: "Trên 1 triệu", hint: "Combo đầy đủ hơn" },
     ],
   },
   {
     key: "goal",
-    title: "Bạn muốn routine theo hướng nào?",
+    title: "Bạn muốn chăm da theo hướng nào?",
     options: [
       { value: "simple", label: "Đơn giản dễ dùng", hint: "Ít bước, dễ duy trì" },
       { value: "safe", label: "Phục hồi an toàn", hint: "Dịu nhẹ, theo dõi kỹ" },
@@ -96,8 +96,8 @@ const resultNote = document.querySelector<HTMLParagraphElement>("#result-note");
 const resultCode = document.querySelector<HTMLDivElement>("#result-code");
 const resultFit = document.querySelector<HTMLElement>("#result-fit");
 const resultReasons = document.querySelector<HTMLUListElement>("#result-reasons");
-const routineAm = document.querySelector<HTMLSpanElement>("#routine-am");
-const routinePm = document.querySelector<HTMLSpanElement>("#routine-pm");
+const careMorning = document.querySelector<HTMLSpanElement>("#care-morning");
+const careEvening = document.querySelector<HTMLSpanElement>("#care-evening");
 const resultFollowups = document.querySelector<HTMLUListElement>("#result-followups");
 const messengerLink = document.querySelector<HTMLAnchorElement>("#messenger-link");
 const copyButton = document.querySelector<HTMLButtonElement>("#copy-result");
@@ -184,8 +184,8 @@ function showResult(): void {
   if (resultReasons) {
     resultReasons.innerHTML = result.reasons.map((reason) => `<li>${reason}</li>`).join("");
   }
-  if (routineAm) routineAm.textContent = result.morning.join(" + ");
-  if (routinePm) routinePm.textContent = result.evening.join(" + ");
+  if (careMorning) careMorning.textContent = result.morning.join(" + ");
+  if (careEvening) careEvening.textContent = result.evening.join(" + ");
   if (resultFollowups) {
     resultFollowups.innerHTML = result.followUpQuestions.map((question) => `<li>${question}</li>`).join("");
   }

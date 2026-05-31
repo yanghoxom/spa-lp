@@ -159,8 +159,11 @@ h3 {
 
 h1 {
   max-width: 790px;
-  font-size: clamp(4rem, 9vw, 8.8rem);
-  letter-spacing: -0.075em;
+  font-family: "Be Vietnam Pro", sans-serif;
+  font-size: clamp(2.7rem, 6.4vw, 5.7rem);
+  font-weight: 700;
+  line-height: 1.08;
+  letter-spacing: -0.055em;
 }
 
 h2 {
@@ -534,24 +537,20 @@ h3 {
 }
 
 .service-grid article {
+  display: grid;
+  grid-template-rows: 220px auto 1fr;
   min-height: 330px;
-  padding: 24px;
+  padding: 0;
   overflow: hidden;
   border-radius: var(--radius-lg);
 }
 
-.service-grid article:first-child {
-  display: grid;
-  grid-template-rows: 230px auto auto;
-  padding: 0;
-}
-
-.service-grid article:first-child h3,
-.service-grid article:first-child p {
+.service-grid article h3,
+.service-grid article p {
   padding-inline: 24px;
 }
 
-.service-grid article:first-child p {
+.service-grid article p {
   padding-bottom: 24px;
 }
 
@@ -721,7 +720,7 @@ footer {
   }
 
   h1 {
-    font-size: clamp(3.5rem, 17vw, 6rem);
+    font-size: clamp(2.45rem, 11vw, 4.8rem);
   }
 
   .hero-visual {

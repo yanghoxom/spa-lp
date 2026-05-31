@@ -1,6 +1,6 @@
 export type SkinType = "oily" | "dry" | "combination" | "sensitive" | "unknown";
 export type Concern = "acne" | "melasma" | "dull" | "pores" | "aging";
-export type History = "healthy" | "sensitive" | "treatment" | "beginner" | "used-many";
+export type History = "healthy" | "sensitive" | "active" | "beginner" | "used-many";
 export type Budget = "low" | "mid" | "upper" | "premium";
 export type Goal = "simple" | "safe" | "brightening" | "glow" | "complete";
 export type FitLevel = "Cao" | "Trung bình" | "Cần shop kiểm tra thêm";
@@ -44,7 +44,7 @@ const concernLabels: Record<Concern, string> = {
 const historyLabels: Record<History, string> = {
   healthy: "Đang khỏe",
   sensitive: "Dễ kích ứng",
-  treatment: "Đang treatment",
+  active: "Đang dùng sản phẩm đặc trị",
   beginner: "Mới bắt đầu chăm da",
   "used-many": "Đã dùng nhiều nhưng chưa hợp",
 };
@@ -65,17 +65,17 @@ const goalLabels: Record<Goal, string> = {
 };
 
 const skinReasons: Record<SkinType, string> = {
-  oily: "Da dễ đổ dầu nên ưu tiên nền routine mỏng, không bí.",
+  oily: "Da dễ đổ dầu nên ưu tiên sản phẩm mỏng nhẹ, không bí.",
   dry: "Da khô cần cấp ẩm và phục hồi hàng rào bảo vệ trước.",
-  combination: "Da hỗn hợp cần cân bằng dầu nước, tránh routine quá nặng.",
-  sensitive: "Da nhạy cảm cần giảm tải hoạt chất mạnh trước khi đổi combo.",
-  unknown: "Chưa rõ loại da nên shop sẽ ưu tiên routine an toàn, dễ theo dõi.",
+  combination: "Da hỗn hợp cần cân bằng dầu nước, tránh sản phẩm quá nặng.",
+  sensitive: "Da nhạy cảm cần giảm tải hoạt chất mạnh trước khi đổi sản phẩm.",
+  unknown: "Chưa rõ loại da nên shop sẽ ưu tiên cách dùng an toàn, dễ theo dõi.",
 };
 
 const concernReasons: Record<Concern, string> = {
   acne: "Mụn/thâm nên được xử lý theo hướng làm sạch - phục hồi - bảo vệ.",
   melasma: "Nám/sạm cần hướng làm sáng an toàn, kiên trì và chống nắng kỹ.",
-  dull: "Da xỉn màu hợp với routine làm sạch tốt, dưỡng sáng và khóa ẩm.",
+  dull: "Da xỉn màu hợp với cách chăm làm sạch tốt, dưỡng sáng và khóa ẩm.",
   pores: "Lỗ chân lông và bóng dầu cần kiểm soát dầu nhưng không làm khô căng.",
   aging: "Da kém săn cần phục hồi nền da, chống nắng và dưỡng chất chống oxy hóa.",
 };
@@ -108,18 +108,18 @@ function priceRangeFor(budget: Budget): string {
 
 function titleFor(answers: QuizAnswers): string {
   if (answers.skinType === "sensitive" || answers.history === "used-many") {
-    return "Routine phục hồi da dễ kích ứng";
+    return "Phục hồi da dễ kích ứng";
   }
 
   if (answers.concern === "melasma" || answers.concern === "dull") {
-    return "Routine sáng da dịu nhẹ";
+    return "Dưỡng sáng dịu nhẹ";
   }
 
   if (answers.concern === "aging" || answers.goal === "glow" || answers.goal === "complete") {
-    return "Routine căng bóng chuẩn Hàn";
+    return "Da căng bóng chuẩn Hàn";
   }
 
-  return "Routine sạch thoáng giảm bí da";
+  return "Da sạch thoáng, giảm bí";
 }
 
 function fitLevelFor(answers: QuizAnswers): FitLevel {
@@ -127,7 +127,7 @@ function fitLevelFor(answers: QuizAnswers): FitLevel {
     answers.skinType === "sensitive" ||
     answers.skinType === "unknown" ||
     answers.history === "sensitive" ||
-    answers.history === "treatment" ||
+    answers.history === "active" ||
     answers.history === "used-many"
   ) {
     return "Cần shop kiểm tra thêm";
@@ -146,7 +146,7 @@ function followUpQuestionsFor(answers: QuizAnswers): string[] {
   const questions = [
     "Bạn đang dùng sản phẩm nào?",
     "Da có đang kích ứng, đỏ rát hoặc bong tróc không?",
-    "Bạn có đang bầu/bú hoặc dùng treatment mạnh không?",
+    "Bạn có đang bầu/bú hoặc dùng sản phẩm đặc trị mạnh không?",
   ];
 
   if (answers.skinType === "unknown") {
@@ -178,10 +178,10 @@ export function buildConsultationResult(answers: QuizAnswers): ConsultationResul
     reasons: [
       skinReasons[answers.skinType],
       concernReasons[answers.concern],
-      `Ngân sách ${budgetLabels[answers.budget].toLowerCase()} nên shop sẽ chọn combo vừa tầm trước.`,
+      `Ngân sách ${budgetLabels[answers.budget].toLowerCase()} nên shop sẽ chọn bộ sản phẩm vừa tầm trước.`,
       answers.goal === "safe"
         ? "Bạn ưu tiên an toàn nên kết quả tránh lời hứa quá đà hoặc hoạt chất quá gắt."
-        : `Mục tiêu của bạn là ${goalLabels[answers.goal].toLowerCase()}, routine sẽ được shop kiểm tra lại theo tình trạng thật.`,
+        : `Mục tiêu của bạn là ${goalLabels[answers.goal].toLowerCase()}, cách dùng sẽ được shop kiểm tra lại theo tình trạng thật.`,
     ],
     morning: baseMorning,
     evening,
@@ -198,11 +198,11 @@ export function createMessengerText(answers: QuizAnswers, result: ConsultationRe
     `Tình trạng: ${historyLabels[answers.history]}`,
     `Ngân sách: ${budgetLabels[answers.budget]}`,
     `Mục tiêu: ${goalLabels[answers.goal]}`,
-    `Gợi ý: ${result.title}`,
+    `Shop gợi ý: ${result.title}`,
     `Giá tham khảo: ${result.priceRange}`,
     `Mức độ phù hợp: ${result.fitLevel}`,
     "Shop cần hỏi thêm:",
     ...result.followUpQuestions.map((question) => `- ${question}`),
-    "Nhờ shop kiểm tra lại combo này giúp em nhé.",
+    "Nhờ shop kiểm tra lại bộ sản phẩm này giúp em nhé.",
   ].join("\n");
 }
