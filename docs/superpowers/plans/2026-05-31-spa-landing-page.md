@@ -70,6 +70,6 @@ Use Actions checkout, setup-node, `npm ci`, `npm run build`, upload-pages-artifa
 
 Initialize git, create `spa-lp` through `gh repo create`, push `main`, and enable Pages through the workflow source.
 
-- [ ] **Step 3: Verify final build**
+- [x] **Step 3: Verify final build**
 
 Run `npm test` and `npm run build`; ensure both pass before final handoff.
