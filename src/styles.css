@@ -133,7 +133,6 @@ footer span {
   grid-template-columns: minmax(0, 1.02fr) minmax(380px, 0.78fr);
   gap: clamp(32px, 6vw, 74px);
   align-items: center;
-  min-height: calc(100vh - 82px);
   padding: 76px 0 54px;
 }
 
@@ -245,7 +244,6 @@ h3 {
 
 .hero-visual {
   position: relative;
-  min-height: 620px;
 }
 
 .image-card {
@@ -290,35 +288,6 @@ h3 {
   object-position: center bottom;
 }
 
-.floating-card {
-  position: absolute;
-  display: grid;
-  gap: 4px;
-  max-width: 230px;
-  padding: 18px;
-  background: rgba(255, 250, 243, 0.88);
-  border: 1px solid rgba(255, 255, 255, 0.8);
-  border-radius: 22px;
-  box-shadow: 0 18px 48px rgba(64, 42, 28, 0.16);
-  backdrop-filter: blur(16px);
-}
-
-.card-top {
-  top: 64px;
-  left: -42px;
-}
-
-.card-bottom {
-  right: -18px;
-  bottom: 86px;
-}
-
-.spark {
-  width: 34px;
-  height: 34px;
-  background: conic-gradient(from 30deg, var(--champagne), var(--rose), var(--sage), var(--champagne));
-  border-radius: 50%;
-}
 
 .quiz-shell,
 .services,
@@ -680,49 +649,10 @@ h3 {
 }
 
 .service-grid p,
-.feedback-panel,
 .faq-list p,
 footer {
   color: var(--muted);
   line-height: 1.8;
-}
-
-.feedback-panel {
-  display: grid;
-  grid-template-columns: 0.8fr 0.95fr 1.05fr;
-  gap: 22px;
-  align-items: start;
-  margin-top: 18px;
-  padding: clamp(22px, 4vw, 34px);
-  color: var(--ink);
-  background: rgba(255, 250, 243, 0.82);
-  border: 1px solid rgba(255, 255, 255, 0.8);
-  border-radius: var(--radius-xl);
-  box-shadow: var(--shadow);
-}
-
-.feedback-panel h3 {
-  font-size: clamp(2rem, 3.6vw, 3rem);
-}
-
-.feedback-reasons {
-  padding-left: 20px;
-  margin: 0;
-  color: var(--muted);
-}
-
-.mini-feedbacks {
-  display: grid;
-  gap: 10px;
-}
-
-.mini-feedbacks blockquote {
-  margin: 0;
-  padding: 16px 18px;
-  color: var(--pine);
-  background: rgba(215, 184, 117, 0.16);
-  border-left: 3px solid var(--champagne);
-  border-radius: 16px;
 }
 
 .policy-card {
@@ -774,16 +704,10 @@ footer {
   }
 
   .hero {
-    min-height: auto;
     padding-top: 54px;
   }
 
-  .hero-visual {
-    min-height: 520px;
-  }
-
-  .service-grid,
-  .feedback-panel {
+  .service-grid {
     grid-template-columns: 1fr;
   }
 
@@ -842,7 +766,7 @@ footer {
   }
 
   .hero-visual {
-    min-height: 560px;
+    min-height: auto;
   }
 
   .image-card-main {
@@ -851,19 +775,6 @@ footer {
     margin: 0 auto;
     border-radius: 38px;
     transform: none;
-  }
-
-  .floating-card {
-    max-width: 190px;
-  }
-
-  .card-top {
-    left: max(8px, calc(50% - 220px));
-  }
-
-  .card-bottom {
-    right: max(8px, calc(50% - 220px));
-    bottom: 32px;
   }
 
   .option-grid {

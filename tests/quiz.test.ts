@@ -101,8 +101,12 @@ describe("customer-facing copy", () => {
   it("keeps the first-screen and consultation intro copy short", () => {
     const indexHtml = readFileSync(resolve(process.cwd(), "index.html"), "utf8");
 
-    expect(indexHtml).toContain("Chỉ 5 câu ngắn. Không cần để lại số điện thoại.");
+    expect(indexHtml).not.toContain("Chỉ 5 câu ngắn. Không cần để lại số điện thoại.");
     expect(indexHtml).not.toContain("Trả lời vài câu ngắn để shop gợi ý cách chăm da sát với làn da, ngân sách và nhu cầu của bạn hơn.");
+    expect(indexHtml).not.toContain("Trả lời từng câu, không cần đọc dài.");
+    expect(indexHtml).not.toContain("Chọn đáp án gần đúng nhất.");
+    expect(indexHtml).not.toContain("Khi nào nên hỏi shop?");
+    expect(indexHtml).not.toContain("floating-card");
   });
 
   it("does not use a floating mobile button that can cover the question controls", () => {
