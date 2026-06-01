@@ -134,7 +134,7 @@ describe("customer-facing copy", () => {
     const indexHtml = readFileSync(resolve(process.cwd(), "index.html"), "utf8");
 
     expect(indexHtml).toContain("Liên hệ Hà");
-    expect(indexHtml).toContain("Không bắt buộc mua, Hà kiểm tra lại trước khi tư vấn.");
+    expect(indexHtml).toContain("Thoải mái tham khảo, Hà tư vấn thêm khi bạn sẵn sàng nhé.");
   });
 
   it("uses a non-acne image for the melasma and uneven-tone service card", () => {
