@@ -173,7 +173,9 @@ function updateProgress(): void {
     questionProgress.textContent =
       completed >= questions.length ? "Đã trả lời 5/5" : `Câu ${completed + 1}/${questions.length}`;
   }
-  if (submitButton) submitButton.disabled = !isComplete(state);
+  if (submitButton) {
+    submitButton.classList.toggle("is-hidden", !isComplete(state));
+  }
   if (selectedSummary) {
     const selected = questions
       .filter((question) => state[question.key])
