@@ -57,10 +57,10 @@ const questions: [
     key: "budget",
     title: "Ngân sách bạn muốn bắt đầu?",
     options: [
-      { value: "low", label: "Dưới 300k", hint: "Bắt đầu nhẹ nhàng" },
-      { value: "mid", label: "300k - 700k", hint: "Đủ bước nền tảng" },
-      { value: "upper", label: "700k - 1 triệu", hint: "Chăm kỹ hơn" },
-      { value: "premium", label: "Trên 1 triệu", hint: "Combo đầy đủ hơn" },
+      { value: "low", label: "Dưới 1 triệu", hint: "Gói Essential" },
+      { value: "mid", label: "1 - 5 triệu", hint: "Gói Signature" },
+      { value: "upper", label: "5 - 10 triệu", hint: "Gói Prestige" },
+      { value: "premium", label: "Trên 10 triệu", hint: "Gói Royal" },
     ],
   },
   {

@@ -50,10 +50,10 @@ const historyLabels: Record<History, string> = {
 };
 
 const budgetLabels: Record<Budget, string> = {
-  low: "Dưới 300k",
-  mid: "300k - 700k",
-  upper: "700k - 1 triệu",
-  premium: "Trên 1 triệu",
+  low: "Dưới 1 triệu",
+  mid: "1 - 5 triệu",
+  upper: "5 - 10 triệu",
+  premium: "Trên 10 triệu",
 };
 
 const goalLabels: Record<Goal, string> = {
@@ -96,11 +96,11 @@ function createCode(answers: QuizAnswers): string {
 
 function priceRangeFor(budget: Budget): string {
   if (budget === "mid") {
-    return "Khoảng 300k - 700k";
+    return "Khoảng 1 - 5 triệu";
   }
 
   if (budget === "upper") {
-    return "Khoảng 700k - 1 triệu";
+    return "Khoảng 5 - 10 triệu";
   }
 
   return budgetLabels[budget];

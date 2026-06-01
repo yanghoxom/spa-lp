@@ -16,7 +16,7 @@ describe("buildConsultationResult", () => {
 
     expect(result.code).toMatch(/^PK-\d{4}$/);
     expect(result.title).toBe("Dưỡng sáng dịu nhẹ");
-    expect(result.priceRange).toBe("Khoảng 300k - 700k");
+    expect(result.priceRange).toBe("Khoảng 1 - 5 triệu");
     expect(result.fitLevel).toBe("Cao");
     expect(result.reasons).toContain("Da dễ đổ dầu, nên ưu tiên lớp dưỡng mỏng nhẹ.");
     expect(result.reasons).toContain("Nám/sạm cần dưỡng sáng an toàn và chống nắng kỹ.");
@@ -35,7 +35,7 @@ describe("buildConsultationResult", () => {
     });
 
     expect(result.title).toBe("Phục hồi da dễ kích ứng");
-    expect(result.priceRange).toBe("Dưới 300k");
+    expect(result.priceRange).toBe("Dưới 1 triệu");
     expect(result.fitLevel).toBe("Cần Hà kiểm tra thêm");
     expect(result.reasons).toContain("Da nhạy cảm cần ưu tiên phục hồi, giảm sản phẩm mạnh.");
     expect(result.reasons).toContain("Mụn/thâm cần làm sạch nhẹ, phục hồi và bảo vệ da.");
@@ -57,7 +57,7 @@ describe("createMessengerText", () => {
       {
         code: "PK-4821",
         title: "Da căng bóng chuẩn Hàn",
-        priceRange: "Khoảng 700k - 1 triệu",
+        priceRange: "Khoảng 5 - 10 triệu",
         fitLevel: "Trung bình",
         reasons: ["Da hỗn hợp cần cân bằng dầu nước."],
         morning: ["Làm sạch", "Chống nắng"],
@@ -71,7 +71,7 @@ describe("createMessengerText", () => {
     expect(text).toContain("Loại da: Hỗn hợp");
     expect(text).toContain("Vấn đề chính: Da xỉn màu/không đều màu");
     expect(text).toContain("Hà gợi ý: Da căng bóng chuẩn Hàn");
-    expect(text).toContain("Ngân sách: 700k - 1 triệu");
+    expect(text).toContain("Ngân sách: 5 - 10 triệu");
     expect(text).toContain("Mức độ phù hợp: Trung bình");
     expect(text).toContain("Hà cần hỏi thêm:");
     expect(text).toContain("- Bạn đang dùng sản phẩm nào?");
@@ -133,7 +133,7 @@ describe("customer-facing copy", () => {
   it("clearly sends results through Messenger and reassures cautious customers", () => {
     const indexHtml = readFileSync(resolve(process.cwd(), "index.html"), "utf8");
 
-    expect(indexHtml).toContain("Gửi qua Messenger cho Hà");
+    expect(indexHtml).toContain("Liên hệ Hà");
     expect(indexHtml).toContain("Không bắt buộc mua, Hà kiểm tra lại trước khi tư vấn.");
   });
 
