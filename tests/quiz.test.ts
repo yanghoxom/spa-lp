@@ -1,6 +1,7 @@
 import { readFileSync } from "node:fs";
 import { resolve } from "node:path";
 import { describe, expect, it } from "vitest";
+import { getVisibleQuestionKeys } from "../src/questionFlow";
 import { buildConsultationResult, createMessengerText } from "../src/quiz";
 
 describe("buildConsultationResult", () => {
@@ -78,6 +79,39 @@ describe("createMessengerText", () => {
 });
 
 describe("customer-facing copy", () => {
+  it("uses a compact header with avatar and only useful navigation links", () => {
+    const indexHtml = readFileSync(resolve(process.cwd(), "index.html"), "utf8");
+    const header = indexHtml.match(/<header class="site-header"[\s\S]*?<\/header>/)?.[0] ?? "";
+
+    expect(header).toContain('class="brand-avatar"');
+    expect(header).toContain('href="#quiz">Tư vấn</a>');
+    expect(header).toContain('href="#faq">Câu hỏi thường gặp</a>');
+    expect(header).not.toContain("Tin tưởng");
+    expect(header).not.toContain('href="#proof"');
+  });
+
+  it("removes the extra trust and editorial sections from the page", () => {
+    const indexHtml = readFileSync(resolve(process.cwd(), "index.html"), "utf8");
+
+    expect(indexHtml).not.toContain('id="proof"');
+    expect(indexHtml).not.toContain('class="section-shell editorial"');
+    expect(indexHtml).not.toContain("Tư vấn có người kiểm tra lại");
+  });
+
+  it("keeps the first-screen and consultation intro copy short", () => {
+    const indexHtml = readFileSync(resolve(process.cwd(), "index.html"), "utf8");
+
+    expect(indexHtml).toContain("Chỉ 5 câu ngắn. Không cần để lại số điện thoại.");
+    expect(indexHtml).not.toContain("Trả lời vài câu ngắn để shop gợi ý cách chăm da sát với làn da, ngân sách và nhu cầu của bạn hơn.");
+  });
+
+  it("does not use a floating mobile button that can cover the question controls", () => {
+    const indexHtml = readFileSync(resolve(process.cwd(), "index.html"), "utf8");
+
+    expect(indexHtml).not.toContain('class="sticky-cta"');
+    expect(indexHtml).not.toContain("Tư vấn 30 giây");
+  });
+
   it("avoids internal or hard-to-understand marketing words", () => {
     const indexHtml = readFileSync(resolve(process.cwd(), "index.html"), "utf8");
     const quizSource = readFileSync(resolve(process.cwd(), "src", "quiz.ts"), "utf8");
@@ -118,5 +152,24 @@ describe("customer-facing copy", () => {
     expect(serviceGrid).not.toContain("fanpage-service-1.jpg");
     expect(serviceGrid).not.toContain("fanpage-service-3.jpg");
     expect(serviceGrid).not.toContain("fanpage-hero.jpg");
+  });
+});
+
+describe("question flow", () => {
+  it("shows one unanswered question at a time until the answers are complete", () => {
+    const keys = ["concern", "skinType", "history", "budget", "goal"] as const;
+
+    expect(getVisibleQuestionKeys(keys, {})).toEqual(["concern"]);
+    expect(getVisibleQuestionKeys(keys, { concern: "melasma" })).toEqual(["skinType"]);
+    expect(getVisibleQuestionKeys(keys, { concern: "melasma", skinType: "oily" })).toEqual(["history"]);
+    expect(
+      getVisibleQuestionKeys(keys, {
+        concern: "melasma",
+        skinType: "oily",
+        history: "beginner",
+        budget: "mid",
+        goal: "brightening",
+      }),
+    ).toEqual([]);
   });
 });

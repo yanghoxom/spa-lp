@@ -1,11 +1,7 @@
 import "./styles.css";
+import { getVisibleQuestionKeys } from "./questionFlow";
 import {
-  type Budget,
-  type Concern,
-  type Goal,
-  type History,
   type QuizAnswers,
-  type SkinType,
   buildConsultationResult,
   createMessengerText,
 } from "./quiz";
@@ -15,6 +11,8 @@ type Question<T extends keyof QuizAnswers> = {
   title: string;
   options: Array<{ value: QuizAnswers[T]; label: string; hint: string }>;
 };
+
+type QuestionKey = keyof QuizAnswers;
 
 const questions: [
   Question<"concern">,
@@ -79,18 +77,17 @@ const questions: [
   },
 ];
 
-const state: Partial<QuizAnswers> = {
-  concern: "melasma",
-  skinType: "oily",
-  history: "beginner",
-  budget: "mid",
-  goal: "brightening",
-};
+const state: Partial<QuizAnswers> = {};
+const questionKeys = questions.map((question) => question.key);
 
 const questionList = document.querySelector<HTMLDivElement>("#question-list");
 const quizForm = document.querySelector<HTMLFormElement>("#quiz-form");
 const resetButton = document.querySelector<HTMLButtonElement>("#reset-quiz");
+const submitButton = document.querySelector<HTMLButtonElement>("#show-result");
 const progressFill = document.querySelector<HTMLSpanElement>("#progress-fill");
+const questionProgress = document.querySelector<HTMLParagraphElement>("#question-progress");
+const selectedSummary = document.querySelector<HTMLDivElement>("#selected-summary");
+const resultCard = document.querySelector<HTMLElement>("#result-card");
 const resultTitle = document.querySelector<HTMLHeadingElement>("#result-title");
 const resultNote = document.querySelector<HTMLParagraphElement>("#result-note");
 const resultCode = document.querySelector<HTMLDivElement>("#result-code");
@@ -107,43 +104,49 @@ function isComplete(answers: Partial<QuizAnswers>): answers is QuizAnswers {
   return questions.every((question) => Boolean(answers[question.key]));
 }
 
+function setAnswer<Key extends QuestionKey>(key: Key, value: QuizAnswers[Key]): void {
+  state[key] = value;
+}
+
 function renderQuestions(): void {
   if (!questionList) return;
 
-  questionList.innerHTML = questions
-    .map((question, index) => {
-      const options = question.options
-        .map((option) => {
-          const checked = state[question.key] === option.value ? "checked" : "";
+  const visibleKeys = getVisibleQuestionKeys(questionKeys, state);
+  const visibleQuestions = questions.filter((question) => visibleKeys.includes(question.key));
+
+  questionList.innerHTML = visibleQuestions.length
+    ? visibleQuestions
+        .map((question) => {
+          const stepNumber = questions.findIndex((item) => item.key === question.key) + 1;
+          const options = question.options
+            .map((option) => {
+              const checked = state[question.key] === option.value ? "checked" : "";
+              return `
+                <label class="option-pill">
+                  <input type="radio" name="${question.key}" value="${option.value}" ${checked} />
+                  <span>
+                    <strong>${option.label}</strong>
+                    <small>${option.hint}</small>
+                  </span>
+                </label>
+              `;
+            })
+            .join("");
+
           return `
-            <label class="option-pill">
-              <input type="radio" name="${question.key}" value="${option.value}" ${checked} />
-              <span>
-                <strong>${option.label}</strong>
-                <small>${option.hint}</small>
-              </span>
-            </label>
+            <fieldset class="question-block">
+              <legend><span>0${stepNumber}</span>${question.title}</legend>
+              <div class="option-grid">${options}</div>
+            </fieldset>
           `;
         })
-        .join("");
-
-      return `
-        <fieldset class="question-block">
-          <legend><span>0${index + 1}</span>${question.title}</legend>
-          <div class="option-grid">${options}</div>
-        </fieldset>
-      `;
-    })
-    .join("");
-}
-
-function readAnswers(): void {
-  const data = new FormData(quizForm ?? undefined);
-  state.skinType = (data.get("skinType") as SkinType | null) ?? state.skinType;
-  state.concern = (data.get("concern") as Concern | null) ?? state.concern;
-  state.history = (data.get("history") as History | null) ?? state.history;
-  state.budget = (data.get("budget") as Budget | null) ?? state.budget;
-  state.goal = (data.get("goal") as Goal | null) ?? state.goal;
+        .join("")
+    : `
+      <div class="question-done">
+        <strong>Đã xong 5 câu.</strong>
+        <span>Bấm “Xem gợi ý” để lấy mã gửi shop.</span>
+      </div>
+    `;
 }
 
 function buildLeadSuffix(): string {
@@ -163,14 +166,28 @@ function buildLeadSuffix(): string {
 }
 
 function updateProgress(): void {
-  if (!progressFill) return;
-
   const completed = questions.filter((question) => Boolean(state[question.key])).length;
-  progressFill.style.width = `${(completed / questions.length) * 100}%`;
+
+  if (progressFill) progressFill.style.width = `${(completed / questions.length) * 100}%`;
+  if (questionProgress) {
+    questionProgress.textContent =
+      completed >= questions.length ? "Đã trả lời 5/5" : `Câu ${completed + 1}/${questions.length}`;
+  }
+  if (submitButton) submitButton.disabled = !isComplete(state);
+  if (selectedSummary) {
+    const selected = questions
+      .filter((question) => state[question.key])
+      .map((question) => {
+        const option = question.options.find((item) => item.value === state[question.key]);
+        return option ? `<span>${option.label}</span>` : "";
+      })
+      .filter(Boolean);
+
+    selectedSummary.innerHTML = selected.length ? selected.join("") : "";
+  }
 }
 
 function showResult(): void {
-  readAnswers();
   if (!isComplete(state)) return;
 
   const result = buildConsultationResult(state);
@@ -199,14 +216,22 @@ function showResult(): void {
     copyButton.dataset.message = message;
     copyButton.textContent = "Copy mã tư vấn";
   }
+  resultCard?.classList.remove("is-hidden");
 }
 
 renderQuestions();
 updateProgress();
-showResult();
 
-questionList?.addEventListener("change", () => {
-  readAnswers();
+questionList?.addEventListener("change", (event) => {
+  const input = event.target;
+  if (!(input instanceof HTMLInputElement) || input.type !== "radio") return;
+
+  const question = questions.find((item) => item.key === input.name);
+  const option = question?.options.find((item) => item.value === input.value);
+  if (!question || !option) return;
+
+  setAnswer(question.key, option.value);
+  renderQuestions();
   updateProgress();
 });
 
@@ -217,14 +242,12 @@ quizForm?.addEventListener("submit", (event) => {
 });
 
 resetButton?.addEventListener("click", () => {
-  state.concern = "melasma";
-  state.skinType = "oily";
-  state.history = "beginner";
-  state.budget = "mid";
-  state.goal = "brightening";
+  questions.forEach((question) => {
+    delete state[question.key];
+  });
+  resultCard?.classList.add("is-hidden");
   renderQuestions();
   updateProgress();
-  showResult();
 });
 
 leadForm?.addEventListener("input", showResult);
