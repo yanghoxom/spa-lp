@@ -3,7 +3,7 @@ export type Concern = "acne" | "melasma" | "dull" | "pores" | "aging";
 export type History = "healthy" | "sensitive" | "active" | "beginner" | "used-many";
 export type Budget = "low" | "mid" | "upper" | "premium";
 export type Goal = "simple" | "safe" | "brightening" | "glow" | "complete";
-export type FitLevel = "Cao" | "Trung bình" | "Cần shop kiểm tra thêm";
+export type FitLevel = "Cao" | "Trung bình" | "Cần Hà kiểm tra thêm";
 
 export interface QuizAnswers {
   skinType: SkinType;
@@ -130,7 +130,7 @@ function fitLevelFor(answers: QuizAnswers): FitLevel {
     answers.history === "active" ||
     answers.history === "used-many"
   ) {
-    return "Cần shop kiểm tra thêm";
+    return "Cần Hà kiểm tra thêm";
   }
 
   const goalMatchesConcern =
@@ -150,7 +150,7 @@ function followUpQuestionsFor(answers: QuizAnswers): string[] {
   ];
 
   if (answers.skinType === "unknown") {
-    questions.push("Bạn có thể gửi ảnh da chụp ánh sáng tự nhiên để shop xem kỹ hơn không?");
+    questions.push("Bạn có thể gửi ảnh da chụp ánh sáng tự nhiên để Hà xem kỹ hơn không?");
   }
 
   if (answers.budget === "low") {
@@ -178,15 +178,15 @@ export function buildConsultationResult(answers: QuizAnswers): ConsultationResul
     reasons: [
       skinReasons[answers.skinType],
       concernReasons[answers.concern],
-      `Ngân sách ${budgetLabels[answers.budget].toLowerCase()}: shop ưu tiên vài món cần nhất trước.`,
+      `Ngân sách ${budgetLabels[answers.budget].toLowerCase()}: Hà ưu tiên vài món cần nhất trước.`,
       answers.goal === "safe"
         ? "Ưu tiên an toàn: chọn cách dùng dịu, dễ theo dõi."
-        : `Mục tiêu: ${goalLabels[answers.goal].toLowerCase()}. Shop sẽ kiểm tra lại theo tình trạng thật.`,
+        : `Mục tiêu: ${goalLabels[answers.goal].toLowerCase()}. Hà sẽ kiểm tra lại theo tình trạng thật.`,
     ],
     morning: baseMorning,
     evening,
     followUpQuestions: followUpQuestionsFor(answers),
-    note: "Shop sẽ kiểm tra lại tình trạng da trước khi gợi ý sản phẩm cụ thể.",
+    note: "Hà sẽ kiểm tra lại tình trạng da trước khi gợi ý sản phẩm cụ thể.",
   };
 }
 
@@ -198,11 +198,11 @@ export function createMessengerText(answers: QuizAnswers, result: ConsultationRe
     `Tình trạng: ${historyLabels[answers.history]}`,
     `Ngân sách: ${budgetLabels[answers.budget]}`,
     `Mục tiêu: ${goalLabels[answers.goal]}`,
-    `Shop gợi ý: ${result.title}`,
+    `Hà gợi ý: ${result.title}`,
     `Giá tham khảo: ${result.priceRange}`,
     `Mức độ phù hợp: ${result.fitLevel}`,
-    "Shop cần hỏi thêm:",
+    "Hà cần hỏi thêm:",
     ...result.followUpQuestions.map((question) => `- ${question}`),
-    "Nhờ shop kiểm tra lại bộ sản phẩm này giúp em nhé.",
+    "Nhờ Hà kiểm tra lại giúp em nhé.",
   ].join("\n");
 }

@@ -36,10 +36,10 @@ describe("buildConsultationResult", () => {
 
     expect(result.title).toBe("Phục hồi da dễ kích ứng");
     expect(result.priceRange).toBe("Dưới 300k");
-    expect(result.fitLevel).toBe("Cần shop kiểm tra thêm");
+    expect(result.fitLevel).toBe("Cần Hà kiểm tra thêm");
     expect(result.reasons).toContain("Da nhạy cảm cần ưu tiên phục hồi, giảm sản phẩm mạnh.");
     expect(result.reasons).toContain("Mụn/thâm cần làm sạch nhẹ, phục hồi và bảo vệ da.");
-    expect(result.note).toContain("Shop sẽ kiểm tra lại tình trạng da trước khi gợi ý sản phẩm cụ thể.");
+    expect(result.note).toContain("Hà sẽ kiểm tra lại tình trạng da trước khi gợi ý sản phẩm cụ thể.");
     expect(result.followUpQuestions).toContain("Da có đang kích ứng, đỏ rát hoặc bong tróc không?");
   });
 });
@@ -63,17 +63,17 @@ describe("createMessengerText", () => {
         morning: ["Làm sạch", "Chống nắng"],
         evening: ["Tẩy trang", "Phục hồi"],
         followUpQuestions: ["Bạn đang dùng sản phẩm nào?"],
-        note: "Shop kiểm tra lại trước khi dùng.",
+        note: "Hà kiểm tra lại trước khi dùng.",
       },
     );
 
     expect(text).toContain("Mã tư vấn: PK-4821");
     expect(text).toContain("Loại da: Hỗn hợp");
     expect(text).toContain("Vấn đề chính: Da xỉn màu/không đều màu");
-    expect(text).toContain("Shop gợi ý: Da căng bóng chuẩn Hàn");
+    expect(text).toContain("Hà gợi ý: Da căng bóng chuẩn Hàn");
     expect(text).toContain("Ngân sách: 700k - 1 triệu");
     expect(text).toContain("Mức độ phù hợp: Trung bình");
-    expect(text).toContain("Shop cần hỏi thêm:");
+    expect(text).toContain("Hà cần hỏi thêm:");
     expect(text).toContain("- Bạn đang dùng sản phẩm nào?");
   });
 });
@@ -133,10 +133,8 @@ describe("customer-facing copy", () => {
   it("clearly sends results through Messenger and reassures cautious customers", () => {
     const indexHtml = readFileSync(resolve(process.cwd(), "index.html"), "utf8");
 
-    expect(indexHtml).toContain("Gửi qua Messenger cho shop");
-    expect(indexHtml).toContain("SĐT/Zalo nếu bạn muốn shop nhắn nhanh hơn");
-    expect(indexHtml).toContain("Không bắt buộc mua, shop kiểm tra lại trước khi tư vấn.");
-    expect(indexHtml).toContain("SĐT không bắt buộc, shop không gọi nếu bạn không để số.");
+    expect(indexHtml).toContain("Gửi qua Messenger cho Hà");
+    expect(indexHtml).toContain("Không bắt buộc mua, Hà kiểm tra lại trước khi tư vấn.");
   });
 
   it("uses a non-acne image for the melasma and uneven-tone service card", () => {

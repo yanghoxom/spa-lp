@@ -3,7 +3,6 @@ import { getVisibleQuestionKeys } from "./questionFlow";
 import {
   type QuizAnswers,
   buildConsultationResult,
-  createMessengerText,
 } from "./quiz";
 
 type Question<T extends keyof QuizAnswers> = {
@@ -40,7 +39,7 @@ const questions: [
       { value: "dry", label: "Da khô", hint: "Căng, thiếu ẩm" },
       { value: "combination", label: "Da hỗn hợp", hint: "Dầu vùng T" },
       { value: "sensitive", label: "Da nhạy cảm", hint: "Dễ đỏ rát" },
-      { value: "unknown", label: "Chưa rõ", hint: "Shop sẽ hỏi thêm" },
+      { value: "unknown", label: "Chưa rõ", hint: "Hà sẽ hỏi thêm" },
     ],
   },
   {
@@ -83,7 +82,6 @@ const questionKeys = questions.map((question) => question.key);
 const questionList = document.querySelector<HTMLDivElement>("#question-list");
 const quizForm = document.querySelector<HTMLFormElement>("#quiz-form");
 const resetButton = document.querySelector<HTMLButtonElement>("#reset-quiz");
-const submitButton = document.querySelector<HTMLButtonElement>("#show-result");
 const progressFill = document.querySelector<HTMLSpanElement>("#progress-fill");
 const questionProgress = document.querySelector<HTMLParagraphElement>("#question-progress");
 const selectedSummary = document.querySelector<HTMLDivElement>("#selected-summary");
@@ -97,8 +95,6 @@ const careMorning = document.querySelector<HTMLSpanElement>("#care-morning");
 const careEvening = document.querySelector<HTMLSpanElement>("#care-evening");
 const resultFollowups = document.querySelector<HTMLUListElement>("#result-followups");
 const messengerLink = document.querySelector<HTMLAnchorElement>("#messenger-link");
-const copyButton = document.querySelector<HTMLButtonElement>("#copy-result");
-const leadForm = document.querySelector<HTMLFormElement>("#lead-form");
 
 function isComplete(answers: Partial<QuizAnswers>): answers is QuizAnswers {
   return questions.every((question) => Boolean(answers[question.key]));
@@ -141,28 +137,7 @@ function renderQuestions(): void {
           `;
         })
         .join("")
-    : `
-      <div class="question-done">
-        <strong>Đã xong 5 câu.</strong>
-        <span>Bấm “Xem gợi ý” để lấy mã gửi shop.</span>
-      </div>
-    `;
-}
-
-function buildLeadSuffix(): string {
-  if (!leadForm) return "";
-
-  const data = new FormData(leadForm);
-  const name = String(data.get("customerName") ?? "").trim();
-  const contact = String(data.get("customerContact") ?? "").trim();
-  const note = String(data.get("customerNote") ?? "").trim();
-  const rows = [
-    name ? `Tên/Facebook: ${name}` : "",
-    contact ? `SĐT/Zalo: ${contact}` : "",
-    note ? `Ghi chú: ${note}` : "",
-  ].filter(Boolean);
-
-  return rows.length ? `\n\nThông tin thêm:\n${rows.join("\n")}` : "";
+    : "";
 }
 
 function updateProgress(): void {
@@ -172,9 +147,6 @@ function updateProgress(): void {
   if (questionProgress) {
     questionProgress.textContent =
       completed >= questions.length ? "Đã trả lời 5/5" : `Câu ${completed + 1}/${questions.length}`;
-  }
-  if (submitButton) {
-    submitButton.classList.toggle("is-hidden", !isComplete(state));
   }
   if (selectedSummary) {
     const selected = questions
@@ -189,11 +161,22 @@ function updateProgress(): void {
   }
 }
 
+function buildMessengerMessage(answers: QuizAnswers, code: string): string {
+  const labels: Array<[string, string]> = [
+    ["Đang quan tâm", questions[0].options.find((o) => o.value === answers.concern)?.label ?? ""],
+    ["Da thuộc loại", questions[1].options.find((o) => o.value === answers.skinType)?.label ?? ""],
+    ["Tình trạng", questions[2].options.find((o) => o.value === answers.history)?.label ?? ""],
+    ["Ngân sách", questions[3].options.find((o) => o.value === answers.budget)?.label ?? ""],
+    ["Hướng chăm da", questions[4].options.find((o) => o.value === answers.goal)?.label ?? ""],
+  ];
+  return [...labels.map(([key, val]) => `${key}: ${val}`), `SP gợi ý: ${code}`].join("\n");
+}
+
 function showResult(): void {
   if (!isComplete(state)) return;
 
   const result = buildConsultationResult(state);
-  const message = `${createMessengerText(state, result)}${buildLeadSuffix()}`;
+  const message = buildMessengerMessage(state, result.code);
   const encoded = encodeURIComponent(message);
 
   if (resultTitle) resultTitle.textContent = result.title;
@@ -214,10 +197,6 @@ function showResult(): void {
     resultFollowups.innerHTML = result.followUpQuestions.map((question) => `<li>${question}</li>`).join("");
   }
   if (messengerLink) messengerLink.href = `https://m.me/PhungHa29?text=${encoded}`;
-  if (copyButton) {
-    copyButton.dataset.message = message;
-    copyButton.textContent = "Copy mã tư vấn";
-  }
   resultCard?.classList.remove("is-hidden");
 }
 
@@ -235,12 +214,15 @@ questionList?.addEventListener("change", (event) => {
   setAnswer(question.key, option.value);
   renderQuestions();
   updateProgress();
+
+  if (isComplete(state)) {
+    showResult();
+    resultCard?.scrollIntoView({ behavior: "smooth", block: "start" });
+  }
 });
 
 quizForm?.addEventListener("submit", (event) => {
   event.preventDefault();
-  showResult();
-  document.querySelector("#result-card")?.scrollIntoView({ behavior: "smooth", block: "center" });
 });
 
 resetButton?.addEventListener("click", () => {
@@ -250,16 +232,6 @@ resetButton?.addEventListener("click", () => {
   resultCard?.classList.add("is-hidden");
   renderQuestions();
   updateProgress();
-});
-
-leadForm?.addEventListener("input", showResult);
-
-copyButton?.addEventListener("click", async () => {
-  const message = copyButton.dataset.message ?? "";
-  if (!message) return;
-
-  await navigator.clipboard.writeText(message);
-  copyButton.textContent = "Đã copy";
 });
 
 document.querySelectorAll<HTMLAnchorElement>('a[href^="#"]').forEach((anchor) => {
