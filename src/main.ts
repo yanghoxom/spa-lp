@@ -1,5 +1,4 @@
 import "./styles.css";
-import { getVisibleQuestionKeys } from "./questionFlow";
 import {
   type QuizAnswers,
   buildConsultationResult,
@@ -77,11 +76,12 @@ const questions: [
 ];
 
 const state: Partial<QuizAnswers> = {};
-const questionKeys = questions.map((question) => question.key);
 
 const questionList = document.querySelector<HTMLDivElement>("#question-list");
 const quizForm = document.querySelector<HTMLFormElement>("#quiz-form");
 const resetButton = document.querySelector<HTMLButtonElement>("#reset-quiz");
+const prevButton = document.querySelector<HTMLButtonElement>("#quiz-prev");
+const nextButton = document.querySelector<HTMLButtonElement>("#quiz-next");
 const progressFill = document.querySelector<HTMLSpanElement>("#progress-fill");
 const questionProgress = document.querySelector<HTMLParagraphElement>("#question-progress");
 const selectedSummary = document.querySelector<HTMLDivElement>("#selected-summary");
@@ -96,6 +96,8 @@ const careEvening = document.querySelector<HTMLSpanElement>("#care-evening");
 const resultFollowups = document.querySelector<HTMLUListElement>("#result-followups");
 const messengerLink = document.querySelector<HTMLAnchorElement>("#messenger-link");
 
+let currentStep = 0;
+
 function isComplete(answers: Partial<QuizAnswers>): answers is QuizAnswers {
   return questions.every((question) => Boolean(answers[question.key]));
 }
@@ -107,37 +109,44 @@ function setAnswer<Key extends QuestionKey>(key: Key, value: QuizAnswers[Key]): 
 function renderQuestions(): void {
   if (!questionList) return;
 
-  const visibleKeys = getVisibleQuestionKeys(questionKeys, state);
-  const visibleQuestions = questions.filter((question) => visibleKeys.includes(question.key));
+  const question = questions[currentStep];
+  if (!question) {
+    questionList.innerHTML = "";
+    return;
+  }
 
-  questionList.innerHTML = visibleQuestions.length
-    ? visibleQuestions
-        .map((question) => {
-          const stepNumber = questions.findIndex((item) => item.key === question.key) + 1;
-          const options = question.options
-            .map((option) => {
-              const checked = state[question.key] === option.value ? "checked" : "";
-              return `
-                <label class="option-pill">
-                  <input type="radio" name="${question.key}" value="${option.value}" ${checked} />
-                  <span>
-                    <strong>${option.label}</strong>
-                    <small>${option.hint}</small>
-                  </span>
-                </label>
-              `;
-            })
-            .join("");
+  const stepNumber = currentStep + 1;
+  const options = question.options
+    .map((option) => {
+      const checked = state[question.key] === option.value ? "checked" : "";
+      return `
+        <label class="option-pill">
+          <input type="radio" name="${question.key}" value="${option.value}" ${checked} />
+          <span>
+            <strong>${option.label}</strong>
+            <small>${option.hint}</small>
+          </span>
+        </label>
+      `;
+    })
+    .join("");
 
-          return `
-            <fieldset class="question-block">
-              <legend><span>0${stepNumber}</span>${question.title}</legend>
-              <div class="option-grid">${options}</div>
-            </fieldset>
-          `;
-        })
-        .join("")
-    : "";
+  questionList.innerHTML = `
+    <fieldset class="question-block">
+      <legend><span>0${stepNumber}</span>${question.title}</legend>
+      <div class="option-grid">${options}</div>
+    </fieldset>
+  `;
+
+  updateNavButtons();
+}
+
+function updateNavButtons(): void {
+  if (prevButton) prevButton.disabled = currentStep === 0;
+  if (nextButton) {
+    const canGoNext = currentStep < questions.length - 1 && Boolean(state[questions[currentStep].key]);
+    nextButton.disabled = !canGoNext;
+  }
 }
 
 function updateProgress(): void {
@@ -212,12 +221,16 @@ questionList?.addEventListener("change", (event) => {
   if (!question || !option) return;
 
   setAnswer(question.key, option.value);
-  renderQuestions();
   updateProgress();
 
   if (isComplete(state)) {
     showResult();
     resultCard?.scrollIntoView({ behavior: "smooth", block: "start" });
+  } else if (currentStep < questions.length - 1) {
+    setTimeout(() => {
+      currentStep++;
+      renderQuestions();
+    }, 250);
   }
 });
 
@@ -225,10 +238,27 @@ quizForm?.addEventListener("submit", (event) => {
   event.preventDefault();
 });
 
+prevButton?.addEventListener("click", () => {
+  if (currentStep > 0) {
+    currentStep--;
+    renderQuestions();
+    updateProgress();
+  }
+});
+
+nextButton?.addEventListener("click", () => {
+  if (currentStep < questions.length - 1 && state[questions[currentStep].key]) {
+    currentStep++;
+    renderQuestions();
+    updateProgress();
+  }
+});
+
 resetButton?.addEventListener("click", () => {
   questions.forEach((question) => {
     delete state[question.key];
   });
+  currentStep = 0;
   resultCard?.classList.add("is-hidden");
   renderQuestions();
   updateProgress();
