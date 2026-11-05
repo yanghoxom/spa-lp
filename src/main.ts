@@ -269,7 +269,11 @@ copyButton?.addEventListener("click", async () => {
     field.style.cssText = "position:fixed;top:-9999px;left:-9999px";
     document.body.append(field);
     field.select();
-    copied = document.execCommand("copy");
+    try {
+      copied = document.execCommand("copy");
+    } catch {
+      copied = false;
+    }
     field.remove();
   }
   if (copyFeedback) {

@@ -45,6 +45,7 @@ describe("Korean Editorial multi-page generator", () => {
     const html = read("index.html");
     expect(html).toContain('"@type":"Organization"');
     expect(html).toContain("Khám phá mỹ phẩm Hàn");
+    expect(html).toContain("/assets/fanpage-service-2.jpg");
     expect(html).toContain('href="/chinh-sach/"');
   });
   test("all generated internal page links resolve", () => {

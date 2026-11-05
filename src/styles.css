@@ -181,3 +181,9 @@ h1 em,h2 em { color:#57765f; }
   .founder-photo{inset:8% 11% 0;}
   .founder-art-title{font-size:36px;margin-top:110px;}
 }
+
+/* Editorial image framing: preserve full face rather than cropping at the eyes. */
+.portrait-frame img {left:auto;right:0;width:150%;height:100%;object-fit:cover;object-position:right top;filter:saturate(.84) contrast(.98);}
+.about-photo img {object-position:left top;}
+.founder-photo img {object-position:right top;}
+@media(max-width:560px){.portrait-frame img{width:158%;}}
