@@ -140,7 +140,7 @@ function home() {
     '<div class="hero-actions"><a class="btn btn-dark" href="/my-pham/">Khám phá mỹ phẩm Hàn <span>↗</span></a>' +
     '<a class="btn btn-plain" href="/tu-van-da/">Tư vấn da riêng <span>↗</span></a></div>' +
     '<div class="hero-note"><span>01 / HIỂU DA</span><span>02 / CHỌN ĐÚNG</span><span>03 / CHĂM ĐỀU</span></div></div>' +
-    '<div class="hero-portrait"><div class="portrait-frame"><img src="/assets/fanpage-service-2.jpg" alt="Hình ảnh chăm da và mỹ phẩm từ fanpage Phùng Hà Korea" width="1086" height="1448" fetchpriority="high" decoding="async"></div>' +
+    '<div class="hero-portrait"><div class="portrait-frame"><img src="/assets/fanpage-product.jpg" alt="Hình ảnh giới thiệu mỹ phẩm và chân dung từ fanpage Phùng Hà Korea" width="524" height="640" fetchpriority="high" decoding="async"></div>' +
     '<div class="portrait-caption"><span>RITUALS FOR<br>REAL SKIN.</span><span>PHÙNG HÀ<br>↘ KOREA</span></div>' +
     '<div class="portrait-seal">SKINCARE<br>WITH<br>CARE ✳</div></div></section>' +
     '<div class="marquee-line"><div class="container"><span>CHĂM DA CÓ HIỂU BIẾT</span><span>✳</span><span>BEAUTY IN EVERY AGE</span><span>✳</span><span>KOREAN SKINCARE</span><span>✳</span><span>ROUTINE ĐÚNG VỚI BẠN</span></div></div>' +

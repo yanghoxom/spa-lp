@@ -183,10 +183,10 @@ h1 em,h2 em { color:#57765f; }
 }
 
 /* Editorial image framing: preserve full face rather than cropping at the eyes. */
-.portrait-frame img {left:auto;right:0;width:205%;height:100%;object-fit:cover;object-position:right top;filter:saturate(.84) contrast(.98);}
+.portrait-frame img {left:0;right:auto;width:175%;height:100%;object-fit:cover;object-position:left top;filter:saturate(.88) contrast(.98);}
 .about-photo img {object-position:left top;}
 .founder-photo img {object-position:right top;}
-@media(max-width:560px){.portrait-frame img{width:205%;}}
+@media(max-width:560px){.portrait-frame img{width:175%;}}
 
 /* The quiz starts as a focused single-column editorial consultation, expanding only for its results. */
 .quiz-grid:not(.has-result){grid-template-columns:minmax(0,760px);justify-content:center;}
