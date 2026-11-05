@@ -68,13 +68,21 @@ function footer() {
     '<div><span class="footer-head">KHÁM PHÁ</span><a href="/kien-thuc/">Cẩm nang chăm da</a><a href="/my-pham/">Chọn mỹ phẩm</a><a href="/tu-van-da/">Tư vấn da 1:1</a></div>' +
     '<div><span class="footer-head">PHÙNG HÀ KOREA</span><a href="/ve-phung-ha/">Câu chuyện của Hà</a>' +
     '<a href="' + FANPAGE + '" target="_blank" rel="noopener noreferrer">Fanpage chính thức ↗</a>' +
-    '<a href="mailto:Phungthuha1997@gmail.com">Phungthuha1997@gmail.com</a><a href="tel:+84353950220">035 395 0220</a></div></div>' +
+    '<a href="mailto:Phungthuha1997@gmail.com">Phungthuha1997@gmail.com</a><a href="tel:+84353950220">035 395 0220</a>' +
+    '<a href="/chinh-sach/">Quyền riêng tư &amp; lưu ý mua hàng</a></div></div>' +
     '<div class="footer-bottom container"><span>© ' + new Date().getFullYear() + ' Phùng Hà Korea. Tiên Du, Bắc Ninh.</span>' +
     '<span>Kiến thức trên website chỉ mang tính tham khảo, không thay thế tư vấn y tế.</span></div></footer>';
 }
 function layout({ title, description, url = "/", active = "", image = "/assets/fanpage-product.jpg", type = "website", date = "", quiz = false }, body) {
   const canonical = BASE + url;
   const safeTitle = escapeHTML(title);
+  const organizationSchema = JSON.stringify({
+    "@context":"https://schema.org", "@type":"Organization",
+    "name":"Phùng Hà Korea", "url":BASE,
+    "logo":BASE+"/favicon.svg", "sameAs":[FANPAGE],
+    "contactPoint":{"@type":"ContactPoint","contactType":"customer support",
+      "telephone":"+84353950220","email":"Phungthuha1997@gmail.com","availableLanguage":"Vietnamese"}
+  }).replace(/</g,"\\u003c");
   const meta = '<!doctype html><html lang="vi"><head><meta charset="UTF-8">' +
     '<meta name="viewport" content="width=device-width, initial-scale=1.0">' +
     '<meta name="theme-color" content="#F9F6EF"><meta name="robots" content="index,follow"><link rel="icon" type="image/svg+xml" href="/favicon.svg">' +
@@ -91,7 +99,8 @@ function layout({ title, description, url = "/", active = "", image = "/assets/f
     '<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>' +
     '<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">' +
     '<script type="module" src="/src/site.ts"></script>' +
-    (quiz ? '<script type="module" src="/src/main.ts"></script>' : '') + '</head>';
+    (quiz ? '<script type="module" src="/src/main.ts"></script>' : '') +
+    '<script type="application/ld+json">' + organizationSchema + '</script></head>';
   return meta + '<body><a href="#main-content" class="skip-link">Chuyển đến nội dung</a>' +
     header(active) + '<main id="main-content">' + body + '</main>' + footer() + '</body></html>';
 }
@@ -101,13 +110,13 @@ function arrowLink(href, label, type = "") {
 }
 function articleCard(a, index = 0) {
   return '<a class="article-card" href="' + a.url + '"><div class="article-art art-' + escapeHTML(a.accent) + '">' +
-    '<div class="art-sculpture"><span></span><span></span></div><span class="art-index">JOURNAL / ' + String(index + 1).padStart(2, "0") + '</span></div>' +
+    '<div class="art-sculpture"><span></span><span></span></div><span class="art-issue">PHÙNG HÀ KOREA / BEAUTY NOTES</span><span class="art-index">JOURNAL / ' + String(index + 1).padStart(2, "0") + '</span></div>' +
     '<div class="article-meta"><span>' + escapeHTML(a.category) + '</span><span>' + formatDate(a.date) + '</span></div>' +
     '<h3>' + escapeHTML(a.title) + '</h3><p>' + escapeHTML(a.description) + '</p>' +
     '<span class="article-cta">Đọc bài viết <span aria-hidden="true">↗</span></span></a>';
 }
 function productVisual(kind) {
-  return '<div class="product-visual product-' + kind + '" aria-hidden="true"><div class="product-orbit"></div>' +
+  return '<div class="product-visual product-' + kind + '" aria-hidden="true"><span class="visual-note">KOREAN BEAUTY / EDIT</span><div class="product-orbit"></div>' +
     '<div class="bottle"><div class="bottle-cap"></div><div class="bottle-body"><span>MINH HỌA</span><strong>K-BEAUTY</strong><small>SKIN EDIT</small></div></div>' +
     '<div class="product-glow"></div></div>';
 }
@@ -127,10 +136,10 @@ function home() {
     '<section class="hero container"><div class="hero-copy">' +
     '<p class="eyebrow"><span class="eyebrow-line"></span> PHÙNG HÀ KOREA • SKIN JOURNAL</p>' +
     '<h1>Đẹp là khi <em>hiểu</em> làn da của mình.</h1>' +
-    '<p class="hero-lead">Không cần một kệ mỹ phẩm thật đầy. Chỉ cần hiểu da, chăm đúng và kiên trì mỗi ngày. Hà cùng bạn tìm routine phù hợp từ mỹ phẩm Hàn Quốc.</p>' +
-    '<div class="hero-actions"><a class="btn btn-dark" href="/kien-thuc/">Khám phá cẩm nang <span>↗</span></a>' +
+    '<p class="hero-lead">Không cần một kệ mỹ phẩm thật đầy. Hà giúp bạn hiểu nhu cầu làn da, chọn các bước chăm sóc dễ duy trì và tìm hiểu mỹ phẩm Hàn Quốc phù hợp trước khi mua.</p>' +
+    '<div class="hero-actions"><a class="btn btn-dark" href="/my-pham/">Khám phá mỹ phẩm Hàn <span>↗</span></a>' +
     '<a class="btn btn-plain" href="/tu-van-da/">Tư vấn da riêng <span>↗</span></a></div>' +
-    '<div class="hero-note"><span>01 / CARE</span><span>02 / KNOWLEDGE</span><span>03 / K-BEAUTY</span></div></div>' +
+    '<div class="hero-note"><span>01 / HIỂU DA</span><span>02 / CHỌN ĐÚNG</span><span>03 / CHĂM ĐỀU</span></div></div>' +
     '<div class="hero-portrait"><div class="portrait-frame"><img src="/assets/fanpage-product.jpg" alt="Hình ảnh giới thiệu mỹ phẩm từ fanpage Phùng Hà Korea" fetchpriority="high"></div>' +
     '<div class="portrait-caption"><span>RITUALS FOR<br>REAL SKIN.</span><span>PHÙNG HÀ<br>↘ KOREA</span></div>' +
     '<div class="portrait-seal">SKINCARE<br>WITH<br>CARE ✳</div></div></section>' +
@@ -157,26 +166,51 @@ function home() {
     '<p class="overline">LỜI NHẮN TỪ PHÙNG HÀ</p><h2>Chăm da không phải cuộc đua. <em>Đó là sự thấu hiểu.</em></h2>' +
     '<p>Tại Phùng Hà Korea, mỗi gợi ý bắt đầu từ loại da, mục tiêu và khả năng duy trì của bạn. Nội dung chia sẻ giúp bạn đặt câu hỏi đúng trước khi quyết định mua mỹ phẩm.</p>' +
     arrowLink("/ve-phung-ha/", "Tìm hiểu về Phùng Hà", "light") + '</div><div class="founder-art" aria-hidden="true">' +
-    '<span class="founder-curve"></span><span class="founder-art-title">PHÙNG HÀ</span><span class="founder-art-sub">KOREAN BEAUTY • EVERYDAY CARE</span><span class="founder-leaf">✳</span></div></div></section>' +
+    '<div class="founder-photo"><img src="/assets/fanpage-service-2.jpg" alt="" loading="lazy" decoding="async"></div><span class="founder-curve"></span><span class="founder-art-title">PHÙNG HÀ</span><span class="founder-art-sub">KOREAN BEAUTY • EVERYDAY CARE</span><span class="founder-leaf">✳</span></div></div></section>' +
     '<section class="section container final-cta"><p class="overline">LET\'S TALK ABOUT YOUR SKIN</p>' +
     '<h2>Mỗi làn da có một câu chuyện. <em>Hà muốn nghe câu chuyện của bạn.</em></h2>' +
     '<div class="final-actions"><a class="btn btn-dark" href="/tu-van-da/">Bắt đầu tư vấn 1:1 <span>↗</span></a>' +
     '<a class="btn btn-outline" href="' + MESSAGE + '" target="_blank" rel="noopener noreferrer">Nhắn Messenger <span>↗</span></a></div></section>');
 }
-function articleIndex() {
-  const postsMarkup = articles.map(articleCard).join("");
-  const cards = ["Tất cả", ...new Set(articles.map(a => a.category))];
-  return layout({ title: "Cẩm nang chăm da | Phùng Hà Korea", description: "Bài viết chăm da cho người Việt 30–50: chống nắng, nám sạm, phục hồi sau peel, routine mỹ phẩm Hàn và chăm da theo tuổi.", url: "/kien-thuc/", active: "articles" },
+const PAGE_SIZE = 9;
+function topicList() {
+  return [...new Set(articles.map(a => a.category))].map(name => ({ name, slug: slugify(name) }));
+}
+function archiveURL(page = 1, topicSlug = "") {
+  const base = topicSlug ? "/kien-thuc/chu-de/" + topicSlug + "/" : "/kien-thuc/";
+  return page === 1 ? base : base + "trang/" + page + "/";
+}
+function archiveCount(topicSlug = "") {
+  const list = topicSlug ? articles.filter(a => slugify(a.category) === topicSlug) : articles;
+  return Math.max(1, Math.ceil(list.length / PAGE_SIZE));
+}
+function articleIndex(page = 1, topicSlug = "") {
+  const topic = topicList().find(t => t.slug === topicSlug);
+  if (topicSlug && !topic) throw new Error("Unknown topic: " + topicSlug);
+  const list = topic ? articles.filter(a => a.category === topic.name) : articles;
+  const pages = archiveCount(topicSlug);
+  if (page < 1 || page > pages) throw new Error("Invalid archive page: " + page);
+  const shown = list.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE);
+  const pills = [{ name: "Tất cả bài viết", slug: "" }, ...topicList()].map(item =>
+    '<a class="filter-button' + (item.slug === topicSlug ? ' is-active' : '') +
+    '" href="' + archiveURL(1,item.slug) + '"' + (item.slug===topicSlug?' aria-current="page"':'') + '>' + escapeHTML(item.name) + '</a>'
+  ).join("");
+  const pagination = pages < 2 ? "" : '<nav class="pagination" aria-label="Các trang bài viết">' +
+    (page > 1 ? '<a rel="prev" href="' + archiveURL(page - 1, topicSlug) + '">← Trước</a>' : '') +
+    Array.from({length:pages},(_,i)=>'<a href="' + archiveURL(i+1,topicSlug) + '"' + (i+1===page?' aria-current="page"':'') + '>'+(i+1)+'</a>').join("") +
+    (page < pages ? '<a rel="next" href="' + archiveURL(page+1,topicSlug) + '">Sau →</a>' : '') + '</nav>';
+  const displayTitle = topic ? "Chuyên đề: " + topic.name : "Cẩm nang chăm da";
+  return layout({ title: displayTitle + (page>1?" – Trang "+page:"") + " | Phùng Hà Korea",
+    description: topic ? "Bài viết Phùng Hà Korea về " + topic.name.toLowerCase() + ", kiến thức chăm da có nguồn, dễ áp dụng." :
+    "Bài viết chăm da cho người Việt 30–50: chống nắng, nám sạm, phục hồi sau peel, routine mỹ phẩm Hàn và chăm da theo tuổi.",
+    url:archiveURL(page,topicSlug), active:"articles" },
     '<section class="page-hero container"><p class="eyebrow">THE SKIN JOURNAL / PHÙNG HÀ KOREA</p>' +
-    '<h1>Cẩm nang chăm da <em>mỗi ngày.</em></h1>' +
+    '<h1>' + (topic ? 'Chuyện làn da: <em>' + escapeHTML(topic.name) + '</em>' : 'Cẩm nang chăm da <em>mỗi ngày.</em>') + '</h1>' +
     '<p>Những kiến thức vừa đủ để bạn hiểu da hơn, chọn sản phẩm có cơ sở và biết khi nào cần gặp bác sĩ da liễu.</p></section>' +
-    '<section class="container section compact"><div class="filter-row"><div class="filter-tabs" role="group" aria-label="Lọc bài viết">' +
-    cards.map((cat, idx) => '<button type="button" class="filter-button' + (idx===0 ? ' is-active' : '') +
-      '" data-filter="' + escapeHTML(cat) + '">' + escapeHTML(cat) + '</button>').join("") +
-    '</div><span class="result-counter" id="article-count">' + articles.length + ' bài viết</span></div>' +
+    '<section class="container section compact"><div class="filter-row"><nav class="filter-tabs" aria-label="Chuyên đề chăm da">' +
+    pills + '</nav><span class="result-counter">Trang ' + page + '/' + pages + ' · ' + list.length + ' bài</span></div>' +
     '<div class="article-grid article-list-grid" id="article-list">' +
-    articles.map((a, i) => '<div data-category="' + escapeHTML(a.category) + '">' + articleCard(a,i) + '</div>').join("") +
-    '</div><p class="empty-results" id="empty-results" hidden>Chưa có bài viết ở chủ đề này.</p></section>');
+    shown.map((a,i)=>'<div>'+articleCard(a,(page-1)*PAGE_SIZE+i)+'</div>').join("") + '</div>' + pagination + '</section>');
 }
 function inline(text) {
   return escapeHTML(text).replace(/\[([^\]]+)\]\((https?:\/\/[^ )]+)\)/g,
@@ -223,7 +257,7 @@ function articlePage(a) {
     '<aside class="article-sidebar">'+toc+'<div class="sidebar-card"><p class="overline">BEAUTY NOTE</p>' +
     '<h3>Chăm da là hành trình, không phải cuộc đua.</h3><a href="/my-pham/">Khám phá mỹ phẩm phù hợp ↗</a></div></aside></div>' +
     '<section class="section container related-section">'+sectionLabel("READ /", "ĐỌC THÊM")+
-    '<div class="article-grid">'+articles.filter(x=>x.slug!==a.slug).slice(0,3).map(articleCard).join("")+'</div></section>' +
+    '<div class="article-grid">'+articles.filter(x=>x.slug!==a.slug).sort((x,y)=>Number(y.category===a.category)-Number(x.category===a.category)).slice(0,3).map(articleCard).join("")+'</div></section>' +
     '<script type="application/ld+json">'+articleJson+'</script>');
 }
 function shopIndex() {
@@ -277,15 +311,31 @@ function quizPage() {
     '<button type="button" class="reset-button" id="reset-quiz">Làm lại</button></div></form>' +
     '<aside class="result-card is-hidden" id="result-card" aria-live="polite"><p class="overline">HƯỚNG CHĂM DA THAM KHẢO</p>' +
     '<h2 id="result-title">Kết quả của bạn</h2><p class="result-summary" id="result-note">Hà sẽ trao đổi thêm với bạn trước khi chọn sản phẩm.</p>' +
-    '<div class="result-badges"><span id="result-code" class="result-code">PK-0000</span><div class="fit-badge"><span>Mức độ phù hợp</span><strong id="result-fit">—</strong></div></div>' +
+    '<div class="result-badges"><span id="result-code" class="result-code">PK-0000</span><div class="fit-badge"><span>Gợi ý sơ bộ</span><strong id="result-fit">—</strong></div></div>' +
     '<div class="result-columns"><div><h3>Phù hợp vì</h3><ul id="result-reasons"></ul></div>' +
     '<div><h3>Routine tham khảo</h3><p><strong>Sáng:</strong> <span id="care-morning">—</span></p><p><strong>Tối:</strong> <span id="care-evening">—</span></p></div>' +
     '<div><h3>Hà cần hỏi thêm</h3><ul id="result-followups"></ul></div></div>' +
-    '<div class="lead-actions"><a id="messenger-link" class="btn btn-dark" href="'+MESSAGE+'" target="_blank" rel="noopener noreferrer">Trao đổi với Hà qua Messenger ↗</a></div>' +
+    '<div class="lead-actions"><button type="button" id="copy-consultation" class="btn btn-outline">① Sao chép kết quả tư vấn</button>' +
+    '<a id="messenger-link" class="btn btn-dark" href="'+MESSAGE+'" target="_blank" rel="noopener noreferrer">② Mở Messenger ↗</a></div>' +
+    '<p class="copy-feedback" id="copy-feedback" role="status" aria-live="polite">Sao chép kết quả rồi dán vào Messenger để Hà nắm thông tin. Website không lưu câu trả lời trên máy chủ.</p>' +
     '<p class="quiz-disclaimer">Không thay thế chẩn đoán y tế. Nếu da đang kích ứng hoặc bạn quan tâm peel, hãy hỏi ý kiến bác sĩ da liễu.</p></aside></div></section>' +
     '<section class="section container quiz-info"><div><p class="overline">KHÔNG ÁP LỰC MUA HÀNG</p><h2>Tư vấn để <em>hiểu da trước.</em></h2></div>' +
     '<div><p>Không nhất thiết phải dùng một bộ sản phẩm nhiều bước. Sau bài tư vấn, bạn có thể trao đổi thêm về sản phẩm đang dùng, mức độ nhạy cảm và ngân sách phù hợp.</p>' +
     '<a class="arrow-link" href="/kien-thuc/">Đọc cẩm nang chăm da <span>↗</span></a></div></section>');
+}
+function privacyPage() {
+  return layout({title:"Quyền riêng tư và lưu ý đặt hàng | Phùng Hà Korea",
+    description:"Thông tin về dữ liệu bài tư vấn da, liên kết Messenger, các dịch vụ kỹ thuật và quy trình liên hệ đặt mỹ phẩm Hàn tại Phùng Hà Korea.",
+    url:"/chinh-sach/" },
+    '<section class="page-hero container"><p class="eyebrow">POLICIES / THÔNG TIN MINH BẠCH</p>' +
+    '<h1>Chính sách &amp; <em>quyền riêng tư.</em></h1>' +
+    '<p>Một vài điều cần biết khi đọc bài, làm bài tư vấn và liên hệ mua mỹ phẩm qua Phùng Hà Korea.</p></section>' +
+    '<section class="container policy-content"><h2>Bài tư vấn da 5 câu</h2>' +
+    '<p>Kết quả được tính ngay trong trình duyệt của bạn. Website không lưu câu trả lời vào cơ sở dữ liệu riêng. Khi bạn tự sao chép và gửi thông tin qua Messenger, nội dung bạn gửi được xử lý theo chính sách của Meta.</p>' +
+    '<h2>Dịch vụ kỹ thuật</h2><p>Website được phục vụ qua Cloudflare, nhà cung cấp có thể xử lý dữ liệu truy cập kỹ thuật cần thiết để vận hành và bảo vệ dịch vụ. Trang sử dụng Google Fonts để hiển thị kiểu chữ; khi tải font, trình duyệt có thể kết nối với máy chủ của Google.</p>' +
+    '<h2>Thông tin sản phẩm và đặt hàng</h2><p>Các nhóm mỹ phẩm trên website là định hướng tham khảo, chưa phải danh sách hàng có sẵn hoặc báo giá ràng buộc. Trước khi xác nhận đơn, hãy hỏi Hà để kiểm tra chính xác tên sản phẩm, xuất xứ, nhãn, hạn dùng, giá, giao hàng và điều kiện đổi trả.</p>' +
+    '<h2>Nội dung chăm sóc da</h2><p>Bài viết và kết quả tư vấn tự động không phải chẩn đoán, chỉ định điều trị hoặc hướng dẫn tự peel. Nếu có vấn đề da kéo dài hay cần thủ thuật, vui lòng gặp bác sĩ da liễu.</p>' +
+    '<h2>Liên hệ</h2><p>Để hỏi về thông tin trên website hoặc yêu cầu liên quan đến dữ liệu bạn đã chủ động gửi cho Phùng Hà Korea, hãy liên hệ <a href="mailto:Phungthuha1997@gmail.com">Phungthuha1997@gmail.com</a> hoặc <a href="' + FANPAGE + '" target="_blank" rel="noopener noreferrer">fanpage Phùng Hà Korea</a>.</p></section>');
 }
 function rssXML() {
   const items = articles.slice(0,30).map(a=>'<item><title>'+escapeHTML(a.title)+'</title><link>'+BASE+a.url+'</link>'+
@@ -293,7 +343,9 @@ function rssXML() {
   return '<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"><channel><title>Phùng Hà Korea - Cẩm nang chăm da</title><link>'+BASE+'/kien-thuc/</link><description>Kiến thức chăm da và mỹ phẩm Hàn cho làn da Việt</description><language>vi</language>'+items+'</channel></rss>';
 }
 function sitemap() {
-  const all = ["/", "/kien-thuc/", "/my-pham/", "/tu-van-da/", "/ve-phung-ha/",
+  const all = ["/", "/kien-thuc/", "/my-pham/", "/tu-van-da/", "/ve-phung-ha/", "/chinh-sach/",
+    ...Array.from({length:archiveCount()-1},(_,i)=>archiveURL(i+2)),
+    ...topicList().flatMap(t=>Array.from({length:archiveCount(t.slug)},(_,i)=>archiveURL(i+1,t.slug))),
     ...categories.map(c=>"/my-pham/"+c.slug+"/"), ...articles.map(a=>a.url)];
   return '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' +
     all.map(u=>'  <url><loc>'+BASE+u+'</loc></url>').join("\n") + '\n</urlset>\n';
@@ -301,12 +353,18 @@ function sitemap() {
 
 write("index.html",home());
 write("kien-thuc/index.html",articleIndex());
+for(let page=2;page<=archiveCount();page++) write("kien-thuc/trang/"+page+"/index.html",articleIndex(page));
+for(const topic of topicList()) {
+  write("kien-thuc/chu-de/"+topic.slug+"/index.html",articleIndex(1,topic.slug));
+  for(let page=2;page<=archiveCount(topic.slug);page++) write("kien-thuc/chu-de/"+topic.slug+"/trang/"+page+"/index.html",articleIndex(page,topic.slug));
+}
 for(const a of articles) write("kien-thuc/"+a.slug+"/index.html",articlePage(a));
 write("my-pham/index.html",shopIndex());
 for(const c of categories) write("my-pham/"+c.slug+"/index.html",shopDetail(c));
 write("tu-van-da/index.html",quizPage());
 write("ve-phung-ha/index.html",aboutPage());
+write("chinh-sach/index.html",privacyPage());
 write("public/sitemap.xml",sitemap());
 write("public/feed.xml",rssXML());
 write("public/404.html",'<!doctype html><html lang="vi"><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Không tìm thấy trang | Phùng Hà Korea</title><style>body{font-family:Arial,sans-serif;background:#f9f6ef;color:#263d34;min-height:80vh;display:grid;place-items:center;text-align:center}h1{font-size:5rem;margin:0}a{color:inherit}</style><main><p>PHÙNG HÀ KOREA</p><h1>404</h1><p>Trang này không tồn tại hoặc đã thay đổi.</p><a href="/">← Về trang chủ</a></main></html>');
-console.log("Generated", 1 + 1 + articles.length + 1 + categories.length + 1 + 1, "HTML pages, sitemap and RSS feed.");
+console.log("Generated Korean Editorial pages, article archives, sitemap and RSS feed.");

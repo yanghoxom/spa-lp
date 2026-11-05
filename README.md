@@ -61,6 +61,9 @@ Không dùng Markdown chưa kiểm duyệt của người dùng vì bộ chuyể
 
 ## SEO & kiểm tra
 
-- Meta description, canonical, OpenGraph, Article JSON-LD, sitemap và RSS tự sinh.
+- Meta description, canonical, OpenGraph, Organization/Article JSON-LD, sitemap và RSS tự sinh.
+- Chuyên đề /kien-thuc/chu-de/ và phân trang sau 9 bài/chuyên đề, giúp đăng bài hằng ngày trong nhiều năm.
+- Trang /chinh-sach/ giải thích quy trình dữ liệu quiz, Messenger và thông tin đặt hàng.
+- Quiz có nút sao chép bản tóm tắt để gửi Messenger, không dựa vào query text chưa được hỗ trợ.
 - Custom 404 page qua Workers Static Assets.
 - Mỗi lần deploy phải kiểm tra /, /kien-thuc/, /my-pham/, /tu-van-da/, /ve-phung-ha/ và ít nhất một bài viết.

@@ -20,20 +20,3 @@ window.addEventListener("keydown", (event) => {
 window.addEventListener("resize", () => {
   if (window.innerWidth > 780) closeMenu();
 });
-
-const filters = document.querySelectorAll<HTMLButtonElement>("[data-filter]");
-const articleItems = document.querySelectorAll<HTMLElement>("#article-list [data-category]");
-const counter = document.querySelector<HTMLElement>("#article-count");
-const empty = document.querySelector<HTMLElement>("#empty-results");
-filters.forEach((filter) => filter.addEventListener("click", () => {
-  const category = filter.dataset.filter;
-  let shown = 0;
-  filters.forEach((item) => item.classList.toggle("is-active", item === filter));
-  articleItems.forEach((item) => {
-    const visible = category === "Tất cả" || item.dataset.category === category;
-    item.hidden = !visible;
-    if (visible) shown++;
-  });
-  if (counter) counter.textContent = shown + " bài viết";
-  if (empty) empty.hidden = shown !== 0;
-}));

@@ -2,6 +2,7 @@ import "./styles.css";
 import {
   type QuizAnswers,
   buildConsultationResult,
+  createMessengerText,
 } from "./quiz";
 
 type Question<T extends keyof QuizAnswers> = {
@@ -95,8 +96,11 @@ const careMorning = document.querySelector<HTMLSpanElement>("#care-morning");
 const careEvening = document.querySelector<HTMLSpanElement>("#care-evening");
 const resultFollowups = document.querySelector<HTMLUListElement>("#result-followups");
 const messengerLink = document.querySelector<HTMLAnchorElement>("#messenger-link");
+const copyButton = document.querySelector<HTMLButtonElement>("#copy-consultation");
+const copyFeedback = document.querySelector<HTMLParagraphElement>("#copy-feedback");
 
 let currentStep = 0;
+let consultationMessage = "";
 
 function isComplete(answers: Partial<QuizAnswers>): answers is QuizAnswers {
   return questions.every((question) => Boolean(answers[question.key]));
@@ -155,7 +159,7 @@ function updateProgress(): void {
   if (progressFill) progressFill.style.width = `${(completed / questions.length) * 100}%`;
   if (questionProgress) {
     questionProgress.textContent =
-      completed >= questions.length ? "Đã trả lời 5/5" : `Câu ${completed + 1}/${questions.length}`;
+      completed >= questions.length && currentStep === questions.length - 1 ? "Đã trả lời 5/5" : `Câu ${currentStep + 1}/${questions.length}`;
   }
   if (selectedSummary) {
     const selected = questions
@@ -170,28 +174,16 @@ function updateProgress(): void {
   }
 }
 
-function buildMessengerMessage(answers: QuizAnswers, code: string): string {
-  const labels: Array<[string, string]> = [
-    ["Đang quan tâm", questions[0].options.find((o) => o.value === answers.concern)?.label ?? ""],
-    ["Da thuộc loại", questions[1].options.find((o) => o.value === answers.skinType)?.label ?? ""],
-    ["Tình trạng", questions[2].options.find((o) => o.value === answers.history)?.label ?? ""],
-    ["Ngân sách", questions[3].options.find((o) => o.value === answers.budget)?.label ?? ""],
-    ["Hướng chăm da", questions[4].options.find((o) => o.value === answers.goal)?.label ?? ""],
-  ];
-  return [...labels.map(([key, val]) => `${key}: ${val}`), `SP gợi ý: ${code}`].join("\n");
-}
-
 function showResult(): void {
   if (!isComplete(state)) return;
 
   const result = buildConsultationResult(state);
-  const message = buildMessengerMessage(state, result.code);
-  const encoded = encodeURIComponent(message);
+  consultationMessage = createMessengerText(state, result);
 
   if (resultTitle) resultTitle.textContent = result.title;
   if (resultNote) {
     resultNote.innerHTML = `
-      <span><strong>Giá tham khảo:</strong> ${result.priceRange}</span>
+      <span><strong>Ngân sách bạn đã chọn:</strong> ${result.priceRange}</span>
       <span>${result.note}</span>
     `;
   }
@@ -205,7 +197,7 @@ function showResult(): void {
   if (resultFollowups) {
     resultFollowups.innerHTML = result.followUpQuestions.map((question) => `<li>${question}</li>`).join("");
   }
-  if (messengerLink) messengerLink.href = `https://m.me/PhungHa29?text=${encoded}`;
+  if (messengerLink) messengerLink.href = "https://m.me/PhungHa29";
   resultCard?.classList.remove("is-hidden");
 }
 
@@ -223,14 +215,11 @@ questionList?.addEventListener("change", (event) => {
   setAnswer(question.key, option.value);
   updateProgress();
 
+  renderQuestions();
+  updateProgress();
   if (isComplete(state)) {
     showResult();
-    resultCard?.scrollIntoView({ behavior: "smooth", block: "start" });
-  } else if (currentStep < questions.length - 1) {
-    setTimeout(() => {
-      currentStep++;
-      renderQuestions();
-    }, 250);
+    resultCard?.scrollIntoView({ behavior: "smooth", block: "nearest" });
   }
 });
 
@@ -259,9 +248,35 @@ resetButton?.addEventListener("click", () => {
     delete state[question.key];
   });
   currentStep = 0;
+  consultationMessage = "";
   resultCard?.classList.add("is-hidden");
+  if (copyFeedback) copyFeedback.textContent = "Sao chép kết quả rồi dán vào Messenger để Hà nắm thông tin. Website không lưu câu trả lời trên máy chủ.";
   renderQuestions();
   updateProgress();
+});
+
+copyButton?.addEventListener("click", async () => {
+  if (!consultationMessage) return;
+  let copied = false;
+  try {
+    if (!navigator.clipboard?.writeText) throw new Error("Clipboard API unavailable");
+    await navigator.clipboard.writeText(consultationMessage);
+    copied = true;
+  } catch {
+    const field = document.createElement("textarea");
+    field.value = consultationMessage;
+    field.setAttribute("readonly", "");
+    field.style.cssText = "position:fixed;top:-9999px;left:-9999px";
+    document.body.append(field);
+    field.select();
+    copied = document.execCommand("copy");
+    field.remove();
+  }
+  if (copyFeedback) {
+    copyFeedback.textContent = copied
+      ? "Đã sao chép. Hãy mở Messenger và dán kết quả để Hà có thông tin tư vấn."
+      : "Trình duyệt không thể sao chép tự động. Hãy nhắn cho Hà trực tiếp qua Messenger.";
+  }
 });
 
 document.querySelectorAll<HTMLAnchorElement>('a[href^="#"]').forEach((anchor) => {

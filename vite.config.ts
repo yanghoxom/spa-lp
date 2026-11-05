@@ -13,7 +13,7 @@ function walk(dir: string): void {
     else if (entry.isFile() && rel.endsWith(".html")) htmlFiles.push(rel);
   }
 }
-["kien-thuc", "my-pham", "tu-van-da", "ve-phung-ha"].forEach(walk);
+["kien-thuc", "my-pham", "tu-van-da", "ve-phung-ha", "chinh-sach"].forEach(walk);
 
 export default defineConfig({
   base: "./",
