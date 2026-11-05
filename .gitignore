@@ -1,4 +1,15 @@
 node_modules
 dist
+.wrangler
+.dev.vars*
 .DS_Store
 *.local
+
+# Generated at build-time by site/build.mjs
+/index.html
+/kien-thuc/
+/my-pham/
+/tu-van-da/
+/ve-phung-ha/
+public/feed.xml
+public/404.html
