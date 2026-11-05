@@ -10,5 +10,6 @@
     "traces": {
       "enabled": true
     }
-  }
+  },
+  "preview_urls": false
 }
