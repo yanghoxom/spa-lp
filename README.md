@@ -74,3 +74,10 @@ Email chăm sóc khách hàng trên website: **cskh@phunghakorea.com**. Địa c
 - Quiz có nút sao chép bản tóm tắt để gửi Messenger, không dựa vào query text chưa được hỗ trợ.
 - Custom 404 page qua Workers Static Assets.
 - Mỗi lần deploy phải kiểm tra /, /kien-thuc/, /my-pham/, /tu-van-da/, /ve-phung-ha/ và ít nhất một bài viết.
+
+## Hai ảnh minh họa sản phẩm tạo bằng AI (2026-11-05)
+
+- `public/assets/editorial/riena-sun-ampoule-ai-editorial.webp` — 720×900, 15 KB, ảnh minh họa cho nhóm chống nắng.
+- `public/assets/editorial/korean-skincare-trio-ai-editorial.webp` — 720×900, 48 KB, ảnh minh họa nhóm dưỡng da.
+- Đã tối ưu WebP chất lượng 85 cho mobile và đặt tại trang `/my-pham/`. Cloudflare Workers Static Assets phân phối trực tiếp từ `dist/assets/editorial/`.
+- **Lưu ý tính xác thực:** ảnh AI chưa được đối chiếu chính xác với nhãn/bao bì sản phẩm thật, không được dùng như ảnh sản phẩm/SKU có sẵn hoặc mô tả chính thức. Trang có nhãn minh họa AI rõ ràng.

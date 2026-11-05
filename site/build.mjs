@@ -333,7 +333,16 @@ function shopIndex() {
     '<h1>Mỹ phẩm Hàn, <em>chọn theo làn da.</em></h1><p>Không nhất thiết phải theo quy trình chăm da 10 bước. Chọn những gì da cần, phù hợp với ngân sách và cách sống của bạn.</p></section>' +
     '<section class="section compact container">'+sectionLabel("01 /","BỘ SƯU TẬP THEO NHU CẦU")+'<div class="collections-grid shop-grid">'+categories.map(categoryCard).join("")+'</div>' +
     '<div class="notice-panel"><strong>Danh mục tư vấn, không phải giỏ hàng trực tuyến.</strong><span>Giá, thương hiệu, hạn sử dụng và tình trạng hàng được Hà xác nhận qua Messenger trước khi bạn đặt.</span></div></section>' +
-    '<section class="section container simple-steps">'+sectionLabel("02 /","CÁCH HÀ HỖ TRỢ")+'<h2>Chọn đúng trước khi <em>đặt mua.</em></h2><div class="steps-grid">' +
+    '<section class="section container ai-editorial-section" aria-labelledby="ai-gallery-title">' + sectionLabel("02 /","GÓC HÌNH ẢNH MỸ PHẨM") +
+    '<div class="ai-gallery-heading"><div><p class="overline">MỸ PHẨM HÀN CÙNG HÀ</p><h2 id="ai-gallery-title">Một chút cảm hứng <em>chăm da.</em></h2></div>' +
+    '<p>Hai hình ảnh biên tập được dựng bằng AI để tham khảo phong cách. Tên nhãn và bao bì chưa đối chiếu với sản phẩm thực tế đang bán.</p></div>' +
+    '<div class="ai-editorial-grid">' +
+    '<figure class="ai-editorial-card"><div class="ai-editorial-photo"><img src="/assets/editorial/riena-sun-ampoule-ai-editorial.webp" alt="Ảnh AI minh họa chai và hộp mang chữ RIENA Sun Ampoule, không phải ảnh bao bì sản phẩm được xác nhận" width="720" height="900" loading="lazy" decoding="async"><span class="ai-photo-badge">Ảnh minh họa AI</span></div>' +
+    '<figcaption><div><span>01 / CHĂM DA MỖI NGÀY</span><h3>Quan tâm đến chống nắng?</h3><p>Tìm hiểu cách lựa chọn nhóm sản phẩm chống nắng phù hợp với thói quen sử dụng.</p></div><a href="/my-pham/chong-nang/" class="arrow-link">Xem nhóm chống nắng <span aria-hidden="true">↗</span></a></figcaption></figure>' +
+    '<figure class="ai-editorial-card"><div class="ai-editorial-photo"><img src="/assets/editorial/korean-skincare-trio-ai-editorial.webp" alt="Ảnh AI minh họa bộ mỹ phẩm Hàn với nhãn chai hộp mô phỏng, không phải ảnh sản phẩm đã xác minh" width="720" height="900" loading="lazy" decoding="async"><span class="ai-photo-badge">Ảnh minh họa AI</span></div>' +
+    '<figcaption><div><span>02 / CHỌN LỌC THEO NHU CẦU</span><h3>Chọn cách dưỡng da vừa đủ.</h3><p>Ưu tiên độ ẩm, dưỡng sáng và sự thoải mái khi xây dựng thói quen chăm da.</p></div><a href="/my-pham/duong-am-phuc-hoi/" class="arrow-link">Xem nhóm dưỡng ẩm <span aria-hidden="true">↗</span></a></figcaption></figure>' +
+    '</div><p class="ai-editorial-disclaimer">Lưu ý: hình ảnh được tạo bằng AI và chỉ mang tính minh họa. Vui lòng xác nhận hình ảnh, thương hiệu, nguồn gốc và giá của sản phẩm thực tế với Hà trước khi đặt mua.</p></section>' +
+    '<section class="section container simple-steps">'+sectionLabel("03 /","CÁCH HÀ HỖ TRỢ")+'<h2>Chọn đúng trước khi <em>đặt mua.</em></h2><div class="steps-grid">' +
     '<div><span>01</span><h3>Hiểu da</h3><p>Chọn vấn đề và mục tiêu bạn đang quan tâm.</p></div>' +
     '<div><span>02</span><h3>Trao đổi</h3><p>Kiểm tra sản phẩm đang dùng, độ nhạy cảm và ngân sách.</p></div>' +
     '<div><span>03</span><h3>Gợi ý</h3><p>Nhận thông tin sản phẩm thực tế và hướng dẫn sử dụng phù hợp.</p></div></div>' +

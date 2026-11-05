@@ -56,6 +56,18 @@ describe("Korean Editorial multi-page generator", () => {
     expect(existsSync("my-pham/duong-am-phuc-hoi/index.html")).toBe(true);
     expect(read("my-pham/index.html")).toContain("không phải giỏ hàng trực tuyến");
   });
+
+  test("displays both optimized editorial WebP photos with clear AI disclosure", () => {
+    const shop = read("my-pham/index.html");
+    const photos = ["riena-sun-ampoule-ai-editorial.webp", "korean-skincare-trio-ai-editorial.webp"];
+    for (const name of photos) {
+      expect(existsSync("public/assets/editorial/" + name)).toBe(true);
+      expect(shop).toContain("/assets/editorial/" + name);
+    }
+    expect(shop).toContain('width="720" height="900" loading="lazy"');
+    expect(shop).toContain("Ảnh minh họa AI");
+    expect(shop).toContain("bao bì chưa đối chiếu với sản phẩm thực tế");
+  });
   test("provides topic navigation for evergreen daily publishing", () => {
     const archive = read("kien-thuc/index.html");
     expect(archive).toContain('/kien-thuc/chu-de/');
