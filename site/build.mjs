@@ -77,7 +77,7 @@ function layout({ title, description, url = "/", active = "", image = "/assets/f
   const safeTitle = escapeHTML(title);
   const meta = '<!doctype html><html lang="vi"><head><meta charset="UTF-8">' +
     '<meta name="viewport" content="width=device-width, initial-scale=1.0">' +
-    '<meta name="theme-color" content="#F9F6EF"><meta name="robots" content="index,follow">' +
+    '<meta name="theme-color" content="#F9F6EF"><meta name="robots" content="index,follow"><link rel="icon" type="image/svg+xml" href="/favicon.svg">' +
     '<title>' + safeTitle + '</title><meta name="description" content="' + escapeHTML(description) + '">' +
     '<link rel="canonical" href="' + escapeHTML(canonical) + '">' +
     '<link rel="alternate" type="application/rss+xml" title="Bài viết Phùng Hà Korea" href="/feed.xml">' +
@@ -108,7 +108,7 @@ function articleCard(a, index = 0) {
 }
 function productVisual(kind) {
   return '<div class="product-visual product-' + kind + '" aria-hidden="true"><div class="product-orbit"></div>' +
-    '<div class="bottle"><div class="bottle-cap"></div><div class="bottle-body"><span>PHÙNG HÀ</span><strong>KOREA</strong><small>DAILY RITUAL</small></div></div>' +
+    '<div class="bottle"><div class="bottle-cap"></div><div class="bottle-body"><span>MINH HỌA</span><strong>K-BEAUTY</strong><small>SKIN EDIT</small></div></div>' +
     '<div class="product-glow"></div></div>';
 }
 function categoryCard(c) {
