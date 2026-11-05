@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 760" role="img" aria-label="Minh họa nhóm mỹ phẩm Hàn Quốc">
+<defs><linearGradient id="bg" x1="0" x2="1" y1="0" y2="1"><stop stop-color="#F2DFD8"/><stop offset="1" stop-color="#D8BDB5"/></linearGradient><radialGradient id="light"><stop stop-color="#fff" stop-opacity=".78"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></radialGradient><linearGradient id="glass" x1="0" y1="0" x2="1" y2=".16"><stop stop-color="#fff" stop-opacity=".96"/><stop offset=".43" stop-color="#f7f3e9" stop-opacity=".9"/><stop offset="1" stop-color="#cecfbf" stop-opacity=".96"/></linearGradient><linearGradient id="gold" x1="0" x2="1"><stop stop-color="#8b785b"/><stop offset=".42" stop-color="#e3d2ae"/><stop offset=".82" stop-color="#ab987a"/><stop offset="1" stop-color="#806b50"/></linearGradient><linearGradient id="cream" x1="0" y1="0" x2=".8" y2="1"><stop stop-color="#fffdf7"/><stop offset=".58" stop-color="#f1e9de"/><stop offset="1" stop-color="#d5caba"/></linearGradient><filter id="shadow" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="22"/></filter><filter id="soft" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="6"/></filter></defs>
+<rect width="640" height="760" fill="url(#bg)"/><ellipse cx="150" cy="94" rx="310" ry="340" fill="url(#light)" opacity=".66"/><path d="M0 577C187 518 404 603 640 532V760H0Z" fill="#fff" opacity=".12"/>
+<path d="M87 522c50-141 74-229 185-334" fill="none" stroke="#D4AB9E" stroke-width="5" opacity=".46"/>
+<path d="M147 377C111 349 101 309 116 276c35 18 49 50 31 101ZM196 301c29-43 61-56 91-48-16 41-45 60-91 48Z" fill="#E1B9AD" opacity=".5"/>
+<ellipse cx="336" cy="645" rx="204" ry="37" fill="#403b32" opacity=".18" filter="url(#shadow)"/>
+
+<g transform="rotate(-8 326 428)">
+<rect x="269" y="187" width="111" height="143" rx="12" fill="#85756E"/>
+<rect x="289" y="159" width="72" height="45" rx="8" fill="#5D4F48"/>
+<path d="M326 198v118" stroke="#E7DDD2" stroke-width="8" stroke-linecap="round"/>
+<rect x="247" y="312" width="160" height="270" rx="32" fill="#BC896E" opacity=".68"/>
+<rect x="254" y="321" width="148" height="252" rx="30" fill="url(#glass)" opacity=".65" stroke="#FFF4EC" stroke-width="4"/>
+<path d="M255 468H401V545Q399 573 374 575H285Q254 572 255 539Z" fill="#C89E89" opacity=".6"/>
+<ellipse cx="328" cy="392" rx="46" ry="59" fill="#FAEFE5" opacity=".25"/>
+<path d="M320 383c0-17 13-36 13-36s14 20 14 36a14 14 0 1 1-27 0" fill="none" stroke="#B99A83" stroke-width="3"/>
+</g>
+<path d="M42 53H598M42 706H598" stroke="#fff" stroke-opacity=".56" stroke-width="1"/>
+<circle cx="548" cy="98" r="8" fill="#fff" opacity=".58"/>
+</svg>
