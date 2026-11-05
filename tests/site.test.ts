@@ -30,6 +30,28 @@ describe("Korean Editorial multi-page generator", () => {
     expect(quiz).toContain('aria-live="polite"');
     expect(quiz).toContain('id="messenger-link"');
   });
+
+  test("renders editorial photos, responsive tables and internal links from Markdown", () => {
+    const sample = [
+      "## Cách chọn",
+      "",
+      "![Chân dung minh họa](/assets/fanpage-service-2.jpg)",
+      "",
+      "| Thành phần | Mục đích |",
+      "| --- | --- |",
+      "| Glycerin | Dưỡng ẩm |",
+      "| Ceramide | Hỗ trợ hàng rào bảo vệ |",
+      "",
+      "Xem [nhóm chống nắng](/my-pham/chong-nang/) để biết thêm."
+    ].join("\n");
+    const program = 'import {renderMarkdown} from "./site/build.mjs";console.log("MARKDOWN_TEST:"+renderMarkdown(' + JSON.stringify(sample) + ').html);';
+    const output = execFileSync("node", ["--input-type=module", "-e", program], { encoding: "utf8" });
+    expect(output).toContain('class="article-figure"');
+    expect(output).toContain('alt="Chân dung minh họa"');
+    expect(output).toContain('<th scope="col">Thành phần</th>');
+    expect(output).toContain('<td>Ceramide</td>');
+    expect(output).toContain('href="/my-pham/chong-nang/"');
+  });
   test("provides category pages without inventing SKU prices", () => {
     expect(existsSync("my-pham/duong-am-phuc-hoi/index.html")).toBe(true);
     expect(read("my-pham/index.html")).toContain("không phải giỏ hàng trực tuyến");
@@ -48,6 +70,7 @@ describe("Korean Editorial multi-page generator", () => {
     expect(html).toContain("Khám phá mỹ phẩm Hàn");
     expect(html).toContain("/assets/fanpage-service-2.jpg");
     expect(html).toContain('href="/chinh-sach/"');
+    expect(read("kien-thuc/da-nam-sam-chong-nang-the-nao/index.html")).toContain('"@type":"Article"');
   });
   test("all generated internal page links resolve", () => {
     const routes = ["index.html", "kien-thuc/index.html", "my-pham/index.html", "tu-van-da/index.html",

@@ -28,8 +28,9 @@ npm run dev
 ## Thêm một bài chăm da mỗi ngày
 
 1. Tạo file Markdown tại `content/articles/ten-bai-khong-dau.md` (slug chỉ dùng chữ thường, số và dấu gạch ngang).
-2. Thêm front matter có các trường bắt buộc `title`, `description`, `date` (YYYY-MM-DD), `category`. Có thể thêm `readingTime`, `accent` (`sage`, `pink`, `gold`, `olive`, `cream`).
-3. Viết nội dung với heading Markdown `##`, `###`, danh sách `-`, `1.` và liên kết `[nguồn](https://...)`.
+2. Thêm front matter có các trường bắt buộc `title`, `description`, `date` (YYYY-MM-DD), `category`. Có thể thêm `updated` (ngày cập nhật), `readingTime`, `accent` (`sage`, `pink`, `gold`, `olive`, `cream`), `cover: /assets/articles/ten-anh.webp` và `coverAlt` mô tả ảnh. Ảnh cover tự xuất hiện trên thẻ bài và trang bài viết.
+3. Viết nội dung với heading Markdown `##`, `###`, danh sách `-`, `1.`, liên kết `[nguồn](https://...)`, liên kết nội bộ `[/my-pham/.../](/my-pham/)`, bảng Markdown và ảnh `![Mô tả ảnh](/assets/articles/ten-anh.webp)`.
+   Tất cả ảnh bài viết phải được lưu dưới `public/assets/`, có quyền sử dụng hợp lệ và mô tả alt hữu ích; không nhúng ảnh lấy từ URL bên ngoài.
 4. Kiểm tra nguồn, thông tin sức khỏe, quyền sử dụng hình ảnh và tính chính xác trước khi đăng.
 5. Commit/push lên `main`; Cloudflare Builds tự tạo /kien-thuc/ten-bai-khong-dau/, cập nhật trang cẩm nang, nội dung mới ở trang chủ, sitemap.xml và feed.xml.
 

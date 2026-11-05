@@ -195,3 +195,18 @@ h1 em,h2 em { color:#57765f; }
 .question-block legend:focus-visible{outline:3px solid #d1ac73;outline-offset:4px;}
 .result-card:focus{outline:none;}
 @media(max-width:780px){.quiz-grid:not(.has-result),.quiz-grid.has-result{grid-template-columns:1fr;}}
+
+/* Editorial long-form publishing: optional sourced photography and ingredient comparison tables. */
+.article-art-image{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;transition:transform .4s;}
+.article-card:hover .article-art-image{transform:scale(1.035);}
+.article-figure{margin:39px 0 43px;background:#ebe9e1;}
+.article-figure img{display:block;width:100%;height:auto;max-height:640px;object-fit:contain;}
+.article-figure figcaption{padding:12px 18px;font-size:12px;line-height:1.7;color:#4e6854;background:#edf1e9;}
+.article-lead-image{margin-top:0;}
+.table-scroll{overflow-x:auto;max-width:100%;margin:32px 0 38px;border:1px solid #cbd7cc;scrollbar-color:#a4b7a6 #f4f5ef;}
+.table-scroll table{border-collapse:collapse;width:100%;min-width:490px;font-size:14px;line-height:1.75;}
+.table-scroll th,.table-scroll td{padding:16px 17px;text-align:left;vertical-align:top;border-bottom:1px solid #dce4d9;}
+.table-scroll th{background:#e3ebe0;font-weight:700;color:#284637;}
+.table-scroll tr:nth-child(even) td{background:#f0f3ed;}
+.table-scroll:focus-visible{outline:3px solid #bb9d73;outline-offset:3px;}
+@media(max-width:560px){.article-figure{margin:24px 0 34px;}.table-scroll table{font-size:13px;}.table-scroll th,.table-scroll td{padding:11px;}}

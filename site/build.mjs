@@ -33,6 +33,8 @@ function readArticles() {
       if (!data[required]) throw new Error(filename + " missing " + required);
     }
     if (!/^\d{4}-\d{2}-\d{2}$/.test(data.date)) throw new Error("Invalid date: " + filename);
+    if (data.cover && !safeImagePath(data.cover)) throw new Error("Invalid cover image path: " + filename);
+    if (data.updated && !/^\d{4}-\d{2}-\d{2}$/.test(data.updated)) throw new Error("Invalid updated date: " + filename);
     return { ...data, slug, body: raw.slice(match[0].length).trim(), url: "/kien-thuc/" + slug + "/", readingTime: data.readingTime || "4 phút đọc", accent: data.accent || "sage" };
   }).sort((a, b) => b.date.localeCompare(a.date) || a.title.localeCompare(b.title, "vi"));
 }
@@ -109,8 +111,13 @@ function arrowLink(href, label, type = "") {
   return '<a class="arrow-link ' + type + '" href="' + href + '">' + escapeHTML(label) + '<span aria-hidden="true">↗</span></a>';
 }
 function articleCard(a, index = 0) {
+  const art = a.cover
+    ? '<img class="article-art-image" src="' + escapeHTML(a.cover) +
+      '" alt="' + escapeHTML(a.coverAlt || a.title) + '" loading="lazy" decoding="async">'
+    : '<div class="art-sculpture"><span></span><span></span></div>';
   return '<a class="article-card" href="' + a.url + '"><div class="article-art art-' + escapeHTML(a.accent) + '">' +
-    '<div class="art-sculpture"><span></span><span></span></div><span class="art-issue">PHÙNG HÀ KOREA / BEAUTY NOTES</span><span class="art-index">JOURNAL / ' + String(index + 1).padStart(2, "0") + '</span></div>' +
+    art + '<span class="art-issue">PHÙNG HÀ KOREA / BEAUTY NOTES</span><span class="art-index">JOURNAL / ' +
+    String(index + 1).padStart(2, "0") + '</span></div>' +
     '<div class="article-meta"><span>' + escapeHTML(a.category) + '</span><span>' + formatDate(a.date) + '</span></div>' +
     '<h3>' + escapeHTML(a.title) + '</h3><p>' + escapeHTML(a.description) + '</p>' +
     '<span class="article-cta">Đọc bài viết <span aria-hidden="true">↗</span></span></a>';
@@ -212,10 +219,17 @@ function articleIndex(page = 1, topicSlug = "") {
     '<div class="article-grid article-list-grid" id="article-list">' +
     shown.map((a,i)=>'<div>'+articleCard(a,(page-1)*PAGE_SIZE+i)+'</div>').join("") + '</div>' + pagination + '</section>');
 }
+function safeImagePath(value) {
+  return typeof value === "string" &&
+    /^\/assets\/[a-zA-Z0-9/_\-.]+\.(?:png|jpe?g|webp|avif)$/i.test(value);
+}
 function inline(text) {
-  return escapeHTML(text).replace(/\[([^\]]+)\]\((https?:\/\/[^ )]+)\)/g,
-    '<a href="$2" target="_blank" rel="noopener noreferrer">$1 ↗</a>')
-    .replace(/\*\*([^*]+)\*\*/g, "<strong>$1</strong>").replace(/\*([^*]+)\*/g, "<em>$1</em>");
+  return escapeHTML(text).replace(/\[([^\]]+)\]\(((?:https?:\/\/|\/(?!\/))[^ )]+)\)/g, (_, label, href) => {
+    const external = /^https?:\/\//.test(href);
+    return '<a href="' + href + '"' + (external ? ' target="_blank" rel="noopener noreferrer"' : '') +
+      '>' + label + (external ? ' ↗' : '') + '</a>';
+  }).replace(/\*\*([^*]+)\*\*/g, "<strong>$1</strong>")
+    .replace(/\*([^*]+)\*/g, "<em>$1</em>");
 }
 function slugify(text) {
   return text.normalize("NFD").replace(/[\u0300-\u036f]/g, "").replaceAll("đ","d").replaceAll("Đ","D")
@@ -224,18 +238,62 @@ function slugify(text) {
 function renderMarkdown(src) {
   const output = [];
   const toc = [];
-  const lines = src.split("\n");
+  const lines = [...src.split("\n"), ""];
   let paragraph = [], list = [], ordered = false;
-  function flushParagraph() { if(paragraph.length){output.push("<p>" + inline(paragraph.join(" ")) + "</p>");paragraph=[];} }
-  function flushList() { if(list.length){const tag=ordered?"ol":"ul";output.push("<"+tag+">"+list.map(x=>"<li>"+inline(x)+"</li>").join("")+"</"+tag+">");list=[];} }
-  for(const line of [...lines, ""]) {
-    const s=line.trim();
+  function flushParagraph() {
+    if(paragraph.length){output.push("<p>" + inline(paragraph.join(" ")) + "</p>");paragraph=[];}
+  }
+  function flushList() {
+    if(list.length){const tag=ordered?"ol":"ul";output.push("<"+tag+">"+list.map(x=>"<li>"+inline(x)+"</li>").join("")+"</"+tag+">");list=[];}
+  }
+  const cells = row => row.slice(1,-1).split("|").map(c=>c.trim());
+  for(let i=0;i<lines.length;i++) {
+    const s = lines[i].trim();
     if(!s){flushParagraph();flushList();continue;}
-    const header = s.match(/^(#{2,3})\s+(.+)$/);
-    if(header){flushParagraph();flushList();const level=header[1].length, name=header[2],id=slugify(name);if(level===2)toc.push({label:name,id});output.push("<h"+level+" id='"+id+"'>"+inline(name)+"</h"+level+">");continue;}
-    const match = s.match(/^([-*]|\d+\.)\s+(.+)$/);
-    if(match){flushParagraph();const nextOrdered=/\d+\./.test(match[1]);if(list.length&&ordered!==nextOrdered)flushList();ordered=nextOrdered;list.push(match[2]);continue;}
-    if(s.startsWith("> ")){flushParagraph();flushList();output.push("<blockquote>"+inline(s.slice(2))+"</blockquote>");continue;}
+    const heading = s.match(/^(#{2,3})\s+(.+)$/);
+    if(heading){
+      flushParagraph();flushList();
+      const level=heading[1].length,name=heading[2],id=slugify(name);
+      if(level===2)toc.push({label:name,id});
+      output.push("<h"+level+" id='"+id+"'>"+inline(name)+"</h"+level+">");
+      continue;
+    }
+    const image = s.match(/^!\[([^\]]*)\]\((\/assets\/[^ )]+)\)$/);
+    if(image && safeImagePath(image[2])) {
+      flushParagraph();flushList();
+      output.push('<figure class="article-figure"><img src="' + escapeHTML(image[2]) +
+        '" alt="' + escapeHTML(image[1]) + '" loading="lazy" decoding="async">' +
+        (image[1] ? '<figcaption>' + escapeHTML(image[1]) + '</figcaption>' : '') + '</figure>');
+      continue;
+    }
+    const next = (lines[i+1] || "").trim();
+    if(s.startsWith("|") && s.endsWith("|") && next.startsWith("|") && next.endsWith("|")) {
+      const heads=cells(s), markers=cells(next);
+      if(heads.length === markers.length && markers.every(c=>/^:?-{3,}:?$/.test(c))) {
+        flushParagraph();flushList();
+        const header='<thead><tr>'+heads.map(h=>'<th scope="col">'+inline(h)+'</th>').join("")+'</tr></thead>';
+        const rows=[];
+        for(let j=i+2;j<lines.length;j++){
+          const row=lines[j].trim();
+          if(!row.startsWith("|") || !row.endsWith("|") || cells(row).length!==heads.length)break;
+          rows.push('<tr>'+cells(row).map(c=>'<td>'+inline(c)+'</td>').join("")+'</tr>');
+        }
+        output.push('<div class="table-scroll" role="region" tabindex="0" aria-label="Bảng thông tin"><table>'+
+          header+'<tbody>'+rows.join("")+'</tbody></table></div>');
+        i+=rows.length+1;
+        continue;
+      }
+    }
+    const item = s.match(/^([-*]|\d+\.)\s+(.+)$/);
+    if(item){
+      flushParagraph();
+      const nextOrdered=/\d+\./.test(item[1]);
+      if(list.length&&ordered!==nextOrdered)flushList();
+      ordered=nextOrdered;list.push(item[2]);continue;
+    }
+    if(s.startsWith("> ")){
+      flushParagraph();flushList();output.push("<blockquote>"+inline(s.slice(2))+"</blockquote>");continue;
+    }
     flushList();paragraph.push(s);
   }
   return { html: output.join("\n"), toc };
@@ -243,13 +301,15 @@ function renderMarkdown(src) {
 function articlePage(a) {
   const article = renderMarkdown(a.body);
   const toc = article.toc.length ? '<div class="toc"><p>TRONG BÀI VIẾT</p>' + article.toc.map(x => '<a href="#'+x.id+'">'+escapeHTML(x.label)+'</a>').join("")+'</div>' : "";
-  const articleJson = JSON.stringify({ "@context":"https://schema.org", "@type":"Article", headline:a.title, description:a.description, datePublished:a.date, dateModified:a.date, inLanguage:"vi", mainEntityOfPage:BASE+a.url, author:{"@type":"Organization",name:"Phùng Hà Korea"}, publisher:{"@type":"Organization",name:"Phùng Hà Korea"} }).replace(/</g,"\\u003c");
+  const articleJson = JSON.stringify({ "@context":"https://schema.org", "@type":"Article", headline:a.title, description:a.description, datePublished:a.date, dateModified:a.updated || a.date, image:BASE+(a.cover || "/assets/fanpage-service-2.jpg"), inLanguage:"vi", mainEntityOfPage:BASE+a.url, author:{"@type":"Organization",name:"Phùng Hà Korea"}, publisher:{"@type":"Organization",name:"Phùng Hà Korea"} }).replace(/</g,"\\u003c");
   return layout({ title: a.title + " | Phùng Hà Korea", description:a.description, url:a.url, type:"article", date:a.date, active:"articles" },
     '<div class="article-cover art-'+escapeHTML(a.accent)+'"><div class="article-cover-inner container"><a class="breadcrumb" href="/kien-thuc/">← Quay về Cẩm nang chăm da</a>' +
     '<p class="eyebrow">'+escapeHTML(a.category)+' / SKIN JOURNAL</p><h1>'+escapeHTML(a.title)+'</h1>' +
     '<p class="article-intro">'+escapeHTML(a.description)+'</p><div class="article-cover-meta"><span>'+formatDate(a.date)+'</span><span>'+escapeHTML(a.readingTime)+'</span><span>Phùng Hà Korea biên tập</span></div></div>' +
     '<div class="cover-art-decoration" aria-hidden="true"><i></i><i></i></div></div>' +
-    '<div class="container article-layout"><article class="article-body">'+article.html+
+    '<div class="container article-layout"><article class="article-body">'+
+    (a.cover ? '<figure class="article-figure article-lead-image"><img src="' + escapeHTML(a.cover) + '" alt="' + escapeHTML(a.coverAlt || a.title) + '" loading="lazy" decoding="async"></figure>' : '') +
+    article.html+
     '<div class="article-disclaimer"><strong>Lưu ý</strong><p>Thông tin mang tính tham khảo, không thay thế chẩn đoán hay điều trị. Nếu da đang viêm, tổn thương, kích ứng kéo dài hoặc bạn cân nhắc peel, hãy trao đổi với bác sĩ da liễu.</p></div>' +
     '<div class="article-next"><p class="overline">CHĂM DA CÙNG HÀ</p><h2>Muốn chọn routine phù hợp hơn?</h2>' +
     '<p>Hà có thể hỏi thêm về làn da, các sản phẩm bạn đang dùng và ngân sách trước khi gợi ý.</p>' +
@@ -368,3 +428,5 @@ write("public/sitemap.xml",sitemap());
 write("public/feed.xml",rssXML());
 write("public/404.html",'<!doctype html><html lang="vi"><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Không tìm thấy trang | Phùng Hà Korea</title><style>body{font-family:Arial,sans-serif;background:#f9f6ef;color:#263d34;min-height:80vh;display:grid;place-items:center;text-align:center}h1{font-size:5rem;margin:0}a{color:inherit}</style><main><p>PHÙNG HÀ KOREA</p><h1>404</h1><p>Trang này không tồn tại hoặc đã thay đổi.</p><a href="/">← Về trang chủ</a></main></html>');
 console.log("Generated Korean Editorial pages, article archives, sitemap and RSS feed.");
+
+export { renderMarkdown };
