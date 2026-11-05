@@ -1,11 +1,12 @@
 {
   "name": "spa-lp",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "vite --host 0.0.0.0",
-    "build": "tsc && vite build",
+    "generate": "node site/build.mjs",
+    "dev": "node site/build.mjs && vite --host 0.0.0.0",
+    "build": "node site/build.mjs && tsc && vite build",
     "preview": "vite preview --host 0.0.0.0",
     "test": "vitest run"
   },
