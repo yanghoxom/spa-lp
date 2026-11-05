@@ -12,7 +12,7 @@ Website thương hiệu cá nhân Phùng Hà Korea: trang chủ phong cách Kore
 - Cloudflare Builds tự động chạy khi push `main`.
 - Build command: `npm ci && npm run test && npm run build`
 - Deploy command: `npx --yes wrangler@4 deploy`
-- GitHub Pages workflow cũ vẫn tồn tại, nhưng Cloudflare là đích triển khai chính.
+- Cloudflare là đích triển khai duy nhất; GitHub Pages workflow cũ được gỡ để tránh trùng lặp.
 
 ## Local
 
