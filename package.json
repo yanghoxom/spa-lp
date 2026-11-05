@@ -8,7 +8,7 @@
     "dev": "node site/build.mjs && vite --host 0.0.0.0",
     "build": "node site/build.mjs && tsc && vite build",
     "preview": "vite preview --host 0.0.0.0",
-    "test": "vitest run"
+    "test": "node site/build.mjs && vitest run"
   },
   "devDependencies": {
     "@types/node": "^25.9.1",
