@@ -72,6 +72,36 @@ describe("Korean Editorial multi-page generator", () => {
     expect(html).toContain('href="/chinh-sach/"');
     expect(read("kien-thuc/da-nam-sam-chong-nang-the-nao/index.html")).toContain('"@type":"Article"');
   });
+  test("uses Vietnamese, shows the new support email and avoids old slogans", () => {
+    const html = read("index.html");
+    const privacy = read("chinh-sach/index.html");
+    expect(html).toContain("cskh@phunghakorea.com");
+    expect(html).toContain('"email":"cskh@phunghakorea.com"');
+    expect(privacy).toContain('mailto:cskh@phunghakorea.com');
+    for(const page of [html, privacy, read("kien-thuc/index.html"), read("my-pham/index.html"), read("tu-van-da/index.html")]) {
+      expect(page).not.toContain("Phungthuha1997@gmail.com");
+      expect(page).not.toContain("SKIN CONSULTATION");
+      expect(page).not.toContain("KOREAN BEAUTY EDIT");
+      expect(page).not.toContain("THE SKIN JOURNAL");
+    }
+  });
+  test("ships original editorial category illustrations and skin concern icons", () => {
+    const home = read("index.html");
+    const shop = read("my-pham/index.html");
+    for (const id of ["chong-nang", "duong-am-phuc-hoi", "duong-sang-deu-mau", "cham-da-tuoi-35"]) {
+      const img = "/assets/collections/" + id + ".svg";
+      expect(existsSync("public" + img)).toBe(true);
+      expect(home).toContain(img);
+      expect(shop).toContain(img);
+      expect(read("public" + img)).toContain("<svg");
+    }
+    for(const icon of ["nam-sam", "duong-am", "tuoi-35", "chong-nang"]){
+      const img="/assets/icons/"+icon+".svg";
+      expect(existsSync("public"+img)).toBe(true);
+      expect(home).toContain(img);
+    }
+    expect(home).toContain("Hình minh họa nhóm sản phẩm");
+  });
   test("all generated internal page links resolve", () => {
     const routes = ["index.html", "kien-thuc/index.html", "my-pham/index.html", "tu-van-da/index.html",
       "ve-phung-ha/index.html", "chinh-sach/index.html",

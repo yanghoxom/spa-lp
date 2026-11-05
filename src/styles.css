@@ -210,3 +210,27 @@ h1 em,h2 em { color:#57765f; }
 .table-scroll tr:nth-child(even) td{background:#f0f3ed;}
 .table-scroll:focus-visible{outline:3px solid #bb9d73;outline-offset:3px;}
 @media(max-width:560px){.article-figure{margin:24px 0 34px;}.table-scroll table{font-size:13px;}.table-scroll th,.table-scroll td{padding:11px;}}
+
+/* Minh họa gốc cho từng nhóm mỹ phẩm: hình SVG nhẹ, rõ nét, không mạo nhận nhãn hàng. */
+.product-visual{min-height:0;aspect-ratio:640 / 760;display:block;isolation:isolate;}
+.product-editorial-art{display:block;width:100%;height:100%;object-fit:cover;transition:transform .45s ease;position:relative;z-index:2;}
+.collection-card:hover .product-editorial-art{transform:scale(1.035);}
+.product-visual .visual-note{
+ position:absolute;z-index:4;top:auto;bottom:17px;left:15px;
+ font:600 10px/1.4 var(--sans);letter-spacing:0;
+ padding:7px 10px;background:rgba(249,246,239,.89);color:#304f3d;
+ border:1px solid rgba(215,222,208,.9);backdrop-filter:blur(4px);
+}
+.concern-icon{
+ position:absolute;right:15px;top:18px;width:56px;height:56px;
+ padding:10px;display:block;border-radius:50%;
+ background:#eff0e8;border:1px solid #dbe0d3;
+}
+.detail-art .product-visual{min-height:0;aspect-ratio:640 / 760;}
+@media(max-width:780px){.detail-art .product-visual{min-height:0;}}
+@media(max-width:560px){
+ .product-visual{min-height:0;}
+ .product-visual .visual-note{bottom:10px;left:9px;font-size:9px;padding:6px 7px;}
+ .detail-art .product-visual{min-height:0;}
+ .concern-icon{width:43px;height:43px;top:14px;right:10px;padding:7px;}
+}

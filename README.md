@@ -60,6 +60,12 @@ Không dùng Markdown chưa kiểm duyệt của người dùng vì bộ chuyể
 - Quiz trả kết quả gợi ý ban đầu ở trình duyệt, không phải chẩn đoán da hoặc hướng dẫn tự peel.
 - Nên thay ảnh quảng cáo cũ bằng ảnh chân dung thật và ảnh sản phẩm sạch chữ, sau khi được phép sử dụng.
 
+## Thiết kế icon & hình sản phẩm
+
+Bộ icon SVG và hình minh họa 4 nhóm mỹ phẩm nằm trong `public/assets/icons/` và `public/assets/collections/`. Hình sản phẩm bán thực tế sẽ dùng ảnh WebP được xác minh và cấp quyền. Xem [hướng dẫn hình ảnh và CDN](docs/huong-dan-hinh-anh.md).
+
+Email chăm sóc khách hàng trên website: **cskh@phunghakorea.com**. Địa chỉ nhận được Cloudflare Email Routing, gửi trả lời từ địa chỉ này cần cấu hình dịch vụ gửi phù hợp.
+
 ## SEO & kiểm tra
 
 - Meta description, canonical, OpenGraph, Organization/Article JSON-LD, sitemap và RSS tự sinh.
