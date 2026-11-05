@@ -57,10 +57,10 @@ const questions: [
     key: "budget",
     title: "Ngân sách bạn muốn bắt đầu?",
     options: [
-      { value: "low", label: "Dưới 1 triệu", hint: "Gói Essential" },
-      { value: "mid", label: "1 - 5 triệu", hint: "Gói Signature" },
-      { value: "upper", label: "5 - 10 triệu", hint: "Gói Prestige" },
-      { value: "premium", label: "Trên 10 triệu", hint: "Gói Royal" },
+      { value: "low", label: "Dưới 500 nghìn", hint: "Bắt đầu tối giản" },
+      { value: "mid", label: "500 nghìn – 1 triệu", hint: "Routine nền tảng" },
+      { value: "upper", label: "1 – 3 triệu", hint: "Chăm da theo mục tiêu" },
+      { value: "premium", label: "Trên 3 triệu", hint: "Cùng Hà chọn từng bước" },
     ],
   },
   {
@@ -110,7 +110,7 @@ function setAnswer<Key extends QuestionKey>(key: Key, value: QuizAnswers[Key]): 
   state[key] = value;
 }
 
-function renderQuestions(): void {
+function renderQuestions(focusQuestion = false): void {
   if (!questionList) return;
 
   const question = questions[currentStep];
@@ -137,12 +137,13 @@ function renderQuestions(): void {
 
   questionList.innerHTML = `
     <fieldset class="question-block">
-      <legend><span>0${stepNumber}</span>${question.title}</legend>
+      <legend tabindex="-1"><span>0${stepNumber}</span>${question.title}</legend>
       <div class="option-grid">${options}</div>
     </fieldset>
   `;
 
   updateNavButtons();
+  if (focusQuestion) questionList.querySelector<HTMLElement>("legend")?.focus({ preventScroll: true });
 }
 
 function updateNavButtons(): void {
@@ -188,7 +189,7 @@ function showResult(): void {
     `;
   }
   if (resultCode) resultCode.textContent = result.code;
-  if (resultFit) resultFit.textContent = result.fitLevel;
+  if (resultFit) resultFit.textContent = result.fitLevel === "Cần Hà kiểm tra thêm" ? "Cần hỏi thêm" : "Cần Hà xác nhận";
   if (resultReasons) {
     resultReasons.innerHTML = result.reasons.map((reason) => `<li>${reason}</li>`).join("");
   }
@@ -199,6 +200,7 @@ function showResult(): void {
   }
   if (messengerLink) messengerLink.href = "https://m.me/PhungHa29";
   resultCard?.classList.remove("is-hidden");
+  resultCard?.closest(".quiz-grid")?.classList.add("has-result");
 }
 
 renderQuestions();
@@ -213,13 +215,14 @@ questionList?.addEventListener("change", (event) => {
   if (!question || !option) return;
 
   setAnswer(question.key, option.value);
-  updateProgress();
-
-  renderQuestions();
+  updateNavButtons();
   updateProgress();
   if (isComplete(state)) {
     showResult();
-    resultCard?.scrollIntoView({ behavior: "smooth", block: "nearest" });
+    if (currentStep === questions.length - 1) {
+      resultCard?.focus({ preventScroll: true });
+      resultCard?.scrollIntoView({ behavior: "smooth", block: "nearest" });
+    }
   }
 });
 
@@ -230,7 +233,7 @@ quizForm?.addEventListener("submit", (event) => {
 prevButton?.addEventListener("click", () => {
   if (currentStep > 0) {
     currentStep--;
-    renderQuestions();
+    renderQuestions(true);
     updateProgress();
   }
 });
@@ -238,7 +241,7 @@ prevButton?.addEventListener("click", () => {
 nextButton?.addEventListener("click", () => {
   if (currentStep < questions.length - 1 && state[questions[currentStep].key]) {
     currentStep++;
-    renderQuestions();
+    renderQuestions(true);
     updateProgress();
   }
 });
@@ -250,8 +253,9 @@ resetButton?.addEventListener("click", () => {
   currentStep = 0;
   consultationMessage = "";
   resultCard?.classList.add("is-hidden");
+  resultCard?.closest(".quiz-grid")?.classList.remove("has-result");
   if (copyFeedback) copyFeedback.textContent = "Sao chép kết quả rồi dán vào Messenger để Hà nắm thông tin. Website không lưu câu trả lời trên máy chủ.";
-  renderQuestions();
+  renderQuestions(true);
   updateProgress();
 });
 

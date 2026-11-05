@@ -73,7 +73,7 @@ function footer() {
     '<div class="footer-bottom container"><span>© ' + new Date().getFullYear() + ' Phùng Hà Korea. Tiên Du, Bắc Ninh.</span>' +
     '<span>Kiến thức trên website chỉ mang tính tham khảo, không thay thế tư vấn y tế.</span></div></footer>';
 }
-function layout({ title, description, url = "/", active = "", image = "/assets/fanpage-product.jpg", type = "website", date = "", quiz = false }, body) {
+function layout({ title, description, url = "/", active = "", image = "/assets/fanpage-service-2.jpg", type = "website", date = "", quiz = false }, body) {
   const canonical = BASE + url;
   const safeTitle = escapeHTML(title);
   const organizationSchema = JSON.stringify({
@@ -304,14 +304,14 @@ function quizPage() {
     '<h1>Hà muốn hiểu <em>làn da của bạn.</em></h1><p>Trả lời 5 câu ngắn để gợi ý hướng chăm da ban đầu. Kết quả chỉ mang tính tham khảo; Hà sẽ hỏi thêm trước khi giới thiệu sản phẩm.</p></section>' +
     '<section class="container quiz-area"><div class="quiz-grid"><form id="quiz-form" class="quiz-card">' +
     '<div class="quiz-top"><span>SKIN CONSULTATION</span><span>05 STEPS</span></div><div class="progress-line"><span id="progress-fill"></span></div>' +
-    '<p class="question-progress" id="question-progress">Câu 1/5</p><div class="selected-summary" id="selected-summary" aria-live="polite"></div>' +
+    '<p class="question-progress" id="question-progress" aria-live="polite">Câu 1/5</p><div class="selected-summary" id="selected-summary" aria-live="polite"></div>' +
     '<div id="question-list"></div><div class="quiz-actions">' +
     '<button type="button" class="btn btn-outline" id="quiz-prev" disabled>← Quay lại</button>' +
     '<button type="button" class="btn btn-dark" id="quiz-next" disabled>Tiếp →</button>' +
     '<button type="button" class="reset-button" id="reset-quiz">Làm lại</button></div></form>' +
-    '<aside class="result-card is-hidden" id="result-card" aria-live="polite"><p class="overline">HƯỚNG CHĂM DA THAM KHẢO</p>' +
+    '<aside class="result-card is-hidden" id="result-card" tabindex="-1" aria-live="polite"><p class="overline">HƯỚNG CHĂM DA THAM KHẢO</p>' +
     '<h2 id="result-title">Kết quả của bạn</h2><p class="result-summary" id="result-note">Hà sẽ trao đổi thêm với bạn trước khi chọn sản phẩm.</p>' +
-    '<div class="result-badges"><span id="result-code" class="result-code">PK-0000</span><div class="fit-badge"><span>Gợi ý sơ bộ</span><strong id="result-fit">—</strong></div></div>' +
+    '<div class="result-badges"><span id="result-code" class="result-code">PK-0000</span><div class="fit-badge"><span>Định hướng</span><strong id="result-fit">—</strong></div></div>' +
     '<div class="result-columns"><div><h3>Phù hợp vì</h3><ul id="result-reasons"></ul></div>' +
     '<div><h3>Routine tham khảo</h3><p><strong>Sáng:</strong> <span id="care-morning">—</span></p><p><strong>Tối:</strong> <span id="care-evening">—</span></p></div>' +
     '<div><h3>Hà cần hỏi thêm</h3><ul id="result-followups"></ul></div></div>' +

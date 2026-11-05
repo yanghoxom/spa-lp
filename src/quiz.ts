@@ -50,10 +50,10 @@ const historyLabels: Record<History, string> = {
 };
 
 const budgetLabels: Record<Budget, string> = {
-  low: "Dưới 1 triệu",
-  mid: "1 - 5 triệu",
-  upper: "5 - 10 triệu",
-  premium: "Trên 10 triệu",
+  low: "Dưới 500 nghìn",
+  mid: "500 nghìn – 1 triệu",
+  upper: "1 – 3 triệu",
+  premium: "Trên 3 triệu",
 };
 
 const goalLabels: Record<Goal, string> = {
@@ -95,14 +95,6 @@ function createCode(answers: QuizAnswers): string {
 }
 
 function priceRangeFor(budget: Budget): string {
-  if (budget === "mid") {
-    return "Khoảng 1 - 5 triệu";
-  }
-
-  if (budget === "upper") {
-    return "Khoảng 5 - 10 triệu";
-  }
-
   return budgetLabels[budget];
 }
 
@@ -199,8 +191,7 @@ export function createMessengerText(answers: QuizAnswers, result: ConsultationRe
     `Ngân sách: ${budgetLabels[answers.budget]}`,
     `Mục tiêu: ${goalLabels[answers.goal]}`,
     `Hà gợi ý: ${result.title}`,
-    `Giá tham khảo: ${result.priceRange}`,
-    `Mức độ phù hợp: ${result.fitLevel}`,
+    `Khoảng ngân sách mong muốn: ${result.priceRange}`,
     "Hà cần hỏi thêm:",
     ...result.followUpQuestions.map((question) => `- ${question}`),
     "Nhờ Hà kiểm tra lại giúp em nhé.",

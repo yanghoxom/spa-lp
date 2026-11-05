@@ -27,6 +27,7 @@ describe("Korean Editorial multi-page generator", () => {
     expect(quiz).toContain('src="/src/main.ts"');
     expect(quiz).toContain('id="copy-consultation"');
     expect(quiz).toContain('id="copy-feedback"');
+    expect(quiz).toContain('aria-live="polite"');
     expect(quiz).toContain('id="messenger-link"');
   });
   test("provides category pages without inventing SKU prices", () => {

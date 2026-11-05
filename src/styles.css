@@ -187,3 +187,11 @@ h1 em,h2 em { color:#57765f; }
 .about-photo img {object-position:left top;}
 .founder-photo img {object-position:right top;}
 @media(max-width:560px){.portrait-frame img{width:158%;}}
+
+/* The quiz starts as a focused single-column editorial consultation, expanding only for its results. */
+.quiz-grid:not(.has-result){grid-template-columns:minmax(0,760px);justify-content:center;}
+.quiz-grid.has-result{grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);justify-content:stretch;}
+.question-block legend:focus{outline:none;}
+.question-block legend:focus-visible{outline:3px solid #d1ac73;outline-offset:4px;}
+.result-card:focus{outline:none;}
+@media(max-width:780px){.quiz-grid:not(.has-result),.quiz-grid.has-result{grid-template-columns:1fr;}}
