@@ -266,3 +266,49 @@ export async function verifyMedia(repository: MediaRepository, input: {key?: str
     mismatches: [...new Set(mismatches)], cdn: {head_status: headStatus, get_status: getStatus,
       content_type: cdnMime, byte_size: cdnSize, sha256: cdnHash, etag: cdnEtag}};
 }
+
+/** Read a validated image directly from KV without changing storage or CDN. */
+export async function downloadMedia(
+  repository: MediaRepository,
+  input: {key: string; expected_sha256?: string},
+  maxBytes = DEFAULT_MAX_BYTES,
+) {
+  const key = validateKey(input.key);
+  let item: Awaited<ReturnType<MediaRepository['read']>>;
+  try {
+    item = await repository.read(key);
+  } catch (error) {
+    if (error instanceof MediaError && (error.code === 'IMAGE_TOO_LARGE' || error.code === 'FILE_TOO_LARGE')) {
+      throw new MediaError('FILE_TOO_LARGE', 'The KV image exceeds the configured 10 MB limit.');
+    }
+    throw new MediaError('DOWNLOAD_FAILED', 'Could not read the image from KV.');
+  }
+  if (item.value === null) throw new MediaError('MEDIA_NOT_FOUND', 'No image exists at this key.');
+  const bytes = item.value;
+  if (bytes.byteLength > maxBytes) throw new MediaError('FILE_TOO_LARGE', 'The KV image exceeds the configured 10 MB limit.');
+  let contentType: string;
+  try { contentType = detectImageMime(bytes); }
+  catch { throw new MediaError('UNSUPPORTED_MIME', 'KV object is not a valid WebP, JPEG, PNG, or AVIF image.'); }
+  const expectedExtensions: Record<string, string[]> = {
+    'image/webp': ['webp'], 'image/jpeg': ['jpg', 'jpeg'],
+    'image/png': ['png'], 'image/avif': ['avif'],
+  };
+  const filename = key.slice(key.lastIndexOf('/') + 1);
+  const extension = filename.slice(filename.lastIndexOf('.') + 1).toLowerCase();
+  const stored = publicMetadata(key, item.metadata);
+  if (!expectedExtensions[contentType]?.includes(extension) || (stored.content_type && stored.content_type !== contentType)) {
+    throw new MediaError('UNSUPPORTED_MIME', 'The image format does not match its stored MIME or filename.');
+  }
+  const digest = await sha256(bytes);
+  if (input.expected_sha256 && input.expected_sha256 !== digest) {
+    throw new MediaError('HASH_MISMATCH', 'The SHA-256 does not match expected_sha256.');
+  }
+  return {
+    bytes,
+    metadata: {
+      key, cdn_url: CDN_BASE + key, filename, content_type: contentType,
+      byte_size: bytes.byteLength, sha256: digest,
+      etag: stored.etag, last_modified: stored.uploaded_at,
+    },
+  };
+}
