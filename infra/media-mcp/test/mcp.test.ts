@@ -57,7 +57,7 @@ interface CatalogTool {
   _meta?: Record<string, unknown>;
 }
 interface RpcReply {
-  result?: {tools?: CatalogTool[]; isError?: boolean; structuredContent?: Record<string, unknown>; content?: {type: string; text?: string}[]};
+  result?: {tools?: CatalogTool[]; isError?: boolean; structuredContent?: Record<string, unknown>; content?: {type: string; text?: string; data?: string; mimeType?: string}[]};
   error?: {code: number; message: string};
 }
 const handlers: McpHttpHandler[] = [];
@@ -99,12 +99,12 @@ afterEach(async () => {
 });
 
 describe('actual MCP wire catalog', () => {
-  it('advertises exactly the five media tools with explicit input/output schemas', async () => {
+  it('advertises exactly six media tools with explicit input/output schemas', async () => {
     const {env, kv, namespace} = environment();
     const reply = await rpcClient(env)('tools/list');
     expect(reply.error).toBeUndefined();
     const tools = reply.result!.tools!;
-    expect(tools.map(tool => tool.name).sort()).toEqual(['delete_media', 'get_media_metadata', 'list_media', 'upload_media', 'verify_media']);
+    expect(tools.map(tool => tool.name).sort()).toEqual(['delete_media', 'download_media', 'get_media_metadata', 'list_media', 'upload_media', 'verify_media']);
     for (const tool of tools) {
       expect(tool.inputSchema.type).toBe('object');
       expect(tool.inputSchema.additionalProperties).toBe(false);
@@ -115,16 +115,57 @@ describe('actual MCP wire catalog', () => {
     const byName = Object.fromEntries(tools.map(tool => [tool.name, tool]));
     expect(byName.upload_media!.annotations).toMatchObject({readOnlyHint: false, destructiveHint: false, openWorldHint: true});
     expect(byName.delete_media!.annotations).toMatchObject({readOnlyHint: false, destructiveHint: true});
-    for (const name of ['verify_media', 'get_media_metadata', 'list_media']) {
+    for (const name of ['download_media', 'verify_media', 'get_media_metadata', 'list_media']) {
       expect(byName[name]!.annotations).toMatchObject({readOnlyHint: true, destructiveHint: false});
     }
     expect(byName.upload_media!._meta?.['openai/fileParams']).toEqual(['file']);
     const file = byName.upload_media!.inputSchema.properties.file!;
     expect(Object.keys(file.properties as object).sort()).toEqual(['download_url', 'file_id', 'file_name', 'mime_type']);
     expect(file.required).toEqual(['download_url', 'file_id']);
+    expect(byName.download_media!._meta?.securitySchemes).toEqual([{type: 'oauth2', scopes: ['media:read']}]);
+    expect(byName.download_media!.annotations).toEqual({readOnlyHint: true, destructiveHint: false, idempotentHint: true, openWorldHint: false});
     expect(byName.delete_media!._meta?.securitySchemes).toEqual([{type: 'oauth2', scopes: ['media:read', 'media:delete']}]);
     expect(kv.list).not.toHaveBeenCalled();
     expect(namespace.getByName).not.toHaveBeenCalled();
+  });
+});
+
+
+// MCP ImageContent is a genuine image content block; metadata remains separate.
+describe('download_media MCP ImageContent', () => {
+  it('returns an image block with original bytes and validated structured metadata', async () => {
+    const {env, kv} = environment();
+    const bytes = pngFixture(88);
+    const digest = await sha256(bytes);
+    const modified = '2026-11-07T00:00:00.000Z';
+    kv.getWithMetadata.mockResolvedValueOnce({
+      value: new ReadableStream({start(controller) {controller.enqueue(bytes); controller.close();}}),
+      metadata: {contentType: 'image/png', sha256: digest, byteSize: bytes.length, etag: `"${digest}"`, uploadedAt: modified},
+    });
+    const rpc = rpcClient(env);
+    const reply = await rpc('tools/call', {name: 'download_media', arguments: {key: KEY, expected_sha256: digest}});
+    expect(reply.result?.isError).not.toBe(true);
+    expect(reply.result?.structuredContent).toEqual({
+      key: KEY, cdn_url: `https://cdn.phunghakorea.com${KEY}`, filename: 'test-v1-480.png',
+      content_type: 'image/png', byte_size: bytes.length, sha256: digest,
+      etag: `"${digest}"`, last_modified: modified,
+    });
+    const image = reply.result?.content?.find(part => part.type === 'image');
+    expect(image?.mimeType).toBe('image/png');
+    expect(image?.data).toBeTypeOf('string');
+    expect(Buffer.from(image!.data!, 'base64')).toEqual(Buffer.from(bytes));
+    expect(reply.result?.content?.some(part => part.type === 'text' && part.text === encode(bytes))).toBe(false);
+    expect(kv.put).not.toHaveBeenCalled();
+    expect(kv.delete).not.toHaveBeenCalled();
+  });
+
+  it('handles absent KV objects and enforces the read scope', async () => {
+    const {env, kv} = environment();
+    const rpc = rpcClient(env);
+    expect(toolError(await rpc('tools/call', {name: 'download_media', arguments: {key: KEY}})).code).toBe('MEDIA_NOT_FOUND');
+    const withoutRead = rpcClient(env, {...OWNER, scopes: []});
+    expect(toolError(await withoutRead('tools/call', {name: 'download_media', arguments: {key: KEY}})).code).toBe('INSUFFICIENT_SCOPE');
+    expect(kv.put).not.toHaveBeenCalled();
   });
 });
 
@@ -248,7 +289,7 @@ describe('owner deletion confirmation HTTP boundary', () => {
     expect(coordinator.deleteMedia).not.toHaveBeenCalled();
     expect(response.headers.get('Set-Cookie')).toBe(`__Host-media-delete=${CSRF}; Secure; HttpOnly; SameSite=Strict; Path=/; Max-Age=600`);
     expect(response.headers.get('Content-Security-Policy')).toContain("frame-ancestors 'none'");
-    expect(response.headers.get('Referrer-Policy')).toBe('no-referrer');
+    expect(response.headers.get('Referrer-Policy')).toBe('same-origin');
     expect(response.headers.get('Cache-Control')).toBe('no-store');
     const html = await response.text();
     expect(html).toContain(KEY);
