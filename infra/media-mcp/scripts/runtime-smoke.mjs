@@ -271,13 +271,14 @@ try {
     requireThat(result.serverInfo.name === "phungha-media-mcp");
     protocolVersion = result.protocolVersion;
   });
-  await check("five tools and write annotations", async () => {
+  await check("six tools including native image download and write annotations", async () => {
     const { tools } = await rpc("tools/list");
-    requireThat(tools.length === 5);
+    requireThat(tools.length === 6);
     requireThat(tools.find((tool) => tool.name === "upload_media")?.annotations.readOnlyHint === false);
     requireThat(tools.find((tool) => tool.name === "upload_media")?._meta?.["openai/fileParams"]?.[0] === "file");
     requireThat(tools.find((tool) => tool.name === "delete_media")?.annotations.destructiveHint === true);
-    requireThat(["verify_media", "get_media_metadata", "list_media"].every((name) => tools.find((tool) => tool.name === name)?.annotations.readOnlyHint === true));
+    requireThat(["download_media", "verify_media", "get_media_metadata", "list_media"].every((name) => tools.find((tool) => tool.name === name)?.annotations.readOnlyHint === true));
+    requireThat(JSON.stringify(tools.find((t) => t.name === "download_media")?._meta?.securitySchemes ?? []).includes("media:read"));
   });
 
   const small = pngFixture();
@@ -302,6 +303,19 @@ try {
     const stored = await localKv.getWithMetadata(smallKey, { type: "arrayBuffer" });
     requireThat(stored.value !== null && digest(new Uint8Array(stored.value)) === uploaded.sha256 && stored.metadata.sha256 === uploaded.sha256);
   });
+  await check("download is native MCP image content with verified bytes", async () => {
+    const result = await rpc("tools/call", {name: "download_media", arguments: {key: smallKey, expected_sha256: uploaded.sha256}});
+    requireThat(result.isError !== true && result.structuredContent.sha256 === uploaded.sha256);
+    const image = result.content?.find((part) => part.type === "image");
+    requireThat(image?.mimeType === "image/png" && digest(Buffer.from(image.data, "base64")) === uploaded.sha256);
+    requireThat(result.structuredContent.filename === "small-v1.png");
+  });
+  await check("download SHA-256 mismatch and absent object", async () => {
+    requireThat((await tool("download_media", {key: smallKey, expected_sha256: "0".repeat(64)}, true)).error === "HASH_MISMATCH");
+    requireThat((await tool("download_media", {key: "/assets/runtime-smoke/absent.png"}, true)).error === "MEDIA_NOT_FOUND");
+    requireThat((await tool("download_media", {key: "/assets/../escape.png"}, true)).error === "INVALID_KEY");
+  });
+
   await check("idempotent upload", async () => {
     requireThat(JSON.stringify(await tool("upload_media", smallArgs)) === JSON.stringify(uploaded));
   });
@@ -416,6 +430,13 @@ try {
     const localKv = await mf.getKVNamespace("MEDIA");
     const stored = await localKv.getWithMetadata(largeKey, { type: "arrayBuffer" });
     requireThat(stored.value?.byteLength === MAX_BYTES && digest(new Uint8Array(stored.value)) === result.sha256);
+  });
+  await check("download exact 10 MB as MCP image through the response boundary", async () => {
+    const result = await rpc("tools/call", {name: "download_media", arguments: {key: largeKey}});
+    requireThat(result.isError !== true && result.structuredContent.byte_size === MAX_BYTES);
+    const image = result.content?.find((part) => part.type === "image");
+    requireThat(image?.mimeType === "image/png" && Buffer.from(image.data, "base64").length === MAX_BYTES);
+    requireThat(digest(Buffer.from(image.data, "base64")) === result.structuredContent.sha256);
   });
   await check("10 MB plus one byte is rejected", async () => {
     const overhead = pngFixture(0, "").byteLength;
