@@ -5,6 +5,33 @@ import { describe, expect, test } from "vitest";
 const read = (file: string) => readFileSync(file, "utf8");
 describe("Korean Editorial multi-page generator", () => {
   execFileSync("node", ["site/build.mjs"]);
+  test("uses the approved PH skincare icon across browser tabs and mobile home screens", () => {
+    for (const page of ["index.html","my-pham/index.html","tu-van-da/index.html","kien-thuc/index.html"]) {
+      const html = read(page);
+      expect(html).toContain('href="/favicon.ico?v=2"');
+      expect(html).toContain('type="image/webp" sizes="32x32" href="/assets/brand/phungha-icon-32-v1.webp"');
+      expect(html).toContain('type="image/webp" sizes="48x48" href="/assets/brand/phungha-icon-48-v1.webp"');
+      expect(html).toContain('rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"');
+      expect(html).toContain('rel="manifest" href="/site.webmanifest"');
+      expect(html).not.toContain('href="/favicon.svg"');
+      expect(html).toContain('"logo":"https://phunghakorea.com/assets/brand/phungha-icon-512-v1.webp"');
+    }
+    for(const size of [32,48,192,512]) {
+      const filename = "public/assets/brand/phungha-icon-" + size + "-v1.webp";
+      expect(existsSync(filename)).toBe(true);
+      const bytes = readFileSync(filename);
+      expect(bytes.subarray(0,4).toString("ascii")).toBe("RIFF");
+      expect(bytes.subarray(8,12).toString("ascii")).toBe("WEBP");
+    }
+    const icon = readFileSync("public/favicon.ico");
+    expect(icon.subarray(0,4).toString("hex")).toBe("00000100");
+    const apple = readFileSync("public/apple-touch-icon.png");
+    expect(apple.subarray(0,8).toString("hex")).toBe("89504e470d0a1a0a");
+    const manifest = JSON.parse(read("public/site.webmanifest"));
+    expect(manifest.icons).toHaveLength(2);
+    expect(manifest.icons.map(x=>x.sizes)).toEqual(["192x192","512x512"]);
+  });
+
   test("creates homepage with brand positioning and unique canonical URL", () => {
     const html = read("index.html");
     expect(html).toContain("PHÙNG HÀ");

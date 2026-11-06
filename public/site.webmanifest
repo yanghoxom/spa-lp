@@ -1,0 +1,25 @@
+{
+  "name": "Phùng Hà Korea — Chăm da cùng Hà",
+  "short_name": "Phùng Hà Korea",
+  "description": "Cẩm nang chăm da và mỹ phẩm Hàn Quốc",
+  "id": "/",
+  "start_url": "/",
+  "scope": "/",
+  "display": "browser",
+  "background_color": "#F9F6EF",
+  "theme_color": "#263E32",
+  "icons": [
+    {
+      "src": "/assets/brand/phungha-icon-192-v1.webp",
+      "sizes": "192x192",
+      "type": "image/webp",
+      "purpose": "any"
+    },
+    {
+      "src": "/assets/brand/phungha-icon-512-v1.webp",
+      "sizes": "512x512",
+      "type": "image/webp",
+      "purpose": "any"
+    }
+  ]
+}

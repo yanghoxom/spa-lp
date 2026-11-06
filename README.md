@@ -81,3 +81,15 @@ Email chăm sóc khách hàng trên website: **cskh@phunghakorea.com**. Địa c
 - `public/assets/editorial/korean-skincare-trio-ai-editorial.webp` — 720×900, 48 KB, ảnh minh họa nhóm dưỡng da.
 - Đã tối ưu WebP chất lượng 85 cho mobile và đặt tại trang `/my-pham/`. Cloudflare Workers Static Assets phân phối trực tiếp từ `dist/assets/editorial/`.
 - **Lưu ý tính xác thực:** ảnh AI chưa được đối chiếu chính xác với nhãn/bao bì sản phẩm thật, không được dùng như ảnh sản phẩm/SKU có sẵn hoặc mô tả chính thức. Trang có nhãn minh họa AI rõ ràng.
+
+## Logo website / favicon
+
+Logo PH được lấy từ ảnh AI đã duyệt, tối ưu bằng Pillow (cắt khoảng trắng, giữ chi tiết trên nền xanh và nền ngoài trong suốt):
+
+- `public/assets/brand/phungha-icon-32-v1.webp` (32px) và `phungha-icon-48-v1.webp` (48px) dùng cho favicon trình duyệt.
+- `public/assets/brand/phungha-icon-192-v1.webp` và `phungha-icon-512-v1.webp` dùng cho icon liên kết và manifest.
+- `public/favicon.ico` chứa ảnh 16/32/48px cho trình duyệt cũ.
+- `public/apple-touch-icon.png` là ảnh 180px dành cho iPhone/iPad.
+- `public/site.webmanifest` cung cấp icon khi thêm website ra màn hình chính.
+
+Cập nhật toàn bộ `<head>` trong `site/build.mjs` và `Organization.logo` sang phiên bản mới. Website không cần Cloudflare Images trả phí: các asset được Workers Static Assets phân phối qua CDN của Cloudflare. Khi thay favicon sau này, dùng tên file có phiên bản để tránh favicon cũ bị cache trên điện thoại.
