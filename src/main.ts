@@ -22,56 +22,56 @@ const questions: [
 ] = [
   {
     key: "concern",
-    title: "Bạn đang quan tâm vấn đề nào nhất?",
+    title: "Chị muốn cải thiện điều gì nhất ở làn da?",
     options: [
-      { value: "melasma", label: "Nám/sạm", hint: "Da không đều màu" },
-      { value: "acne", label: "Mụn/thâm", hint: "Mụn ẩn, thâm sau mụn" },
-      { value: "dull", label: "Da xỉn màu", hint: "Muốn sáng mướt hơn" },
-      { value: "pores", label: "Lỗ chân lông", hint: "Bóng dầu, bề mặt sần" },
-      { value: "aging", label: "Căng bóng/chống lão hóa", hint: "Nâng nền da khỏe hơn" },
+      { value: "melasma", label: "Nám, sạm da", hint: "Có đốm hoặc mảng sẫm màu" },
+      { value: "acne", label: "Mụn và vết thâm", hint: "Mụn ẩn, thâm sau mụn" },
+      { value: "dull", label: "Da xỉn màu", hint: "Muốn da trông tươi tắn hơn" },
+      { value: "pores", label: "Da dầu, lỗ chân lông", hint: "Dễ bóng dầu, bề mặt da sần" },
+      { value: "aging", label: "Nếp nhăn, da kém săn", hint: "Muốn da trông mịn màng hơn" },
     ],
   },
   {
     key: "skinType",
-    title: "Da bạn thuộc loại nào?",
+    title: "Da chị thường như thế nào?",
     options: [
-      { value: "oily", label: "Da dầu", hint: "Dễ bóng, bí da" },
-      { value: "dry", label: "Da khô", hint: "Căng, thiếu ẩm" },
-      { value: "combination", label: "Da hỗn hợp", hint: "Dầu vùng T" },
-      { value: "sensitive", label: "Da nhạy cảm", hint: "Dễ đỏ rát" },
-      { value: "unknown", label: "Chưa rõ", hint: "Hà sẽ hỏi thêm" },
+      { value: "oily", label: "Da dầu", hint: "Dễ bóng dầu, nhất là giữa ngày" },
+      { value: "dry", label: "Da khô", hint: "Hay khô căng, đôi khi bong nhẹ" },
+      { value: "combination", label: "Da hỗn hợp", hint: "Dầu ở trán, mũi; má thường khô" },
+      { value: "sensitive", label: "Da nhạy cảm", hint: "Dễ đỏ, rát khi dùng mỹ phẩm" },
+      { value: "unknown", label: "Chưa rõ loại da", hint: "Để Hà cùng chị tìm hiểu" },
     ],
   },
   {
     key: "history",
-    title: "Hiện da bạn đang ở tình trạng nào?",
+    title: "Gần đây, tình trạng da của chị ra sao?",
     options: [
-      { value: "healthy", label: "Đang khỏe", hint: "Muốn chăm đều hơn" },
-      { value: "sensitive", label: "Dễ kích ứng", hint: "Cần phục hồi trước" },
-      { value: "active", label: "Đang dùng sản phẩm đặc trị", hint: "Cần kiểm tra kỹ" },
-      { value: "beginner", label: "Mới bắt đầu chăm da", hint: "Cần cách dùng dễ hiểu" },
-      { value: "used-many", label: "Đã dùng nhiều nhưng chưa hợp", hint: "Sợ da quá tải" },
+      { value: "healthy", label: "Da đang ổn", hint: "Muốn chăm kỹ hơn mỗi ngày" },
+      { value: "sensitive", label: "Dễ kích ứng", hint: "Hay đỏ, rát khi đổi mỹ phẩm" },
+      { value: "active", label: "Đang dùng sản phẩm đặc trị", hint: "Cho Hà biết tên sản phẩm nhé" },
+      { value: "beginner", label: "Mới bắt đầu chăm da", hint: "Muốn được hướng dẫn từng bước" },
+      { value: "used-many", label: "Đã thử nhiều, chưa thấy hợp", hint: "Muốn Hà cùng xem lại cách chăm" },
     ],
   },
   {
     key: "budget",
-    title: "Ngân sách bạn muốn bắt đầu?",
+    title: "Chị muốn chọn mỹ phẩm trong khoảng nào?",
     options: [
-      { value: "low", label: "Dưới 500 nghìn", hint: "Bắt đầu tối giản" },
-      { value: "mid", label: "500 nghìn – 1 triệu", hint: "Routine nền tảng" },
-      { value: "upper", label: "1 – 3 triệu", hint: "Chăm da theo mục tiêu" },
-      { value: "premium", label: "Trên 3 triệu", hint: "Cùng Hà chọn từng bước" },
+      { value: "low", label: "Dưới 500 nghìn", hint: "Chọn món cần thiết trước" },
+      { value: "mid", label: "500 nghìn – 1 triệu", hint: "Chọn những bước cơ bản" },
+      { value: "upper", label: "1 – 3 triệu", hint: "Chăm kỹ điều chị quan tâm" },
+      { value: "premium", label: "Trên 3 triệu", hint: "Chọn từng món thật hợp với chị" },
     ],
   },
   {
     key: "goal",
-    title: "Bạn muốn chăm da theo hướng nào?",
+    title: "Chị thích chăm da theo cách nào?",
     options: [
-      { value: "simple", label: "Đơn giản dễ dùng", hint: "Ít bước, dễ duy trì" },
-      { value: "safe", label: "Phục hồi an toàn", hint: "Dịu nhẹ, theo dõi kỹ" },
-      { value: "brightening", label: "Dưỡng sáng đều màu", hint: "Tập trung nám/sạm/xỉn" },
-      { value: "glow", label: "Căng bóng chuẩn Hàn", hint: "Nền da mướt hơn" },
-      { value: "complete", label: "Combo đầy đủ", hint: "Chăm kỹ sáng và tối" },
+      { value: "simple", label: "Gọn nhẹ, dễ dùng", hint: "Ít bước, hợp ngày bận rộn" },
+      { value: "safe", label: "Dưỡng dịu nhẹ, phục hồi", hint: "Theo dõi da qua từng bước" },
+      { value: "brightening", label: "Dưỡng sáng, đều màu", hint: "Chăm vùng da sạm, xỉn màu" },
+      { value: "glow", label: "Da ẩm mịn, căng mướt", hint: "Muốn vẻ rạng rỡ tự nhiên" },
+      { value: "complete", label: "Chăm đủ bước sáng, tối", hint: "Nhờ Hà chọn bộ phù hợp" },
     ],
   },
 ];
@@ -160,7 +160,7 @@ function updateProgress(): void {
   if (progressFill) progressFill.style.width = `${(completed / questions.length) * 100}%`;
   if (questionProgress) {
     questionProgress.textContent =
-      completed >= questions.length && currentStep === questions.length - 1 ? "Đã trả lời 5/5" : `Câu ${currentStep + 1}/${questions.length}`;
+      completed >= questions.length && currentStep === questions.length - 1 ? "Chị đã trả lời đủ 5 câu" : `Câu ${currentStep + 1}/${questions.length}`;
   }
   if (selectedSummary) {
     const selected = questions
@@ -184,12 +184,12 @@ function showResult(): void {
   if (resultTitle) resultTitle.textContent = result.title;
   if (resultNote) {
     resultNote.innerHTML = `
-      <span><strong>Ngân sách bạn đã chọn:</strong> ${result.priceRange}</span>
+      <span><strong>Khoảng tiền chị muốn dành:</strong> ${result.priceRange}</span>
       <span>${result.note}</span>
     `;
   }
   if (resultCode) resultCode.textContent = result.code;
-  if (resultFit) resultFit.textContent = result.fitLevel === "Cần Hà kiểm tra thêm" ? "Cần hỏi thêm" : "Cần Hà xác nhận";
+  if (resultFit) resultFit.textContent = result.fitLevel === "Cần Hà kiểm tra thêm" ? "Hà cần hỏi thêm" : "Nhắn Hà để được tư vấn";
   if (resultReasons) {
     resultReasons.innerHTML = result.reasons.map((reason) => `<li>${reason}</li>`).join("");
   }
@@ -254,7 +254,7 @@ resetButton?.addEventListener("click", () => {
   consultationMessage = "";
   resultCard?.classList.add("is-hidden");
   resultCard?.closest(".quiz-grid")?.classList.remove("has-result");
-  if (copyFeedback) copyFeedback.textContent = "Sao chép kết quả rồi dán vào Messenger để Hà nắm thông tin. Website không lưu câu trả lời trên máy chủ.";
+  if (copyFeedback) copyFeedback.textContent = "Chị sao chép kết quả, mở Messenger rồi dán vào tin nhắn gửi Hà nhé. Website không lưu câu trả lời của chị.";
   renderQuestions(true);
   updateProgress();
 });
@@ -282,8 +282,8 @@ copyButton?.addEventListener("click", async () => {
   }
   if (copyFeedback) {
     copyFeedback.textContent = copied
-      ? "Đã sao chép. Hãy mở Messenger và dán kết quả để Hà có thông tin tư vấn."
-      : "Trình duyệt không thể sao chép tự động. Hãy nhắn cho Hà trực tiếp qua Messenger.";
+      ? "Đã sao chép rồi chị nhé. Chị mở Messenger, dán kết quả vào tin nhắn rồi gửi Hà để được tư vấn thêm."
+      : "Chưa sao chép được. Chị cứ mở Messenger, kể Hà nghe về làn da của mình nhé.";
   }
 });
 

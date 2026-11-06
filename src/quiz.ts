@@ -28,25 +28,25 @@ export interface ConsultationResult {
 const skinTypeLabels: Record<SkinType, string> = {
   oily: "Da dầu",
   dry: "Da khô",
-  combination: "Hỗn hợp",
-  sensitive: "Nhạy cảm",
-  unknown: "Chưa rõ",
+  combination: "Da hỗn hợp",
+  sensitive: "Da nhạy cảm",
+  unknown: "Chưa rõ loại da",
 };
 
 const concernLabels: Record<Concern, string> = {
-  acne: "Mụn/thâm sau mụn",
-  melasma: "Nám/sạm",
-  dull: "Da xỉn màu/không đều màu",
-  pores: "Lỗ chân lông/bóng dầu",
-  aging: "Nếp nhăn/da kém săn",
+  acne: "Mụn và vết thâm",
+  melasma: "Nám, sạm da",
+  dull: "Da xỉn màu",
+  pores: "Da dầu, lỗ chân lông",
+  aging: "Nếp nhăn, da kém săn",
 };
 
 const historyLabels: Record<History, string> = {
-  healthy: "Đang khỏe",
+  healthy: "Da đang ổn",
   sensitive: "Dễ kích ứng",
   active: "Đang dùng sản phẩm đặc trị",
   beginner: "Mới bắt đầu chăm da",
-  "used-many": "Đã dùng nhiều nhưng chưa hợp",
+  "used-many": "Đã thử nhiều, chưa thấy hợp",
 };
 
 const budgetLabels: Record<Budget, string> = {
@@ -57,27 +57,27 @@ const budgetLabels: Record<Budget, string> = {
 };
 
 const goalLabels: Record<Goal, string> = {
-  simple: "Đơn giản dễ dùng",
-  safe: "Phục hồi an toàn",
-  brightening: "Dưỡng sáng đều màu",
-  glow: "Căng bóng chuẩn Hàn",
-  complete: "Combo đầy đủ",
+  simple: "Gọn nhẹ, dễ dùng",
+  safe: "Dưỡng dịu nhẹ, phục hồi",
+  brightening: "Dưỡng sáng, đều màu",
+  glow: "Da ẩm mịn, căng mướt",
+  complete: "Chăm đủ bước sáng, tối",
 };
 
 const skinReasons: Record<SkinType, string> = {
-  oily: "Da dễ đổ dầu, nên ưu tiên lớp dưỡng mỏng nhẹ.",
-  dry: "Da khô cần cấp ẩm và phục hồi hàng rào bảo vệ.",
-  combination: "Da hỗn hợp cần cân bằng dầu nước, tránh lớp dưỡng quá nặng.",
-  sensitive: "Da nhạy cảm cần ưu tiên phục hồi, giảm sản phẩm mạnh.",
-  unknown: "Chưa rõ loại da nên ưu tiên cách dùng an toàn, dễ theo dõi.",
+  oily: "Da chị dễ đổ dầu, nên ưu tiên lớp dưỡng mỏng nhẹ, dễ chịu khi thoa.",
+  dry: "Với da khô, chị nên chú ý dưỡng ẩm để da bớt khô căng.",
+  combination: "Da hỗn hợp nên chọn lớp dưỡng vừa đủ, tránh cảm giác nặng và bí da.",
+  sensitive: "Da dễ kích ứng cần được chăm dịu nhẹ, ưu tiên phục hồi và giảm sản phẩm mạnh.",
+  unknown: "Chị chưa rõ loại da thì Hà sẽ hỏi thêm để cùng chị chọn cách chăm dịu nhẹ, dễ theo dõi.",
 };
 
 const concernReasons: Record<Concern, string> = {
-  acne: "Mụn/thâm cần làm sạch nhẹ, phục hồi và bảo vệ da.",
-  melasma: "Nám/sạm cần dưỡng sáng an toàn và chống nắng kỹ.",
-  dull: "Da xỉn màu cần làm sạch tốt, dưỡng sáng và khóa ẩm.",
-  pores: "Lỗ chân lông cần kiểm soát dầu nhưng không làm khô căng.",
-  aging: "Da kém săn cần phục hồi nền da và chống nắng đều.",
+  acne: "Với mụn và vết thâm, chị nên chú ý làm sạch dịu nhẹ, phục hồi và bảo vệ da.",
+  melasma: "Với nám, sạm da, chị nên chống nắng đều và chọn cách dưỡng sáng dịu nhẹ.",
+  dull: "Da xỉn màu cần được làm sạch nhẹ nhàng, giữ đủ ẩm và dưỡng sáng phù hợp.",
+  pores: "Da bóng dầu nên được chăm để bớt nhờn mà vẫn đủ ẩm, không khô căng.",
+  aging: "Với da kém săn, chị nên chú ý dưỡng phục hồi và chống nắng đều.",
 };
 
 export const quizLabels = {
@@ -100,7 +100,7 @@ function priceRangeFor(budget: Budget): string {
 
 function titleFor(answers: QuizAnswers): string {
   if (answers.skinType === "sensitive" || answers.history === "used-many") {
-    return "Phục hồi da dễ kích ứng";
+    return "Chăm dịu nhẹ, giúp da phục hồi";
   }
 
   if (answers.concern === "melasma" || answers.concern === "dull") {
@@ -108,10 +108,10 @@ function titleFor(answers: QuizAnswers): string {
   }
 
   if (answers.concern === "aging" || answers.goal === "glow" || answers.goal === "complete") {
-    return "Da căng bóng chuẩn Hàn";
+    return "Dưỡng da ẩm mịn, căng mướt";
   }
 
-  return "Da sạch thoáng, giảm bí";
+  return "Chăm da sạch thoáng, nhẹ dịu";
 }
 
 function fitLevelFor(answers: QuizAnswers): FitLevel {
@@ -136,17 +136,17 @@ function fitLevelFor(answers: QuizAnswers): FitLevel {
 
 function followUpQuestionsFor(answers: QuizAnswers): string[] {
   const questions = [
-    "Bạn đang dùng sản phẩm nào?",
-    "Da có đang kích ứng, đỏ rát hoặc bong tróc không?",
-    "Bạn có đang bầu/bú hoặc dùng sản phẩm đặc trị mạnh không?",
+    "Chị đang dùng những sản phẩm nào?",
+    "Da chị có đang đỏ rát, bong tróc hoặc dễ kích ứng không?",
+    "Chị có đang mang thai, cho con bú hoặc dùng sản phẩm đặc trị không?",
   ];
 
   if (answers.skinType === "unknown") {
-    questions.push("Bạn có thể gửi ảnh da chụp ánh sáng tự nhiên để Hà xem kỹ hơn không?");
+    questions.push("Chị có tiện gửi ảnh da chụp dưới ánh sáng tự nhiên để Hà hiểu rõ hơn không?");
   }
 
   if (answers.budget === "low") {
-    questions.push("Bạn muốn ưu tiên sản phẩm nào trước: làm sạch, phục hồi hay dưỡng sáng?");
+    questions.push("Chị muốn chọn món nào trước: làm sạch, dưỡng phục hồi hay dưỡng sáng?");
   }
 
   return questions;
@@ -155,12 +155,12 @@ function followUpQuestionsFor(answers: QuizAnswers): string[] {
 export function buildConsultationResult(answers: QuizAnswers): ConsultationResult {
   const title = titleFor(answers);
   const baseMorning = answers.concern === "melasma" || answers.concern === "dull"
-    ? ["Làm sạch dịu nhẹ", "Serum làm sáng", "Kem chống nắng"]
-    : ["Làm sạch dịu nhẹ", "Serum phục hồi", "Kem chống nắng"];
+    ? ["Làm sạch dịu nhẹ", "Tinh chất dưỡng sáng", "Kem chống nắng"]
+    : ["Làm sạch dịu nhẹ", "Tinh chất phục hồi", "Kem chống nắng"];
 
   const evening = answers.concern === "acne"
-    ? ["Làm sạch", "Serum phục hồi", "Kem chấm/gel hỗ trợ mụn"]
-    : ["Làm sạch", "Serum phục hồi", "Kem dưỡng mỏng"];
+    ? ["Làm sạch dịu nhẹ", "Tinh chất phục hồi", "Kem hoặc gel hỗ trợ mụn"]
+    : ["Làm sạch dịu nhẹ", "Tinh chất phục hồi", "Kem dưỡng mỏng nhẹ"];
 
   return {
     code: createCode(answers),
@@ -170,30 +170,31 @@ export function buildConsultationResult(answers: QuizAnswers): ConsultationResul
     reasons: [
       skinReasons[answers.skinType],
       concernReasons[answers.concern],
-      `Ngân sách ${budgetLabels[answers.budget].toLowerCase()}: Hà ưu tiên vài món cần nhất trước.`,
+      `Trong khoảng ${budgetLabels[answers.budget].toLowerCase()}, Hà sẽ ưu tiên những món thật sự cần cho chị.`,
       answers.goal === "safe"
-        ? "Ưu tiên an toàn: chọn cách dùng dịu, dễ theo dõi."
-        : `Mục tiêu: ${goalLabels[answers.goal].toLowerCase()}. Hà sẽ kiểm tra lại theo tình trạng thật.`,
+        ? "Chị thích dưỡng dịu nhẹ, phục hồi. Hà sẽ chọn cách dùng dễ theo dõi và hỏi kỹ trước khi gợi ý sản phẩm."
+        : `Mong muốn của chị: ${goalLabels[answers.goal].toLowerCase()}. Hà sẽ trao đổi thêm để gợi ý phù hợp.`,
     ],
     morning: baseMorning,
     evening,
     followUpQuestions: followUpQuestionsFor(answers),
-    note: "Hà sẽ kiểm tra lại tình trạng da trước khi gợi ý sản phẩm cụ thể.",
+    note: "Hà sẽ hỏi thêm về làn da và mỹ phẩm chị đang dùng trước khi gợi ý sản phẩm cụ thể.",
   };
 }
 
 export function createMessengerText(answers: QuizAnswers, result: ConsultationResult): string {
   return [
+    "Chào Hà, mình muốn được tư vấn chăm da.",
     `Mã tư vấn: ${result.code}`,
     `Loại da: ${skinTypeLabels[answers.skinType]}`,
-    `Vấn đề chính: ${concernLabels[answers.concern]}`,
+    `Điều muốn cải thiện: ${concernLabels[answers.concern]}`,
     `Tình trạng: ${historyLabels[answers.history]}`,
     `Ngân sách: ${budgetLabels[answers.budget]}`,
-    `Mục tiêu: ${goalLabels[answers.goal]}`,
-    `Hà gợi ý: ${result.title}`,
+    `Mong muốn: ${goalLabels[answers.goal]}`,
+    `Gợi ý ban đầu: ${result.title}`,
     `Khoảng ngân sách mong muốn: ${result.priceRange}`,
-    "Hà cần hỏi thêm:",
+    "Thông tin Hà cần hỏi thêm:",
     ...result.followUpQuestions.map((question) => `- ${question}`),
-    "Nhờ Hà kiểm tra lại giúp em nhé.",
+    "Nhờ Hà tư vấn thêm giúp mình nhé.",
   ].join("\n");
 }

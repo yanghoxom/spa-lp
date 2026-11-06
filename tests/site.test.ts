@@ -55,7 +55,7 @@ describe("Korean Editorial multi-page generator", () => {
     expect(read(page)).toContain("Peel da và phục hồi");
     const sitemap = read("public/sitemap.xml");
     expect(sitemap).toContain("https://phunghakorea.com/kien-thuc/peel-da-phuc-hoi-an-toan/");
-    expect(read("public/feed.xml")).toContain("Phùng Hà Korea - Cẩm nang chăm da");
+    expect(read("public/feed.xml")).toContain("Phùng Hà Korea - Góc chăm da");
   });
   test("keeps consultation quiz and source of truth", () => {
     const quiz = read("tu-van-da/index.html");
@@ -91,7 +91,7 @@ describe("Korean Editorial multi-page generator", () => {
   });
   test("provides category pages without inventing SKU prices", () => {
     expect(existsSync("my-pham/duong-am-phuc-hoi/index.html")).toBe(true);
-    expect(read("my-pham/index.html")).toContain("không phải giỏ hàng trực tuyến");
+    expect(read("my-pham/index.html")).toContain("Chị đặt hàng trực tiếp với Hà qua Messenger nhé");
   });
 
   test("displays optimized editorial WebP photos without overlay badges", () => {
@@ -116,7 +116,7 @@ describe("Korean Editorial multi-page generator", () => {
     expect(read("chinh-sach/index.html")).toContain("không lưu câu trả lời vào cơ sở dữ liệu riêng");
     const html = read("index.html");
     expect(html).toContain('"@type":"Organization"');
-    expect(html).toContain("Khám phá cùng Hà");
+    expect(html).toContain("Chọn mỹ phẩm");
     expect(html).toContain("/assets/fanpage-service-2.jpg");
     expect(html).toContain('href="/chinh-sach/"');
     expect(read("kien-thuc/da-nam-sam-chong-nang-the-nao/index.html")).toContain('"@type":"Article"');
