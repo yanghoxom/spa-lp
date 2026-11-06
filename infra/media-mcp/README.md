@@ -1,6 +1,6 @@
 # Phùng Hà Korea Media MCP
 
-Custom MCP Server để ChatGPT quản lý ảnh của **Phùng Hà Korea** trên Cloudflare. Server chỉ cung cấp năm tool về ảnh, dùng **Streamable HTTP tại `/mcp`**, xác thực **OAuth 2.1 với PKCE S256**, và ghi ảnh vào namespace KV hiện có qua binding `MEDIA`.
+Custom MCP Server để ChatGPT quản lý ảnh của **Phùng Hà Korea** trên Cloudflare. Server chỉ cung cấp sáu tool về ảnh, dùng **Streamable HTTP tại `/mcp`**, xác thực **OAuth 2.1 với PKCE S256**, và ghi ảnh vào namespace KV hiện có qua binding `MEDIA`.
 
 ## 1. Endpoint và phạm vi
 
@@ -19,7 +19,7 @@ Custom MCP Server để ChatGPT quản lý ảnh của **Phùng Hà Korea** trê
 
 **Đã triển khai ngày 06/11/2026 UTC.** Worker MCP, hai Durable Object, namespace OAuth và Access app đã được cấu hình. Kiểm tra trực tiếp xác nhận health `200`, hai endpoint OAuth discovery `200`, MCP chưa đăng nhập hoặc dùng token sai trả `401` với `WWW-Authenticate`, và `/authorize` chuyển hướng tới Cloudflare Access. Worker đọc ảnh cũng đã được cập nhật để dùng `metadata.cacheControl`; ảnh CDN hiện có vẫn khớp byte size và SHA-256 trong manifest.
 
-Có thể kiểm tra lại bằng các lệnh ở mục 4. Health `200` xác nhận cấu hình và binding đã có; phiên đăng nhập thật từ ChatGPT cần chủ tài khoản tự hoàn tất OAuth. Luồng OAuth và cả năm tool đã được kiểm thử trên workerd local; chưa khẳng định một phiên ChatGPT production đã kết nối hoặc kiểm chứng CPU của phiên đăng nhập đó.
+Có thể kiểm tra lại bằng các lệnh ở mục 4. Health `200` xác nhận cấu hình và binding đã có; phiên đăng nhập thật từ ChatGPT cần chủ tài khoản tự hoàn tất OAuth. Luồng OAuth và các tool đã được kiểm thử trên workerd local; chưa khẳng định một phiên ChatGPT production đã kết nối hoặc kiểm chứng CPU của phiên đăng nhập đó.
 
 Mỗi key phải nằm trong `/assets/`. MCP không có tool quản trị DNS, tài khoản, billing, API token, secrets, namespace, hay mã nguồn website. Website tiếp tục dùng URL CDN; GitHub chỉ chứa mã nguồn, URL và metadata, **không chứa binary hoặc base64 của ảnh sản phẩm/ảnh minh họa**.
 
@@ -46,7 +46,7 @@ Các scope:
 
 | Scope | Quyền |
 | --- | --- |
-| `media:read` | `verify_media`, `get_media_metadata`, `list_media`; cũng là quyền nền tảng để gọi MCP. |
+| `media:read` | `download_media`, `verify_media`, `get_media_metadata`, `list_media`; cũng là quyền nền tảng để gọi MCP. |
 | `media:write` | `upload_media`, ngoài `media:read`. |
 | `media:delete` | `delete_media`, ngoài `media:read`; vẫn phải xác nhận từng ảnh trong trình duyệt. |
 | `offline_access` | Cho phép duy trì kết nối bằng refresh token. |
@@ -197,6 +197,7 @@ Schema đầy đủ được khai báo tại `src/schemas.ts` và được serve
 | Tool | Quyền | `readOnlyHint` | `destructiveHint` | `idempotentHint` | `openWorldHint` |
 | --- | --- | --- | --- | --- | --- |
 | `upload_media` | `media:write` | `false` | `false` | `true` | `true` |
+| `download_media` | `media:read` | `true` | `false` | `true` | `false` |
 | `verify_media` | `media:read` | `true` | `false` | `true` | `true` |
 | `get_media_metadata` | `media:read` | `true` | `false` | `true` | `false` |
 | `list_media` | `media:read` | `true` | `false` | `true` | `false` |
@@ -247,6 +248,34 @@ Với object cũ chưa từng được MCP quản lý, upload lại **đúng cù
 MCP kiểm tra chữ ký và cấu trúc container ảnh, không chỉ tin đuôi file hay MIME do người gọi khai báo. Kiểm tra này **không giải mã toàn bộ pixels, không quét malware và không resize/transcode**. Nên chuẩn bị trước ảnh WebP 480px và 960px, rồi upload từng file bằng key riêng.
 
 `cache_control` được validate và lưu trong metadata. Worker đọc ảnh `phungha-media` trong `infra/media-worker.mjs` dùng `metadata.cacheControl` hợp lệ cho header response; ảnh cũ chưa có trường này giữ fallback `public, max-age=86400`. Triển khai cả thay đổi Worker đọc ảnh để áp dụng hành vi này. Tool verify hiện đối chiếu nội dung/MIME/size/ETag, không coi cache header là kiểm tra integrity.
+
+### 7.1a `download_media` — ảnh gốc từ KV (read-only)
+
+Input:
+
+```json
+{
+  "name": "download_media",
+  "arguments": {
+    "key": "/assets/products/serum-20261107-v1-960.webp",
+    "expected_sha256": "a64_ky_tu_hex_sha256_that_cua_anh"
+  }
+}
+```
+
+`expected_sha256` là tùy chọn; nếu truyền, phải là **64 ký tự hexadecimal viết thường** và khớp với binary thực tế. Ví dụ giá trị ở trên chỉ để minh họa định dạng, không phải hash hợp lệ.
+
+Tool đọc **trực tiếp** byte ảnh từ `MEDIA` KV, giới hạn 10.000.000 byte, kiểm tra container/magic byte WebP/JPEG/PNG/AVIF, phần mở rộng và MIME metadata, tính SHA-256. Khi thành công, MCP `tools/call` trả đồng thời:
+
+- `content[0]`: **`{"type":"image","mimeType":"image/webp","data":"..."}`**. Đây là **MCP ImageContent**, tức ảnh thực được chuyển dưới dạng bytes mã hóa base64 theo tiêu chuẩn giao thức, **không phải một đoạn text base64**.
+- `content[1]`: text metadata ngắn để client hiển thị.
+- `structuredContent`: `{key,cdn_url,filename,content_type,byte_size,sha256,etag,last_modified}`. `etag` và `last_modified` có thể `null` ở entry KV cũ.
+
+Lỗi có mã `MEDIA_NOT_FOUND`, `INVALID_KEY`, `UNSUPPORTED_MIME`, `FILE_TOO_LARGE`, `HASH_MISMATCH`, `DOWNLOAD_FAILED`. `INSUFFICIENT_SCOPE` áp dụng khi chưa có `media:read`.
+
+**Giới hạn cần biết:** MCP hỗ trợ `ImageContent` thực và kiểm thử workerd xác nhận byte gốc được trả đúng, kể cả ảnh 10 MB. Việc một **phiên ChatGPT** tự biến image tool result thành attachment dùng được ngay bởi công cụ ImageGen là năng lực xử lý phía host, **không được đảm bảo chỉ bằng schema MCP**. Chưa thể xác nhận end-to-end luồng ChatGPT → native image generation nếu không chạy được phiên thực tế. Trong môi trường hỗ trợ hiển thị MCP ImageContent, ảnh sẽ xuất hiện trực tiếp thay vì chỉ có URL.
+
+Tool **không ghi** KV, manifest, CDN hay GitHub. Không trả binary qua phần `structuredContent`.
 
 ### 7.2 `verify_media`
 
