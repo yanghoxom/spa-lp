@@ -1,0 +1,33 @@
+name: Media MCP validation
+on:
+  push:
+    paths:
+      - "infra/media-mcp/**"
+      - ".github/workflows/media-mcp.yml"
+  workflow_dispatch:
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    defaults:
+      run:
+        working-directory: infra/media-mcp
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+          cache: npm
+          cache-dependency-path: infra/media-mcp/package-lock.json
+      - run: npm ci
+      - run: npm run types
+      - run: npm run typecheck
+      - run: npm test
+      - run: npm run build
+      - run: npm run test:runtime
+      - uses: actions/upload-artifact@v4
+        with:
+          name: phungha-media-mcp-build
+          path: infra/media-mcp/dist
+          retention-days: 2
