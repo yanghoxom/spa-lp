@@ -1,0 +1,237 @@
+{
+  "/apple-touch-icon.png": {
+    "size": 33113,
+    "sha256": "a9a8f9c4ab4a178a013f78f9a0dcf772ac3504a1c76b443c2e40989c3444b58e",
+    "contentType": "image/png"
+  },
+  "/assets/brand/phungha-icon-192-v1.webp": {
+    "size": 7844,
+    "sha256": "23407186c401480bef21454aa5399ef0d2598f2ebadac21bf6c5d1d55965d10e",
+    "contentType": "image/webp"
+  },
+  "/assets/brand/phungha-icon-32-v1.webp": {
+    "size": 1018,
+    "sha256": "b07562eea0366d70c1d48a6b2f0b462a1f48593c6442ab50cdeadf2f513d0b5d",
+    "contentType": "image/webp"
+  },
+  "/assets/brand/phungha-icon-48-v1.webp": {
+    "size": 1612,
+    "sha256": "6ebaf3ce9081841cca3a0a15045b803369e3bc8f2ffc88e7cebb954fb92d240c",
+    "contentType": "image/webp"
+  },
+  "/assets/brand/phungha-icon-512-v1.webp": {
+    "size": 22742,
+    "sha256": "3d76a7e415e7de0dfda4e4e78ebe8093db525fe148b73ad4d5e931636e6275b2",
+    "contentType": "image/webp"
+  },
+  "/assets/collections/cham-da-tuoi-35-v2-480.webp": {
+    "size": 40760,
+    "sha256": "09137c8afc862637c4b0e758760a3daa4b29b7e91dd4bad8c74e3aef649480b5",
+    "contentType": "image/webp"
+  },
+  "/assets/collections/cham-da-tuoi-35-v2-960.webp": {
+    "size": 126790,
+    "sha256": "2e36e387d9093e1ad16d72df5f121216913d6dd5c07b1ca6dd99d4b9088353e5",
+    "contentType": "image/webp"
+  },
+  "/assets/collections/cham-da-tuoi-35.svg": {
+    "size": 2756,
+    "sha256": "20843775af916c14e1cd0d89fd47a861cfc708da458a8b498fd083a0d6763d04",
+    "contentType": "image/svg+xml"
+  },
+  "/assets/collections/chong-nang-v2-480.webp": {
+    "size": 26370,
+    "sha256": "22da7296846f00bca18328ba209d7b4290996fac85556fca6a3c352d8c1d33f1",
+    "contentType": "image/webp"
+  },
+  "/assets/collections/chong-nang-v2-960.webp": {
+    "size": 77730,
+    "sha256": "bc0eff2c1dda2b47ad66915cc70dcec827603c887ec902e1f34fc5c9c9359faa",
+    "contentType": "image/webp"
+  },
+  "/assets/collections/chong-nang.svg": {
+    "size": 2545,
+    "sha256": "7a3dcf04ee116a62f15d186a05f650144fd5a9912259d311630c82472ccc6c06",
+    "contentType": "image/svg+xml"
+  },
+  "/assets/collections/duong-am-phuc-hoi-v2-480.webp": {
+    "size": 23370,
+    "sha256": "1ed9ff8d8e42a1168b1f6a567bd73ab5856e3bb96090c94714acf780f9be60e9",
+    "contentType": "image/webp"
+  },
+  "/assets/collections/duong-am-phuc-hoi-v2-960.webp": {
+    "size": 78932,
+    "sha256": "69c4747eee0664282721c75e1b4d7cb812dda179d4265856453d734c09867b53",
+    "contentType": "image/webp"
+  },
+  "/assets/collections/duong-am-phuc-hoi.svg": {
+    "size": 2579,
+    "sha256": "6ae96fbeace3e336ac15917f07eaf27b0c05447fdb7493c8be65f1873deb7d69",
+    "contentType": "image/svg+xml"
+  },
+  "/assets/collections/duong-sang-deu-mau-v2-480.webp": {
+    "size": 20536,
+    "sha256": "cc786d898fa86b380eea8032c9f52c3a826407d260a948e66b04244d8eb159af",
+    "contentType": "image/webp"
+  },
+  "/assets/collections/duong-sang-deu-mau-v2-960.webp": {
+    "size": 62074,
+    "sha256": "1af0e8cabf09d67e35af3c80fd277b5ebeb4dcf878f587fb36870d6e22024e83",
+    "contentType": "image/webp"
+  },
+  "/assets/collections/duong-sang-deu-mau.svg": {
+    "size": 2701,
+    "sha256": "cc203543e95e079acc109508cbd47086087595c6e8659e23ca8f1cae15ed1ac8",
+    "contentType": "image/svg+xml"
+  },
+  "/assets/editorial/hero-v4-desktop-1000.webp": {
+    "size": 44036,
+    "sha256": "c01f36c9ed7be2ddc490664fb53ab6da096b4687e6cb67ee6e3535aa75b1ad49",
+    "contentType": "image/webp"
+  },
+  "/assets/editorial/hero-v4-desktop-1600.webp": {
+    "size": 87178,
+    "sha256": "7909594773b1dd15854f76cf77184378720703546bbc9d2fd556ae1862579baa",
+    "contentType": "image/webp"
+  },
+  "/assets/editorial/hero-v4-desktop-2400.webp": {
+    "size": 142458,
+    "sha256": "6a7192575ced43380c47b5902ba5ca87e0db86ad99696dd533198886718e7a59",
+    "contentType": "image/webp"
+  },
+  "/assets/editorial/hero-v4-mobile-640.webp": {
+    "size": 63148,
+    "sha256": "f6321ef897c02a431e72e9889459232cd9f478dd9d2ed6ca23516ed3c285dc41",
+    "contentType": "image/webp"
+  },
+  "/assets/editorial/hero-v4-mobile-960.webp": {
+    "size": 114486,
+    "sha256": "78544409b92229f37a5675e8986fdc32cf1b17370513de3ae7710c921bd4124e",
+    "contentType": "image/webp"
+  },
+  "/assets/editorial/hero-v5-desktop-1000.webp": {
+    "size": 46474,
+    "sha256": "6a2cc084531278a0e9e9f80487179e54b8ef6f7d430067efcaa7d9509eaaa04f",
+    "contentType": "image/webp"
+  },
+  "/assets/editorial/hero-v5-desktop-1600.webp": {
+    "size": 90404,
+    "sha256": "56f0e84681dfad2ae7c77f8dbe3c7328961088883b0851ea5bef056074a363e9",
+    "contentType": "image/webp"
+  },
+  "/assets/editorial/hero-v5-desktop-2400.webp": {
+    "size": 146102,
+    "sha256": "d94d9d071e5190c4ea012d8eb9873dc500a7fa231dfc43688112506ae510d1c2",
+    "contentType": "image/webp"
+  },
+  "/assets/editorial/hero-v5-mobile-640.webp": {
+    "size": 71406,
+    "sha256": "5b4ed8ac28b84451275bf7ba7d99715bec684d00580b035e218983c74f46685d",
+    "contentType": "image/webp"
+  },
+  "/assets/editorial/hero-v5-mobile-960.webp": {
+    "size": 128164,
+    "sha256": "71e9459505111452fe6052913f2d0da96a2df0e35787b1c1867d5c46c107bb19",
+    "contentType": "image/webp"
+  },
+  "/assets/editorial/korean-skincare-trio-ai-editorial.webp": {
+    "size": 47884,
+    "sha256": "ce9328e2fb956c37035676dc4dcb7e8bd2b2e2bd42b218c5733634a1c7e2622f",
+    "contentType": "image/webp"
+  },
+  "/assets/editorial/riena-sun-ampoule-ai-editorial.webp": {
+    "size": 15008,
+    "sha256": "2e3ad9c4819140faeb605e75d355905b549ef0e80e74a6e60d52172c40a1a2f6",
+    "contentType": "image/webp"
+  },
+  "/assets/fanpage-hero.jpg": {
+    "size": 64156,
+    "sha256": "6c79484f03493f25644706ce20db05e7d40a3b43f7e0301da7adc8f6743eacfc",
+    "contentType": "image/jpeg"
+  },
+  "/assets/fanpage-product.jpg": {
+    "size": 56851,
+    "sha256": "5fd21670b19351df6584fee1dbf99a0cf3e49cf3ad691cbd581af16fcda9be13",
+    "contentType": "image/jpeg"
+  },
+  "/assets/fanpage-proof.jpg": {
+    "size": 2341,
+    "sha256": "ba54e4512e018525966784037938bff1f7b82ec5eda0359a5947bffa297212db",
+    "contentType": "image/jpeg"
+  },
+  "/assets/fanpage-service-1.jpg": {
+    "size": 193519,
+    "sha256": "9250cfdef8a71d9452244245811f2e8afe941bcb7b7e0c370c54883a7e0281f2",
+    "contentType": "image/jpeg"
+  },
+  "/assets/fanpage-service-2.jpg": {
+    "size": 176975,
+    "sha256": "cfe2f491491a39281d36225a37759b94645baf3f5dc1513589cdfaf7e3f7c060",
+    "contentType": "image/jpeg"
+  },
+  "/assets/fanpage-service-3.jpg": {
+    "size": 258815,
+    "sha256": "de10007eb01e6e49ba8637aa09a15ef5ab29ad4e3f91c624a9c5e237a8cede00",
+    "contentType": "image/jpeg"
+  },
+  "/assets/icons/chong-nang.svg": {
+    "size": 375,
+    "sha256": "26245e15b242972630dee50ffad53c587f6f8ed6ce0fd2f304828634f3e61bc2",
+    "contentType": "image/svg+xml"
+  },
+  "/assets/icons/duong-am.svg": {
+    "size": 308,
+    "sha256": "bd6184549c1ca760230d71270a16b7c961b02a2a5f1aafdcb783a9505468b4eb",
+    "contentType": "image/svg+xml"
+  },
+  "/assets/icons/nam-sam.svg": {
+    "size": 405,
+    "sha256": "060701291cde00245df24c35bccda38af5814fa0238528a830f537cb7b5cfc45",
+    "contentType": "image/svg+xml"
+  },
+  "/assets/icons/tuoi-35.svg": {
+    "size": 331,
+    "sha256": "769a4557031be4dc515afcc261b24149ad415d9b4f8025f9b5634d9dbd4f1bce",
+    "contentType": "image/svg+xml"
+  },
+  "/favicon.ico": {
+    "size": 8385,
+    "sha256": "1b63f68aa1b088852a474f3e03d1c744daeaea1edf057cde50446a86678839dd",
+    "contentType": "image/vnd.microsoft.icon"
+  },
+  "/assets/editorial/phung-ha-founder-v2-960.webp": {
+    "size": 99900,
+    "sha256": "16c0030f8f4ecc37e115f345a1f114412d6d61264e28a9f675bb63141021b9df",
+    "contentType": "image/webp"
+  },
+  "/assets/editorial/phung-ha-founder-v2-480.webp": {
+    "size": 32906,
+    "sha256": "7305492ac01ef4e3b63547755e4d3f16dfbc4a7a05208d6ade09c8fdbed21bd2",
+    "contentType": "image/webp"
+  },
+  "/assets/editorial/hero-v6-desktop-1000.webp": {
+    "size": 48400,
+    "sha256": "c0612bf607f21a1cc447b9348a2c5dd98ef2fd97da83a7e076efdb4f301007f6",
+    "contentType": "image/webp"
+  },
+  "/assets/editorial/hero-v6-desktop-1600.webp": {
+    "size": 93046,
+    "sha256": "149c635700b3996243489d6c0fe65ecdff8ec294227d1b1c540ab34fd14941b4",
+    "contentType": "image/webp"
+  },
+  "/assets/editorial/hero-v6-desktop-2400.webp": {
+    "size": 146648,
+    "sha256": "f64358a50b0bf09502c7df719e4027c26b00a9b0964ebf28eb27ce22a3d86f0b",
+    "contentType": "image/webp"
+  },
+  "/assets/editorial/hero-v6-mobile-640.webp": {
+    "size": 75224,
+    "sha256": "9dae45a9d116185831a90a05727fd14eaaa8cbe87906839fe783cee8a5e931b0",
+    "contentType": "image/webp"
+  },
+  "/assets/editorial/hero-v6-mobile-960.webp": {
+    "size": 129466,
+    "sha256": "5262ac22f8448e08b0c53dc4f994b8a3ac34a96078c47a32b1aa6f1511c5d745",
+    "contentType": "image/webp"
+  }
+}

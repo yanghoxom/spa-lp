@@ -1,49 +1,26 @@
-# Hướng dẫn hình ảnh & biểu tượng — Phùng Hà Korea
+# Hình ảnh — Phùng Hà Korea
 
-## Hướng thiết kế
+## Lưu trữ duy nhất trên Cloudflare
 
-Website theo phong cách **tạp chí chăm sóc da Hàn Quốc** (Korean Editorial): tối giản, trang nhã, nhiều khoảng trắng, màu giấy ngà, xanh trầm và vàng champagne. Hình ảnh làm rõ nhu cầu chăm da trước khi giới thiệu mỹ phẩm.
+- CDN: `https://cdn.phunghakorea.com`.
+- Cloudflare Worker: `phungha-media`; mã tại `infra/media-worker.mjs`.
+- Kho ảnh: Workers KV public media, namespace `f9b9b8a418bd440ca0f6841852292a82`, binding `MEDIA`.
+- Worker chỉ đọc ảnh qua GET/HEAD, trả đúng MIME, ETag, Cache-Control và CORS. Không lấy ảnh từ GitHub hay website chính khi thiếu ảnh.
+- Upload ảnh qua Cloudflare API đã xác thực; không có endpoint upload công khai. Giữ tên có phiên bản để tránh cache cũ.
+- GitHub chỉ lưu code, URL và metadata ảnh trong `infra/media-manifest.json`. Không lưu file ảnh, ảnh base64, ảnh mẫu hoặc bản dự phòng trong repo. `.gitignore` chặn các định dạng ảnh.
+- 47 ảnh/biểu tượng đã được kiểm tra byte size và SHA-256 từ KV khớp bản gốc trước khi bỏ file khỏi source.
+- Các đường dẫn `/assets/...` trong nội dung bài viết được renderer chuyển thành URL CDN. Nội dung bài viết giữ nguyên.
 
-Bộ màu chủ đạo:
+## Cập nhật ảnh
 
-- Giấy ngà: `#F9F6EF`
-- Xanh trầm: `#263E32`
-- Xanh lá nhạt: `#D9E4D8`
-- Be ấm: `#EAE2D0`
-- Hồng đất: `#F2DFD8`
+1. Tạo ảnh bằng LLM từ tham chiếu đúng người/sản phẩm trên fanpage; không tự nghĩ thêm nhãn hàng, bao bì hay công dụng.
+2. Xuất WebP phù hợp kích thước hiển thị, thường 480 và 960px. Giữ ảnh gốc ở ngoài repo.
+3. Upload binary vào KV với key là đường dẫn ảnh bắt đầu bằng `/assets/`, metadata `contentType` và `etag`.
+4. Kiểm tra URL CDN, kích thước và SHA-256; thêm metadata vào manifest rồi cập nhật trang.
+5. Dùng alt mô tả, width/height, srcset; lazy loading cho ảnh ngoài màn hình đầu.
 
-## Biểu tượng
+## Chân dung lời nhắn
 
-Bốn SVG tự thiết kế tại `public/assets/icons/`: `nam-sam.svg`, `duong-am.svg`, `tuoi-35.svg` và `chong-nang.svg`.
+`/assets/editorial/phung-ha-founder-v2-{480,960}.webp`: ảnh LLM từ người thật trong ảnh fanpage, dáng nghiêng, khẽ vén tóc và cười tươi, áo lụa kem trên nền spa xanh sage. Dùng ở lời nhắn trang chủ và Chuyện của Hà.
 
-- Nét viền mảnh 1,65 đơn vị trên hệ tọa độ 68×68; màu `#405B4C`.
-- Không dùng biểu tượng 3D, màu neon, icon emoji lẫn vào các nhóm.
-- Vòng tròn nền nhẹ bằng CSS, kích thước 43–56 px.
-- Trong thẻ có văn bản mô tả bên cạnh, icon là trang trí: `alt=""`.
-
-## Ảnh danh mục mỹ phẩm
-
-Bộ ảnh `public/assets/collections/*-v2-{480,960}.webp` được tạo bằng LLM dựa trên sản phẩm thật từ fanpage Phùng Hà Korea, theo yêu cầu chủ website ngày 06/11/2026. Dùng chung trên trang chủ, shop, trang chi tiết nhóm và thư viện shop. Không chèn nhãn hoặc watermark lên ảnh.
-
-- Chống nắng: RIEN’A STC UV Sun Ampoule, chai vòi bạc cùng hộp. Ảnh gốc: https://www.facebook.com/photo.php?fbid=1611436173713681&set=pb.100045419418570.-2207520000&type=3
-- Dưỡng ẩm: hũ kem nắp bạc 30gr trong ảnh `fanpage-product.jpg`.
-- Dưỡng sáng: Anti Rosin Ampoule Niacin 4%, từ cùng ảnh gốc.
-- Chăm da 35+: bộ ba chai nhỏ giọt 40ml, Anti Rosin Ampoule và hũ kem.
-- Ảnh gốc bộ ba: https://www.facebook.com/photo.php?fbid=1650744839782814&set=pb.100045419418570.-2207520000&type=3
-
-Phong cách: ảnh chụp studio, bệ đá, ánh sáng mềm, tông ngà champagne, xanh sage và hồng nhạt. Giữ hình dáng, màu sắc và nhận diện bao bì theo tham chiếu; không thêm sản phẩm hoặc nhãn hàng tự nghĩ ra. Chữ nhỏ do AI dựng lại không dùng để xác minh thành phần hay hướng dẫn sử dụng.
-
-Ảnh 4:5, WebP 480 và 960px, srcset theo màn hình. Alt mô tả sản phẩm; ảnh chi tiết nhóm cũng được dùng trong metadata chia sẻ. Các SVG cũ giữ làm tư liệu, không còn dùng trong trang hiển thị. Không sửa nội dung bài viết khi đổi bộ ảnh.
-
-## Lưu trữ/CDN
-
-- **Nguồn chuẩn:** GitHub `yanghoxom/spa-lp`, thư mục `public/assets/`.
-- **Xây dựng:** GitHub push vào `main` → Cloudflare Workers Builds → đóng gói vào `dist/assets/`.
-- **Phân phối:** Cloudflare Workers Static Assets tự phục vụ qua CDN tại `https://phunghakorea.com/assets/...`.
-- **Không cần thêm:** Cloudflare Images trả phí, R2, cơ sở dữ liệu hay subdomain ảnh ở giai đoạn này.
-- Đặt file tên ổn định; nếu thay nội dung ảnh nhưng muốn tránh cache cũ, đổi tên phiên bản như `ten-san-pham-v2.webp`. Không thay asset đã xuất bản nhiều lần mà không đổi tên.
-- Hiện headers đặt thời gian cache ảnh 1 ngày; cân nhắc cache dài hơn cho đường dẫn có tên phiên bản.
-
-## Email thương hiệu
-
-Website hiển thị `cskh@phunghakorea.com`. Cloudflare Email Routing đã có quy tắc nhận và chuyển tiếp tất cả địa chỉ của tên miền tới một địa chỉ nhận đã xác minh. Email Routing **không cấp hộp thư gửi** hay tự xác thực gửi dưới địa chỉ này; để trả lời với địa chỉ `cskh@`, cần một dịch vụ gửi thư hỗ trợ xác thực tên miền.
+Đã bỏ ảnh poster phóng 192%, lớp phủ tối, chữ chồng lên mặt, khung vòm và biểu tượng trang trí. Chữ 15–16px, nút tối thiểu 48px; mobile một cột, ảnh 4:5 giữ đầy đủ khuôn mặt và cử chỉ.

@@ -3,6 +3,19 @@ import path from "node:path";
 
 const ROOT = process.cwd();
 const BASE = "https://phunghakorea.com";
+const CDN = "https://cdn.phunghakorea.com";
+function mediaUrl(value) {
+  const local = String(value).replace(/^https:\/\/phunghakorea\.com(?=\/)/, "");
+  return /^\/(?:assets\/[a-zA-Z0-9/_\-.]+\.(?:png|jpe?g|webp|avif|svg|ico)|favicon\.ico|apple-touch-icon\.png)(?:[?#].*)?$/.test(local) ? CDN + local : value;
+}
+function cdnImageAttributes(markup) {
+  return markup.replace(/\b(src|srcset|href|content)="([^"]*)"/g, (all, attr, value) => {
+    const next = attr === "srcset"
+      ? value.split(",").map(part => part.trim().replace(/^(\S+)/, url => mediaUrl(url))).join(", ")
+      : mediaUrl(value);
+    return attr + '="' + next + '"';
+  });
+}
 const MESSAGE = "https://m.me/PhungHa29";
 const FANPAGE = "https://www.facebook.com/PhungHa29";
 const articlesDir = path.join(ROOT, "content", "articles");
@@ -81,7 +94,7 @@ function layout({ title, description, url = "/", active = "", image = "/assets/f
   const organizationSchema = JSON.stringify({
     "@context":"https://schema.org", "@type":"Organization",
     "name":"Phùng Hà Korea", "url":BASE,
-    "logo":BASE+"/assets/brand/phungha-icon-512-v1.webp", "sameAs":[FANPAGE],
+    "logo":mediaUrl("/assets/brand/phungha-icon-512-v1.webp"), "sameAs":[FANPAGE],
     "contactPoint":{"@type":"ContactPoint","contactType":"customer support",
       "telephone":"+84353950220","email":"cskh@phunghakorea.com","availableLanguage":"Vietnamese"}
   }).replace(/</g,"\\u003c");
@@ -100,16 +113,17 @@ function layout({ title, description, url = "/", active = "", image = "/assets/f
     '<meta property="og:type" content="' + type + '"><meta property="og:title" content="' + safeTitle + '">' +
     '<meta property="og:description" content="' + escapeHTML(description) + '">' +
     '<meta property="og:url" content="' + escapeHTML(canonical) + '">' +
-    '<meta property="og:image" content="' + escapeHTML(BASE + image) + '">' +
+    '<meta property="og:image" content="' + escapeHTML(mediaUrl(image)) + '">' +
     '<meta name="twitter:card" content="summary_large_image">' +
     (date ? '<meta property="article:published_time" content="' + escapeHTML(date) + '">' : '') +
+    '<link rel="preconnect" href="https://cdn.phunghakorea.com">' +
     '<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>' +
     '<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">' +
     '<script type="module" src="/src/site.ts"></script>' +
     (quiz ? '<script type="module" src="/src/main.ts"></script>' : '') +
     '<script type="application/ld+json">' + organizationSchema + '</script></head>';
-  return meta + '<body><a href="#main-content" class="skip-link">Đến nội dung chính</a>' +
-    header(active) + '<main id="main-content">' + body + '</main>' + footer() + '</body></html>';
+  return cdnImageAttributes(meta + '<body><a href="#main-content" class="skip-link">Đến nội dung chính</a>' +
+    header(active) + '<main id="main-content">' + body + '</main>' + footer() + '</body></html>');
 }
 function sectionLabel(n, text) { return '<div class="section-label"><span>' + n + '</span><span>' + text + '</span></div>'; }
 function arrowLink(href, label, type = "") {
@@ -181,11 +195,13 @@ function home() {
     '<div class="collections-grid">' + collections + '</div><div class="shop-bottom">' +
     '<p>Chị chưa biết chọn món nào? Trả lời 5 câu ngắn để Hà hiểu da chị hơn nhé.</p>' +
     arrowLink("/tu-van-da/", "Để Hà hiểu da chị") + '</div></section>' +
-    '<section class="founder-band"><div class="container founder-grid"><div class="founder-type"><span class="vertical-title">ĐÔI LỜI TỪ HÀ</span>' +
-    '<p class="overline">LỜI NHẮN TỪ PHÙNG HÀ</p><h2>Chăm chút cho mình, <em>chị nhé.</em></h2>' +
-    '<p>Giữa bao việc mỗi ngày, chị cũng xứng đáng có một khoảng riêng để làm đẹp. Hà muốn nghe chị chia sẻ, cùng chị chọn từng món hợp da, để việc chăm mình trở thành một niềm vui.</p>' +
-    arrowLink("/ve-phung-ha/", "Nghe Hà kể chuyện", "light") + '</div><div class="founder-art" aria-hidden="true">' +
-    '<div class="founder-photo"><img src="/assets/fanpage-service-2.jpg" alt="" loading="lazy" decoding="async"></div><span class="founder-curve"></span><span class="founder-art-title">PHÙNG HÀ</span><span class="founder-art-sub">MỸ PHẨM HÀN • CHĂM DA MỖI NGÀY</span><span class="founder-leaf">✳</span></div></div></section>' +
+    '<section class="personal-note" id="loi-nhan" aria-labelledby="personal-note-title"><div class="container note-grid">' +
+    '<div class="note-copy"><p class="overline">ĐÔI LỜI TỪ HÀ</p><h2 id="personal-note-title">Chăm chút cho mình, <em>chị nhé.</em></h2>' +
+    '<p>Giữa bao việc mỗi ngày, chị xứng đáng có một khoảng riêng cho mình.</p>' +
+    '<p>Chị cứ kể Hà nghe điều làn da đang cần. Mình cùng chọn món hợp da, để mỗi lần chăm mình là một niềm vui.</p>' +
+    '<div class="note-signature"><span>Thương mến,</span><strong>Phùng Hà</strong></div>' +
+    arrowLink("/ve-phung-ha/", "Nghe Hà kể chuyện", "light") + '</div>' +
+    '<figure class="note-portrait"><img src="/assets/editorial/phung-ha-founder-v2-960.webp" srcset="/assets/editorial/phung-ha-founder-v2-480.webp 480w, /assets/editorial/phung-ha-founder-v2-960.webp 960w" sizes="(max-width: 780px) 90vw, 460px" width="960" height="1200" alt="Phùng Hà cười tươi, khẽ vén tóc trong không gian chăm da" loading="lazy" decoding="async"></figure></div></section>' +
     '<section class="section container final-cta"><p class="overline">HÀ Ở ĐÂY, LẮNG NGHE CHỊ</p>' +
     '<h2>Chị muốn chăm da đẹp hơn? <em>Mình trò chuyện nhé.</em></h2>' +
     '<div class="final-actions"><a class="btn btn-dark" href="/tu-van-da/">Nhờ Hà tư vấn <span>↗</span></a>' +
@@ -233,7 +249,7 @@ function articleIndex(page = 1, topicSlug = "") {
 }
 function safeImagePath(value) {
   return typeof value === "string" &&
-    /^\/assets\/[a-zA-Z0-9/_\-.]+\.(?:png|jpe?g|webp|avif)$/i.test(value);
+    /^(?:https:\/\/cdn\.phunghakorea\.com)?\/assets\/[a-zA-Z0-9/_\-.]+\.(?:png|jpe?g|webp|avif)$/i.test(value);
 }
 function inline(text) {
   return escapeHTML(text).replace(/\[([^\]]+)\]\(((?:https?:\/\/|\/(?!\/))[^ )]+)\)/g, (_, label, href) => {
@@ -270,10 +286,10 @@ function renderMarkdown(src) {
       output.push("<h"+level+" id='"+id+"'>"+inline(name)+"</h"+level+">");
       continue;
     }
-    const image = s.match(/^!\[([^\]]*)\]\((\/assets\/[^ )]+)\)$/);
+    const image = s.match(/^!\[([^\]]*)\]\(((?:https:\/\/cdn\.phunghakorea\.com)?\/assets\/[^ )]+)\)$/);
     if(image && safeImagePath(image[2])) {
       flushParagraph();flushList();
-      output.push('<figure class="article-figure"><img src="' + escapeHTML(image[2]) +
+      output.push('<figure class="article-figure"><img src="' + escapeHTML(mediaUrl(image[2])) +
         '" alt="' + escapeHTML(image[1]) + '" loading="lazy" decoding="async">' +
         (image[1] ? '<figcaption>' + escapeHTML(image[1]) + '</figcaption>' : '') + '</figure>');
       continue;
@@ -313,7 +329,7 @@ function renderMarkdown(src) {
 function articlePage(a) {
   const article = renderMarkdown(a.body);
   const toc = article.toc.length ? '<div class="toc"><p>NỘI DUNG BÀI VIẾT</p>' + article.toc.map(x => '<a href="#'+x.id+'">'+escapeHTML(x.label)+'</a>').join("")+'</div>' : "";
-  const articleJson = JSON.stringify({ "@context":"https://schema.org", "@type":"Article", headline:a.title, description:a.description, datePublished:a.date, dateModified:a.updated || a.date, image:BASE+(a.cover || "/assets/fanpage-service-2.jpg"), inLanguage:"vi", mainEntityOfPage:BASE+a.url, author:{"@type":"Organization",name:"Phùng Hà Korea"}, publisher:{"@type":"Organization",name:"Phùng Hà Korea"} }).replace(/</g,"\\u003c");
+  const articleJson = JSON.stringify({ "@context":"https://schema.org", "@type":"Article", headline:a.title, description:a.description, datePublished:a.date, dateModified:a.updated || a.date, image:mediaUrl(a.cover || "/assets/fanpage-service-2.jpg"), inLanguage:"vi", mainEntityOfPage:BASE+a.url, author:{"@type":"Organization",name:"Phùng Hà Korea"}, publisher:{"@type":"Organization",name:"Phùng Hà Korea"} }).replace(/</g,"\\u003c");
   return layout({ title: a.title + " | Phùng Hà Korea", description:a.description, url:a.url, type:"article", date:a.date, active:"articles" },
     '<div class="article-cover art-'+escapeHTML(a.accent)+'"><div class="article-cover-inner container"><a class="breadcrumb" href="/kien-thuc/">← Về góc chăm da</a>' +
     '<p class="eyebrow">'+escapeHTML(a.category)+' / GÓC CHĂM DA</p><h1>'+escapeHTML(a.title)+'</h1>' +
@@ -371,7 +387,7 @@ function aboutPage() {
     '<p>Ở Phùng Hà Korea, Hà cùng chị tìm mỹ phẩm Hàn phù hợp, từ những món chị đang dùng đến điều chị muốn cải thiện. Mình trao đổi rõ về sản phẩm, cách dùng và mức chi trước khi chọn mua.</p>' +
     '<p>Chị cũng sẽ tìm thấy ở đây những chia sẻ chăm da dễ hiểu, dễ làm theo. Khi da cần điều trị hoặc chị muốn peel (thay da hóa học), chị nên hỏi bác sĩ da liễu trước nhé.</p>' +
     '<a href="'+FANPAGE+'" class="btn btn-dark" target="_blank" rel="noopener noreferrer">Gặp Hà trên Facebook <span>↗</span></a></div>' +
-    '<div class="about-image"><div class="about-photo"><img src="/assets/fanpage-product.jpg" alt="Hình ảnh giới thiệu từ fanpage Phùng Hà Korea" loading="lazy"></div>' +
+    '<div class="about-image"><div class="about-portrait"><img src="/assets/editorial/phung-ha-founder-v2-960.webp" srcset="/assets/editorial/phung-ha-founder-v2-480.webp 480w, /assets/editorial/phung-ha-founder-v2-960.webp 960w" sizes="(max-width: 780px) 90vw, 460px" width="960" height="1200" alt="Chân dung Phùng Hà" loading="lazy" decoding="async"></div>' +
     '<span>LẮNG NGHE CHỊ, TRÂN TRỌNG NÉT ĐẸP RIÊNG</span></div></section>' +
     '<section class="values-section"><div class="container">'+sectionLabel("VỀ HÀ /","CÁCH HÀ CHĂM CHÚT CHO CHỊ")+'<div class="values-grid">' +
     '<div><span>01 /</span><h3>Lắng nghe chị trước</h3><p>Hà hỏi về làn da, mong muốn và những món chị đang dùng để cùng chị chọn cho phù hợp.</p></div>' +

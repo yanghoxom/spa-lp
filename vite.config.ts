@@ -19,6 +19,7 @@ export default defineConfig({
   base: "./",
   server: { allowedHosts: ["terminal.local"] },
   build: {
+    emptyOutDir: true,
     rollupOptions: {
       input: Object.fromEntries(
         htmlFiles.map((name) => [
