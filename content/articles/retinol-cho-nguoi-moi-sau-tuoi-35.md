@@ -4,6 +4,8 @@ description: Retinol có thể hỗ trợ nếp nhăn nhỏ nhưng dễ gây kh�
 date: 2026-11-06
 category: Da tuổi 35+
 readingTime: 6 phút đọc
+cover: /assets/articles/retinol-duong-am-v1-1440.webp
+coverAlt: Phùng Hà thoa kem dưỡng ẩm trong routine chăm da buổi tối
 accent: sage
 ---
 

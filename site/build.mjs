@@ -129,14 +129,19 @@ function sectionLabel(n, text) { return '<div class="section-label"><span>' + n 
 function arrowLink(href, label, type = "") {
   return '<a class="arrow-link ' + type + '" href="' + href + '">' + escapeHTML(label) + '<span aria-hidden="true">↗</span></a>';
 }
+function articleImage(a, className, sizes) {
+  const responsive = a.cover.match(/^(\/assets\/articles\/.+)-1440\.webp$/);
+  return '<img class="' + className + '" src="' + escapeHTML(a.cover) + '"' +
+    (responsive ? ' srcset="' + [480,960,1440].map(w => escapeHTML(responsive[1]) + '-' + w + '.webp ' + w + 'w').join(', ') + '" sizes="' + sizes + '" width="1440" height="960"' : '') +
+    ' alt="' + escapeHTML(a.coverAlt || a.title) + '" loading="lazy" decoding="async">';
+}
 function articleCard(a, index = 0) {
   const art = a.cover
-    ? '<img class="article-art-image" src="' + escapeHTML(a.cover) +
-      '" alt="' + escapeHTML(a.coverAlt || a.title) + '" loading="lazy" decoding="async">'
+    ? articleImage(a, 'article-art-image', '(max-width: 560px) calc(100vw - 34px), (max-width: 780px) 45vw, 32vw')
     : '<div class="art-sculpture"><span></span><span></span></div>';
-  return '<a class="article-card" href="' + a.url + '"><div class="article-art art-' + escapeHTML(a.accent) + '">' +
-    art + '<span class="art-issue">GÓC CHĂM DA CÙNG HÀ</span><span class="art-index">BÀI VIẾT / ' +
-    String(index + 1).padStart(2, "0") + '</span></div>' +
+  return '<a class="article-card" href="' + a.url + '"><div class="article-art art-' + escapeHTML(a.accent) + (a.cover ? ' has-photo' : '') + '">' +
+    art + (a.cover ? '' : '<span class="art-issue">GÓC CHĂM DA CÙNG HÀ</span><span class="art-index">BÀI VIẾT / ' +
+    String(index + 1).padStart(2, "0") + '</span>') + '</div>' +
     '<div class="article-meta"><span>' + escapeHTML(a.category) + '</span><span>' + formatDate(a.date) + '</span></div>' +
     '<h3>' + escapeHTML(a.title) + '</h3><p>' + escapeHTML(a.description) + '</p>' +
     '<span class="article-cta">Đọc tiếp cùng Hà <span aria-hidden="true">↗</span></span></a>';
@@ -330,13 +335,13 @@ function articlePage(a) {
   const article = renderMarkdown(a.body);
   const toc = article.toc.length ? '<div class="toc"><p>NỘI DUNG BÀI VIẾT</p>' + article.toc.map(x => '<a href="#'+x.id+'">'+escapeHTML(x.label)+'</a>').join("")+'</div>' : "";
   const articleJson = JSON.stringify({ "@context":"https://schema.org", "@type":"Article", headline:a.title, description:a.description, datePublished:a.date, dateModified:a.updated || a.date, image:mediaUrl(a.cover || "/assets/fanpage-service-2.jpg"), inLanguage:"vi", mainEntityOfPage:BASE+a.url, author:{"@type":"Organization",name:"Phùng Hà Korea"}, publisher:{"@type":"Organization",name:"Phùng Hà Korea"} }).replace(/</g,"\\u003c");
-  return layout({ title: a.title + " | Phùng Hà Korea", description:a.description, url:a.url, type:"article", date:a.date, active:"articles" },
+  return layout({ title: a.title + " | Phùng Hà Korea", description:a.description, url:a.url, image:a.cover || "/assets/fanpage-service-2.jpg", type:"article", date:a.date, active:"articles" },
     '<div class="article-cover art-'+escapeHTML(a.accent)+'"><div class="article-cover-inner container"><a class="breadcrumb" href="/kien-thuc/">← Về góc chăm da</a>' +
     '<p class="eyebrow">'+escapeHTML(a.category)+' / GÓC CHĂM DA</p><h1>'+escapeHTML(a.title)+'</h1>' +
     '<p class="article-intro">'+escapeHTML(a.description)+'</p><div class="article-cover-meta"><span>'+formatDate(a.date)+'</span><span>'+escapeHTML(a.readingTime)+'</span><span>Phùng Hà Korea biên tập</span></div></div>' +
     '<div class="cover-art-decoration" aria-hidden="true"><i></i><i></i></div></div>' +
     '<div class="container article-layout"><article class="article-body">'+
-    (a.cover ? '<figure class="article-figure article-lead-image"><img src="' + escapeHTML(a.cover) + '" alt="' + escapeHTML(a.coverAlt || a.title) + '" loading="lazy" decoding="async"></figure>' : '') +
+    (a.cover ? '<figure class="article-figure article-lead-image">' + articleImage(a, 'article-lead-photo', '(max-width: 780px) 94vw, 780px') + '</figure>' : '') +
     article.html+
     '<div class="article-disclaimer"><strong>Lưu ý</strong><p>Thông tin mang tính tham khảo, không thay thế chẩn đoán hay điều trị. Nếu da đang viêm, tổn thương, kích ứng kéo dài hoặc bạn cân nhắc peel, hãy trao đổi với bác sĩ da liễu.</p></div>' +
     '<div class="article-next"><p class="overline">CHĂM DA CÙNG HÀ</p><h2>Chị muốn Hà tư vấn riêng?</h2>' +

@@ -233,5 +233,50 @@
     "size": 129466,
     "sha256": "5262ac22f8448e08b0c53dc4f994b8a3ac34a96078c47a32b1aa6f1511c5d745",
     "contentType": "image/webp"
+  },
+  "/assets/articles/chong-nang-v1-480.webp": {
+    "size": 24392,
+    "sha256": "95aa587e229be47de55ac6c587bf28cc244a3c7a88e90cdefb46a066161ea60b",
+    "contentType": "image/webp"
+  },
+  "/assets/articles/chong-nang-v1-960.webp": {
+    "size": 78694,
+    "sha256": "acc0555af6598b3fc6720ddd9c8d7f67e84093a844208eeef002b66cf4d7669d",
+    "contentType": "image/webp"
+  },
+  "/assets/articles/routine-tuoi-35-v1-480.webp": {
+    "size": 19124,
+    "sha256": "28f46c419025a7d9177372373be44c5d665975f86e20950238dd9cba4fa569e6",
+    "contentType": "image/webp"
+  },
+  "/assets/articles/chong-nang-v1-1440.webp": {
+    "size": 152948,
+    "sha256": "2620760fea6347c6e9520c4d98111f1dbd131a6656c4a28bf5faa7904bc57a9f",
+    "contentType": "image/webp"
+  },
+  "/assets/articles/routine-tuoi-35-v1-960.webp": {
+    "size": 54272,
+    "sha256": "1623b6733257188c6ac5752293943b384aa98c1281f93b00170b67592ba57dd8",
+    "contentType": "image/webp"
+  },
+  "/assets/articles/retinol-duong-am-v1-1440.webp": {
+    "size": 102998,
+    "sha256": "959e866300bea9e11ce6574e5ff739f4f31fe86e07f7389f0f8757bc749dbfc4",
+    "contentType": "image/webp"
+  },
+  "/assets/articles/routine-tuoi-35-v1-1440.webp": {
+    "size": 102984,
+    "sha256": "69e24d21cb3f2e6d43a44c79eec011aa6e0d35333723f55796a0326fe4e79a97",
+    "contentType": "image/webp"
+  },
+  "/assets/articles/retinol-duong-am-v1-960.webp": {
+    "size": 52420,
+    "sha256": "d5706e2690a9ca8e350bfd532a5b137f7c3d56ffb2fca7dafa0d9c627df40fd5",
+    "contentType": "image/webp"
+  },
+  "/assets/articles/retinol-duong-am-v1-480.webp": {
+    "size": 17594,
+    "sha256": "5c3d8d3e3369f2ac9232a3ff9c2e816e0c633ae1e5fa5bad087568411078d5fc",
+    "contentType": "image/webp"
   }
 }

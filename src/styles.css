@@ -373,3 +373,6 @@ h1 em,h2 em { color:#57765f; }
 @media(max-width:1080px){.note-grid{gap:40px;}.note-copy>p:not(.overline){font-size:15px;}}
 @media(max-width:780px){.note-grid{grid-template-columns:minmax(0,1fr);gap:34px;padding-block:52px;}.note-copy{max-width:600px;}.note-copy h2{font-size:clamp(39px,7.5vw,56px);max-width:16ch;}.note-portrait{max-width:460px;justify-self:center;}.note-copy .overline{margin-bottom:21px;}.note-copy h2{margin-bottom:23px;}}
 @media(max-width:560px){.personal-note{scroll-margin-top:84px;}.note-grid{padding-block:42px;gap:30px;}.note-copy>p:not(.overline){font-size:15px;line-height:1.85;}.note-signature{margin-top:20px;}.note-copy .arrow-link.light{margin-top:18px;}.note-portrait{max-width:390px;}}
+
+.article-art.has-photo{aspect-ratio:3/2;}
+.article-art.has-photo:after{display:none;}

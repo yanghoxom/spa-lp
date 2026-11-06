@@ -4,6 +4,8 @@ description: Routine tối giản cho làn da trưởng thành với ba ưu tiê
 date: 2026-11-05
 category: Da tuổi 35+
 readingTime: 5 phút đọc
+cover: /assets/articles/routine-tuoi-35-v1-1440.webp
+coverAlt: Phùng Hà cùng bộ tinh chất và kem dưỡng từ fanpage
 accent: sage
 ---
 

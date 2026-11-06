@@ -4,6 +4,8 @@ description: Hiểu vai trò của chống nắng với da nám sạm, cách ch�
 date: 2026-11-05
 category: Nám & chống nắng
 readingTime: 5 phút đọc
+cover: /assets/articles/chong-nang-v1-1440.webp
+coverAlt: Phùng Hà giới thiệu RIEN’A STC UV Sun Ampoule cùng mũ che nắng
 accent: gold
 ---
 
