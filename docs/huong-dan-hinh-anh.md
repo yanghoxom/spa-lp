@@ -21,27 +21,19 @@ Bốn SVG tự thiết kế tại `public/assets/icons/`: `nam-sam.svg`, `duong-
 - Vòng tròn nền nhẹ bằng CSS, kích thước 43–56 px.
 - Trong thẻ có văn bản mô tả bên cạnh, icon là trang trí: `alt=""`.
 
-## Hình minh họa danh mục mỹ phẩm
+## Ảnh danh mục mỹ phẩm
 
-Bốn SVG gốc tại `public/assets/collections/` (640×760):
+Bộ ảnh `public/assets/collections/*-v2-{480,960}.webp` được tạo bằng LLM dựa trên sản phẩm thật từ fanpage Phùng Hà Korea, theo yêu cầu chủ website ngày 06/11/2026. Dùng chung trên trang chủ, shop, trang chi tiết nhóm và thư viện shop. Không chèn nhãn hoặc watermark lên ảnh.
 
-- `chong-nang.svg`: tuýp chống nắng và chi tiết mặt trời.
-- `duong-am-phuc-hoi.svg`: hũ kem và đường nét mềm, màu xanh dịu.
-- `duong-sang-deu-mau.svg`: lọ tinh chất dạng nhỏ giọt, nền hồng đất.
-- `cham-da-tuoi-35.svg`: chai dưỡng da dạng vòi bơm, tông be.
+- Chống nắng: RIEN’A STC UV Sun Ampoule, chai vòi bạc cùng hộp. Ảnh gốc: https://www.facebook.com/photo.php?fbid=1611436173713681&set=pb.100045419418570.-2207520000&type=3
+- Dưỡng ẩm: hũ kem nắp bạc 30gr trong ảnh `fanpage-product.jpg`.
+- Dưỡng sáng: Anti Rosin Ampoule Niacin 4%, từ cùng ảnh gốc.
+- Chăm da 35+: bộ ba chai nhỏ giọt 40ml, Anti Rosin Ampoule và hũ kem.
+- Ảnh gốc bộ ba: https://www.facebook.com/photo.php?fbid=1650744839782814&set=pb.100045419418570.-2207520000&type=3
 
-**Đây là hình minh họa nhóm sản phẩm, không phải ảnh của hàng đang bán.** Không ghi tên nhãn, không làm nhãn hàng giả hay đưa giá công khai dựa trên ảnh minh họa. Website hiển thị chú thích "Hình minh họa nhóm sản phẩm".
+Phong cách: ảnh chụp studio, bệ đá, ánh sáng mềm, tông ngà champagne, xanh sage và hồng nhạt. Giữ hình dáng, màu sắc và nhận diện bao bì theo tham chiếu; không thêm sản phẩm hoặc nhãn hàng tự nghĩ ra. Chữ nhỏ do AI dựng lại không dùng để xác minh thành phần hay hướng dẫn sử dụng.
 
-## Khi có hình sản phẩm bán thực tế
-
-Chỉ sử dụng ảnh gốc do chủ sở hữu cung cấp, ảnh nhà sản xuất cho phép dùng, hoặc hình do Phùng Hà Korea chụp:
-
-1. Lưu tại `public/assets/products/<thuong-hieu>-<ten-san-pham>-<goc-chup>.webp`. Ví dụ: `hang-a-kem-duong-mat-truoc.webp`.
-2. Ảnh chính: sản phẩm rõ nét, nền sạch, không nhúng chữ sale, không filter thay đổi màu bao bì. Chiều rộng gợi ý 1200 px; WebP chất lượng khoảng 78–85, mục tiêu 100–250 KB/ảnh (tùy ảnh).
-3. Ảnh phụ: mặt sau với nhãn, thành phần, hạn dùng nếu phù hợp. Không làm giả phản hồi khách hàng hay kết quả trước/sau.
-4. Khi xuất bản một sản phẩm, cung cấp tên chính xác, dung tích, nhà sản xuất, hướng dẫn, nguồn gốc, giá và tình trạng hàng **đã được Hà xác minh**.
-5. Viết `alt` tiếng Việt mô tả khách quan. Đặt `width`/`height` tránh nhảy bố cục, bật `loading="lazy"` cho hình ngoài màn hình đầu.
-6. Không thay thế ảnh bán hàng thật bằng ảnh AI tạo ra; ảnh AI chỉ dùng cho minh họa chủ đề, cần nhận diện rõ là minh họa.
+Ảnh 4:5, WebP 480 và 960px, srcset theo màn hình. Alt mô tả sản phẩm; ảnh chi tiết nhóm cũng được dùng trong metadata chia sẻ. Các SVG cũ giữ làm tư liệu, không còn dùng trong trang hiển thị. Không sửa nội dung bài viết khi đổi bộ ảnh.
 
 ## Lưu trữ/CDN
 

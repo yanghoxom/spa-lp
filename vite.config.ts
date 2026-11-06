@@ -17,6 +17,7 @@ function walk(dir: string): void {
 
 export default defineConfig({
   base: "./",
+  server: { allowedHosts: ["terminal.local"] },
   build: {
     rollupOptions: {
       input: Object.fromEntries(
