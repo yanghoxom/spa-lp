@@ -155,7 +155,7 @@ function home() {
     '<section class="immersive-hero" aria-labelledby="hero-title">' +
     '<picture class="hero-backdrop"><source media="(max-width: 600px)" srcset="/assets/editorial/hero-v4-mobile-640.webp 640w, /assets/editorial/hero-v4-mobile-960.webp 960w" sizes="100vw">' +
     '<img src="/assets/editorial/hero-v4-desktop-1600.webp" srcset="/assets/editorial/hero-v4-desktop-1000.webp 1000w, /assets/editorial/hero-v4-desktop-1600.webp 1600w, /assets/editorial/hero-v4-desktop-2400.webp 2400w" sizes="100vw" alt="Phùng Hà cùng tinh chất nhỏ giọt, Anti Rosin Ampoule và kem dưỡng Hàn Quốc" width="1600" height="900" fetchpriority="high" decoding="async"></picture>' +
-    '<div class="hero-atmosphere" aria-hidden="true"></div><div class="hero-orbit" aria-hidden="true"><span>✦</span></div>' +
+    '<div class="hero-atmosphere" aria-hidden="true"></div>' +
     '<div class="container immersive-inner"><div class="immersive-copy"><p class="eyebrow">PHÙNG HÀ KOREA</p>' +
     '<h1 id="hero-title">Hiểu làn da.<br><em>Chạm nét đẹp.</em></h1>' +
     '<p class="immersive-lead">Mỹ phẩm Hàn, chọn riêng<br class="mobile-break"> cho làn da bạn.</p>' +
