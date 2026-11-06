@@ -202,7 +202,7 @@ export async function handleAuthorize(
     } satisfies ConsentOwner), { expirationTtl: CONSENT_TTL_SECONDS });
     consent.headers.set('Content-Type', 'text/html; charset=utf-8');
     consent.headers.set('Cache-Control', 'no-store');
-    consent.headers.set('Referrer-Policy', 'no-referrer');
+    consent.headers.set('Referrer-Policy', 'same-origin');
     consent.headers.set('Content-Security-Policy', "default-src 'none'; style-src 'unsafe-inline'; form-action 'self'; base-uri 'none'; frame-ancestors 'none'");
     consent.headers.set('X-Frame-Options', 'DENY');
     consent.headers.set('X-Content-Type-Options', 'nosniff');
