@@ -323,5 +323,30 @@
     "size": 132462,
     "sha256": "591422af995515ac28db512d9b0b02612ad86f953c8ca070b2128ad1a889b81f",
     "contentType": "image/webp"
+  },
+  "/assets/articles/mun-tuoi-truong-thanh-v1-480.webp": {
+    "size": 12036,
+    "sha256": "4e2823e6cebd24f5744b8ac429e53cbf310b47d695af52c46d084d19f4a4695e",
+    "contentType": "image/webp"
+  },
+  "/assets/articles/mun-tuoi-truong-thanh-v1-960.webp": {
+    "size": 33772,
+    "sha256": "f42b92998c1847052bee07b04fff74eb04c4dc83258337badaa613b0190fdb4c",
+    "contentType": "image/webp"
+  },
+  "/assets/articles/mun-tuoi-truong-thanh-v1-1440.webp": {
+    "size": 52258,
+    "sha256": "2a94baa878e2fbea855deaad637265c95e01a786178f1f934cb7a07df3121d61",
+    "contentType": "image/webp"
+  },
+  "/assets/articles/routine-da-mun-nguoi-lon-v1-480.webp": {
+    "size": 17358,
+    "sha256": "706146f8d25979cc329067fb3afbc30df9fb595b7ea89c7e727e84b2678c9727",
+    "contentType": "image/webp"
+  },
+  "/assets/articles/routine-da-mun-nguoi-lon-v1-960.webp": {
+    "size": 55950,
+    "sha256": "e40a5255110e7c528d999a98c8b0915962ebe86638b92580d7fd6e8a952b63fc",
+    "contentType": "image/webp"
   }
 }
