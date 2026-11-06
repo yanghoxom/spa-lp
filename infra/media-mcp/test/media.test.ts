@@ -1,7 +1,7 @@
 import { createHash } from "node:crypto";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import {
-  CDN_BASE, MediaMutations, configuredMaxBytes, getMediaMetadata, listMedia, sha256, verifyMedia,
+  CDN_BASE, MediaMutations, configuredMaxBytes, downloadMedia, getMediaMetadata, listMedia, sha256, verifyMedia,
 } from "../src/media";
 import type { CoordinatorState, MediaMetadata, MediaRepository, StateRepository } from "../src/types";
 import { pngFixture } from "./fixtures";
@@ -532,5 +532,68 @@ describe("delete_media requires separate human browser approval", () => {
     await expect(mutations.delete("/assets/", ACTOR)).rejects.toMatchObject({ code: "INVALID_KEY" });
     await expect(mutations.delete("/assets/*", ACTOR)).rejects.toMatchObject({ code: "INVALID_KEY" });
     expect(repository.delete).not.toHaveBeenCalled();
+  });
+});
+
+describe("read-only download_media KV image validation", () => {
+  it("returns validated binary bytes and metadata without writes or CDN calls", async () => {
+    const {repository} = harness();
+    const bytes = pngFixture(25);
+    const metadata = await metadataFor(bytes);
+    repository.objects.set(KEY, {value: bytes, metadata});
+    const result = await downloadMedia(repository, {key: KEY, expected_sha256: metadata.sha256});
+    expect(result.bytes).toEqual(bytes);
+    expect(result.metadata).toEqual({
+      key: KEY, cdn_url: CDN_BASE + KEY, filename: "image-v1.png",
+      content_type: "image/png", byte_size: bytes.length, sha256: metadata.sha256,
+      etag: metadata.etag, last_modified: metadata.uploadedAt,
+    });
+    expect(repository.read).toHaveBeenCalledWith(KEY);
+    expect(repository.put).not.toHaveBeenCalled();
+    expect(repository.delete).not.toHaveBeenCalled();
+  });
+
+  it.each(["/assets/../secret.png", "/assets/%2e%2e/secret.png", "/private/x.png", "/assets/other\\\\path.png"])(
+    "rejects path traversal or invalid key %s", async key => {
+      const {repository} = harness();
+      await expect(downloadMedia(repository, {key})).rejects.toMatchObject({code: "INVALID_KEY"});
+      expect(repository.read).not.toHaveBeenCalled();
+    },
+  );
+
+  it("returns MEDIA_NOT_FOUND for absent object", async () => {
+    const {repository} = harness();
+    await expect(downloadMedia(repository, {key: KEY})).rejects.toMatchObject({code: "MEDIA_NOT_FOUND"});
+  });
+
+  it("detects forged and unsupported MIME independently of KV metadata", async () => {
+    const {repository} = harness();
+    const bytes = new TextEncoder().encode("<svg xmlns='http://www.w3.org/2000/svg'></svg>");
+    repository.objects.set(KEY, {value: bytes, metadata: {contentType: "image/png"}});
+    await expect(downloadMedia(repository, {key: KEY})).rejects.toMatchObject({code: "UNSUPPORTED_MIME"});
+    repository.objects.set(KEY, {value: pngFixture(), metadata: {contentType: "image/webp"}});
+    await expect(downloadMedia(repository, {key: KEY})).rejects.toMatchObject({code: "UNSUPPORTED_MIME"});
+  });
+
+  it("rejects oversized KV bytes and maps bounded stream errors to FILE_TOO_LARGE", async () => {
+    const {repository} = harness();
+    repository.objects.set(KEY, {value: new Uint8Array(10_000_001), metadata: null});
+    await expect(downloadMedia(repository, {key: KEY})).rejects.toMatchObject({code: "FILE_TOO_LARGE"});
+    repository.read.mockRejectedValueOnce(Object.assign(new Error("bounded"), {code: "IMAGE_TOO_LARGE"}));
+    // Non-MediaError is always redacted as a generic backend failure.
+    await expect(downloadMedia(repository, {key: KEY})).rejects.toMatchObject({code: "DOWNLOAD_FAILED"});
+  });
+
+  it("rejects hash mismatch, maps KV outages, and handles missing legacy metadata", async () => {
+    const {repository} = harness();
+    const bytes = pngFixture(8);
+    repository.objects.set(KEY, {value: bytes, metadata: null});
+    await expect(downloadMedia(repository, {key: KEY, expected_sha256: "0".repeat(64)}))
+      .rejects.toMatchObject({code: "HASH_MISMATCH"});
+    const result = await downloadMedia(repository, {key: KEY});
+    expect(result.metadata.etag).toBeNull();
+    expect(result.metadata.last_modified).toBeNull();
+    repository.read.mockRejectedValueOnce(new Error("secret backend detail"));
+    await expect(downloadMedia(repository, {key: KEY})).rejects.toMatchObject({code: "DOWNLOAD_FAILED"});
   });
 });
