@@ -8,4 +8,4 @@ const schemas = Object.fromEntries(Object.entries(toolSchemas).map(([name, schem
 }]));
 await mkdir(new URL("../schemas/", import.meta.url), {recursive: true});
 await writeFile(new URL("../schemas/tools.json", import.meta.url), JSON.stringify(schemas, null, 2) + "\n");
-console.log("Exported schemas for five media tools.");
+console.log("Exported schemas for six media tools.");
