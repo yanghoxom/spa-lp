@@ -278,5 +278,50 @@
     "size": 17594,
     "sha256": "5c3d8d3e3369f2ac9232a3ff9c2e816e0c633ae1e5fa5bad087568411078d5fc",
     "contentType": "image/webp"
+  },
+  "/assets/articles/da-nhay-cam-v1-480.webp": {
+    "size": 19870,
+    "sha256": "0721023ee7fb8a4baefd7d15e6ea0e3faaf2bb207f24c97bce2d7d068889b677",
+    "contentType": "image/webp"
+  },
+  "/assets/articles/da-nhay-cam-v1-960.webp": {
+    "size": 54948,
+    "sha256": "9c45ded32b53b3f92f9534b2f9b8b45146ba5b23d2603364bf284e3c7bbc67aa",
+    "contentType": "image/webp"
+  },
+  "/assets/articles/da-nhay-cam-v1-1440.webp": {
+    "size": 102830,
+    "sha256": "78e50b407d84df22bce7c41bd5f3e1cfcebfdf184fffa2657f1dc1234d07bf09",
+    "contentType": "image/webp"
+  },
+  "/assets/articles/routine-han-gon-nhe-v1-480.webp": {
+    "size": 21534,
+    "sha256": "be3f5ad17a8cc3b5aa10e59f1610de19a25f255e2b3e7a2291d5f86accea331f",
+    "contentType": "image/webp"
+  },
+  "/assets/articles/routine-han-gon-nhe-v1-960.webp": {
+    "size": 59548,
+    "sha256": "c8c7b649f7b973ab09879bef2dbfefe56d9415612c49fbaa2053bf704079dc0e",
+    "contentType": "image/webp"
+  },
+  "/assets/articles/routine-han-gon-nhe-v1-1440.webp": {
+    "size": 113854,
+    "sha256": "d3376a0e9cd901cb6be586aaf09f68c1f8f89a6289063f7b3a97e485894c87a2",
+    "contentType": "image/webp"
+  },
+  "/assets/articles/peel-phuc-hoi-v1-480.webp": {
+    "size": 20554,
+    "sha256": "292c6c9fe0e03d0c947f1245852eecf5560660bace5868d85584f6339f5b69ac",
+    "contentType": "image/webp"
+  },
+  "/assets/articles/peel-phuc-hoi-v1-960.webp": {
+    "size": 66420,
+    "sha256": "4e7d9dd4626e3a636da8b848df1cabf892537c2ae0344c26cb911a3e6558656e",
+    "contentType": "image/webp"
+  },
+  "/assets/articles/peel-phuc-hoi-v1-1440.webp": {
+    "size": 132462,
+    "sha256": "591422af995515ac28db512d9b0b02612ad86f953c8ca070b2128ad1a889b81f",
+    "contentType": "image/webp"
   }
 }

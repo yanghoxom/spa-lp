@@ -4,6 +4,8 @@ description: Cách nhận biết routine đang khiến da khó chịu và nhữn
 date: 2026-11-05
 category: Phục hồi da
 readingTime: 4 phút đọc
+cover: /assets/articles/da-nhay-cam-v1-1440.webp
+coverAlt: Phùng Hà chăm da nhẹ nhàng với khăn mềm và routine tối giản
 accent: olive
 ---
 

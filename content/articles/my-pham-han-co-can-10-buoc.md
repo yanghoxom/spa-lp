@@ -4,6 +4,8 @@ description: Cách chọn routine K-Beauty gọn nhẹ, phù hợp làn da và n
 date: 2026-11-05
 category: Mỹ phẩm Hàn
 readingTime: 4 phút đọc
+cover: /assets/articles/routine-han-gon-nhe-v1-1440.webp
+coverAlt: Phùng Hà cùng tinh chất, kem dưỡng và chống nắng trong routine gọn nhẹ
 accent: cream
 ---
 

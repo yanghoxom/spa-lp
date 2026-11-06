@@ -4,6 +4,8 @@ description: Những lưu ý về peel da hóa học, thời gian phục hồi, 
 date: 2026-11-05
 category: Peel & phục hồi
 readingTime: 6 phút đọc
+cover: /assets/articles/peel-phuc-hoi-v1-1440.webp
+coverAlt: Phùng Hà nghỉ ngơi trong không gian chăm da, bên mũ và sản phẩm chống nắng
 accent: pink
 ---
 
