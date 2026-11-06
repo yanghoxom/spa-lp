@@ -131,7 +131,7 @@ function escapeHtml(value: string): string {
 }
 
 const SCOPE_LABELS: Record<string, string> = {
-  'media:read': 'Xem danh sách ảnh, thông tin ảnh và kiểm tra CDN',
+  'media:read': 'Xem danh sách, tải ảnh gốc từ KV, xem metadata và kiểm tra CDN',
   'media:write': 'Tải ảnh mới lên CDN công khai bằng đường dẫn có phiên bản',
   'media:delete': 'Yêu cầu xóa từng ảnh; mỗi lần xóa vẫn cần chị xác nhận riêng',
   offline_access: 'Duy trì kết nối bằng refresh token; có thể thu hồi kết nối',
@@ -193,7 +193,9 @@ export async function handleAuthorize(
   if (request.method === 'GET') {
     const authRequest = await oauth.parseAuthRequest(request);
     validateAuthRequest(authRequest);
-    if (authRequest.scope.length === 0) authRequest.scope = ['media:read', 'offline_access'];
+    // A client that omits scope sees all media permissions in the consent UI.
+    // Explicit narrower client scope requests are never elevated.
+    if (authRequest.scope.length === 0) authRequest.scope = [...OAUTH_SCOPES];
     const details = await oauth.describeConsent(authRequest);
     const consent = await oauth.beginConsent(authRequest);
     await env.OAUTH_KV.put(await consentOwnerKey(consent.handle), JSON.stringify({
