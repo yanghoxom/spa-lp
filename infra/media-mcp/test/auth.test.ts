@@ -135,8 +135,8 @@ describe('authentication boundary', () => {
     const resource = await request('/.well-known/oauth-protected-resource/mcp');
     expect(await resource.json()).toMatchObject({ resource: `${ORIGIN}/mcp`, authorization_servers: [ORIGIN], scopes_supported: ['media:read'] });
     const discovery = await request('/.well-known/oauth-authorization-server');
-    expect(await discovery.json()).toMatchObject({ issuer: ORIGIN, code_challenge_methods_supported: ['S256'], authorization_response_iss_parameter_supported: true, token_endpoint: `${ORIGIN}/oauth/token`, registration_endpoint: `${ORIGIN}/oauth/register` });
-    const serverMetadata = await discovery.clone().json() as {scopes_supported: string[]};
+    const serverMetadata = await discovery.json() as {issuer: string; code_challenge_methods_supported: string[]; scopes_supported: string[]};
+    expect(serverMetadata).toMatchObject({ issuer: ORIGIN, code_challenge_methods_supported: ['S256'], authorization_response_iss_parameter_supported: true, token_endpoint: `${ORIGIN}/oauth/token`, registration_endpoint: `${ORIGIN}/oauth/register` });
     expect(serverMetadata.scopes_supported).toEqual(expect.arrayContaining(['media:read', 'media:write', 'media:delete']));
     const response = await request('/mcp', { method: 'POST', body: '{}' });
     expect(response.status).toBe(401);
