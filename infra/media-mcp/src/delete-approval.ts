@@ -3,7 +3,7 @@ import { readBoundedBody } from "./download";
 import { safeError, unwrap } from "./errors";
 import { validateKey, MediaError } from "./validation";
 
-const HEADERS = {"Content-Type": "text/html; charset=utf-8", "Cache-Control": "no-store", "Referrer-Policy": "no-referrer",
+const HEADERS = {"Content-Type": "text/html; charset=utf-8", "Cache-Control": "no-store", "Referrer-Policy": "same-origin",
   "Content-Security-Policy": "default-src 'none'; style-src 'unsafe-inline'; form-action 'self'; frame-ancestors 'none'; base-uri 'none'",
   "X-Frame-Options": "DENY", "X-Content-Type-Options": "nosniff"};
 const escape = (s: string) => s.replace(/[&<>"']/g, c => ({"&":"&amp;", "<":"&lt;", ">":"&gt;", '"':"&quot;", "'":"&#39;"}[c]!));
