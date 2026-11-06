@@ -58,8 +58,8 @@ def arch_mask(w,h):
     for yy in range(h):
         # Hide ad copy in the upper-left, preserve the authentic RIENA bottle below.
         upper=max(0.0,min(1.0,(690-yy)/190))
-        opaque_until=34*(1-upper)+252*upper
-        feather_end=opaque_until+(190*(1-upper)+100*upper)
+        opaque_until=34*(1-upper)+178*upper
+        feather_end=opaque_until+(190*(1-upper)+68*upper)
         for xx in range(min(460,w)):
             fade=max(0.0,min(1.0,(xx-opaque_until)/(feather_end-opaque_until)))
             fade=fade*fade*(3-2*fade)
@@ -83,6 +83,16 @@ crop=ImageEnhance.Color(crop).enhance(.95)
 crop=ImageEnhance.Contrast(crop).enhance(1.025)
 crop=ImageEnhance.Brightness(crop).enhance(1.025)
 crop=crop.resize((pw,ph),Image.Resampling.LANCZOS).convert("RGBA")
+# Remove ad copy from the LEFT background with optical blur, not invented replacement labels.
+soft=crop.filter(ImageFilter.GaussianBlur(31))
+copy_mask=Image.new("L",(pw,ph),0)
+mp=copy_mask.load()
+for yy in range(0, min(750,ph)):
+    vert=max(0.0,min(1.0,(750-yy)/150))
+    for xx in range(0,min(330,pw)):
+        horiz=max(0.0,min(1.0,(310-xx)/95))
+        mp[xx,yy]=int(255*horiz*vert)
+crop=Image.composite(soft,crop,copy_mask)
 crop.putalpha(arch_mask(pw,ph))
 base.alpha_composite(crop,(204,62))
 
