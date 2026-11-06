@@ -1,0 +1,590 @@
+{
+  "upload_media": {
+    "inputSchema": {
+      "$schema": "https://json-schema.org/draft/2020-12/schema",
+      "type": "object",
+      "properties": {
+        "key": {
+          "type": "string",
+          "minLength": 9,
+          "maxLength": 512,
+          "description": "Canonical versioned path under /assets/, for example /assets/serum-v2-960.webp."
+        },
+        "file": {
+          "description": "ChatGPT file reference. The host of download_url must be on the operator's exact allowlist.",
+          "type": "object",
+          "properties": {
+            "download_url": {
+              "type": "string",
+              "maxLength": 16384
+            },
+            "file_id": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024
+            },
+            "mime_type": {
+              "type": "string",
+              "maxLength": 128
+            },
+            "file_name": {
+              "type": "string",
+              "maxLength": 512
+            }
+          },
+          "required": [
+            "download_url",
+            "file_id"
+          ],
+          "additionalProperties": false
+        },
+        "base64": {
+          "description": "Plain canonical base64 supplied programmatically; do not put images into GitHub or invent this value.",
+          "type": "string",
+          "maxLength": 13333336
+        },
+        "content_type": {
+          "type": "string",
+          "enum": [
+            "image/webp",
+            "image/jpeg",
+            "image/png",
+            "image/avif"
+          ]
+        },
+        "etag": {
+          "type": "string",
+          "maxLength": 140
+        },
+        "cache_control": {
+          "type": "string",
+          "maxLength": 256
+        }
+      },
+      "required": [
+        "key",
+        "content_type"
+      ],
+      "additionalProperties": false
+    },
+    "outputSchema": {
+      "$schema": "https://json-schema.org/draft/2020-12/schema",
+      "type": "object",
+      "properties": {
+        "key": {
+          "type": "string",
+          "minLength": 9,
+          "maxLength": 512,
+          "description": "Canonical versioned path under /assets/, for example /assets/serum-v2-960.webp."
+        },
+        "cdn_url": {
+          "type": "string"
+        },
+        "content_type": {
+          "type": "string",
+          "enum": [
+            "image/webp",
+            "image/jpeg",
+            "image/png",
+            "image/avif"
+          ]
+        },
+        "byte_size": {
+          "type": "integer",
+          "exclusiveMinimum": 0,
+          "maximum": 9007199254740991
+        },
+        "sha256": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "etag": {
+          "type": "string"
+        },
+        "uploaded_at": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "key",
+        "cdn_url",
+        "content_type",
+        "byte_size",
+        "sha256",
+        "etag",
+        "uploaded_at"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "verify_media": {
+    "inputSchema": {
+      "$schema": "https://json-schema.org/draft/2020-12/schema",
+      "type": "object",
+      "properties": {
+        "key": {
+          "type": "string",
+          "minLength": 9,
+          "maxLength": 512,
+          "description": "Canonical versioned path under /assets/, for example /assets/serum-v2-960.webp."
+        },
+        "cdn_url": {
+          "type": "string",
+          "maxLength": 1024
+        }
+      },
+      "additionalProperties": false
+    },
+    "outputSchema": {
+      "$schema": "https://json-schema.org/draft/2020-12/schema",
+      "type": "object",
+      "properties": {
+        "exists": {
+          "type": "boolean"
+        },
+        "publicly_available": {
+          "type": "boolean"
+        },
+        "cdn_url": {
+          "type": "string"
+        },
+        "content_type": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "byte_size": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "sha256": {
+          "anyOf": [
+            {
+              "type": "string",
+              "pattern": "^[a-f0-9]{64}$"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "etag": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "integrity_ok": {
+          "type": "boolean"
+        },
+        "mismatches": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "cdn": {
+          "type": "object",
+          "properties": {
+            "head_status": {
+              "type": [
+                "number",
+                "null"
+              ]
+            },
+            "get_status": {
+              "type": [
+                "number",
+                "null"
+              ]
+            },
+            "content_type": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "byte_size": {
+              "type": [
+                "number",
+                "null"
+              ]
+            },
+            "sha256": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "pattern": "^[a-f0-9]{64}$"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "etag": {
+              "type": [
+                "string",
+                "null"
+              ]
+            }
+          },
+          "required": [
+            "head_status",
+            "get_status",
+            "content_type",
+            "byte_size",
+            "sha256",
+            "etag"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "required": [
+        "exists",
+        "publicly_available",
+        "cdn_url",
+        "content_type",
+        "byte_size",
+        "sha256",
+        "etag",
+        "integrity_ok",
+        "mismatches",
+        "cdn"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "get_media_metadata": {
+    "inputSchema": {
+      "$schema": "https://json-schema.org/draft/2020-12/schema",
+      "type": "object",
+      "properties": {
+        "key": {
+          "type": "string",
+          "minLength": 9,
+          "maxLength": 512,
+          "description": "Canonical versioned path under /assets/, for example /assets/serum-v2-960.webp."
+        }
+      },
+      "required": [
+        "key"
+      ],
+      "additionalProperties": false
+    },
+    "outputSchema": {
+      "$schema": "https://json-schema.org/draft/2020-12/schema",
+      "type": "object",
+      "properties": {
+        "exists": {
+          "type": "boolean"
+        },
+        "key": {
+          "type": "string",
+          "minLength": 9,
+          "maxLength": 512,
+          "description": "Canonical versioned path under /assets/, for example /assets/serum-v2-960.webp."
+        },
+        "cdn_url": {
+          "type": "string"
+        },
+        "content_type": {
+          "anyOf": [
+            {
+              "type": "string",
+              "enum": [
+                "image/webp",
+                "image/jpeg",
+                "image/png",
+                "image/avif"
+              ]
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "byte_size": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 9007199254740991
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "sha256": {
+          "anyOf": [
+            {
+              "type": "string",
+              "pattern": "^[a-f0-9]{64}$"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "etag": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "uploaded_at": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      },
+      "required": [
+        "exists",
+        "key",
+        "cdn_url",
+        "content_type",
+        "byte_size",
+        "sha256",
+        "etag",
+        "uploaded_at"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "list_media": {
+    "inputSchema": {
+      "$schema": "https://json-schema.org/draft/2020-12/schema",
+      "type": "object",
+      "properties": {
+        "prefix": {
+          "default": "/assets/",
+          "type": "string",
+          "maxLength": 512
+        },
+        "limit": {
+          "default": 25,
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 100
+        },
+        "cursor": {
+          "type": "string",
+          "maxLength": 2048
+        }
+      },
+      "required": [
+        "prefix",
+        "limit"
+      ],
+      "additionalProperties": false
+    },
+    "outputSchema": {
+      "$schema": "https://json-schema.org/draft/2020-12/schema",
+      "type": "object",
+      "properties": {
+        "items": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "key": {
+                "type": "string",
+                "minLength": 9,
+                "maxLength": 512,
+                "description": "Canonical versioned path under /assets/, for example /assets/serum-v2-960.webp."
+              },
+              "cdn_url": {
+                "type": "string"
+              },
+              "content_type": {
+                "anyOf": [
+                  {
+                    "type": "string",
+                    "enum": [
+                      "image/webp",
+                      "image/jpeg",
+                      "image/png",
+                      "image/avif"
+                    ]
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "byte_size": {
+                "anyOf": [
+                  {
+                    "type": "integer",
+                    "minimum": 0,
+                    "maximum": 9007199254740991
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "sha256": {
+                "anyOf": [
+                  {
+                    "type": "string",
+                    "pattern": "^[a-f0-9]{64}$"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "etag": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "uploaded_at": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              }
+            },
+            "required": [
+              "key",
+              "cdn_url",
+              "content_type",
+              "byte_size",
+              "sha256",
+              "etag",
+              "uploaded_at"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "prefix": {
+          "type": "string"
+        },
+        "limit": {
+          "type": "integer",
+          "minimum": -9007199254740991,
+          "maximum": 9007199254740991
+        },
+        "list_complete": {
+          "type": "boolean"
+        },
+        "cursor": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      },
+      "required": [
+        "items",
+        "prefix",
+        "limit",
+        "list_complete",
+        "cursor"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "delete_media": {
+    "inputSchema": {
+      "$schema": "https://json-schema.org/draft/2020-12/schema",
+      "type": "object",
+      "properties": {
+        "key": {
+          "type": "string",
+          "minLength": 9,
+          "maxLength": 512,
+          "description": "Canonical versioned path under /assets/, for example /assets/serum-v2-960.webp."
+        },
+        "confirmation_token": {
+          "description": "Returned by the first delete_media call. It works only after the owner approves the browser page.",
+          "type": "string",
+          "format": "uuid",
+          "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+        }
+      },
+      "required": [
+        "key"
+      ],
+      "additionalProperties": false
+    },
+    "outputSchema": {
+      "$schema": "https://json-schema.org/draft/2020-12/schema",
+      "type": "object",
+      "properties": {
+        "key": {
+          "type": "string",
+          "minLength": 9,
+          "maxLength": 512,
+          "description": "Canonical versioned path under /assets/, for example /assets/serum-v2-960.webp."
+        },
+        "cdn_url": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string",
+          "enum": [
+            "confirmation_required",
+            "approved",
+            "deleted",
+            "not_found"
+          ]
+        },
+        "deleted": {
+          "type": "boolean"
+        },
+        "confirmation_token": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "approval_url": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "expected_sha256": {
+          "anyOf": [
+            {
+              "type": "string",
+              "pattern": "^[a-f0-9]{64}$"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "expires_at": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "cdn_cache_may_remain": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "key",
+        "cdn_url",
+        "status",
+        "deleted",
+        "confirmation_token",
+        "approval_url",
+        "expected_sha256",
+        "expires_at",
+        "cdn_cache_may_remain"
+      ],
+      "additionalProperties": false
+    }
+  }
+}

@@ -32,6 +32,7 @@ test("CDN caches media independently of query strings and supports conditional G
   const first = await worker.fetch(new Request("https://cdn.phunghakorea.com/a.webp?v=1"), f.env, f.ctx);
   expect(first.headers.get("Content-Type")).toBe("image/webp");
   expect(first.headers.get("Access-Control-Allow-Origin")).toBe("*");
+  expect(first.headers.get("Cache-Control")).toBe("public, max-age=86400");
   expect(new Uint8Array(await first.arrayBuffer())).toEqual(bytes);
   await Promise.all(f.pending);
   const unchanged = await worker.fetch(new Request("https://cdn.phunghakorea.com/a.webp?v=2", { headers: { "If-None-Match": '"v1", "v2"' } }), f.env, f.ctx);
@@ -42,4 +43,24 @@ test("CDN caches media independently of query strings and supports conditional G
   expect(await head.text()).toBe("");
   expect(head.headers.get("ETag")).toBe('"v2"');
   expect(f.env.MEDIA.getWithMetadata).toHaveBeenCalledTimes(1);
+});
+
+test("CDN honors safe per-image cache metadata from the MCP writer", async () => {
+  const f = fixture({ value: new Uint8Array(1), metadata: { contentType: "image/webp", cacheControl: "public, max-age=31536000, immutable" } });
+  const response = await worker.fetch(new Request("https://cdn.phunghakorea.com/assets/example.webp"), f.env, f.ctx);
+  expect(response.headers.get("Cache-Control")).toBe("public, max-age=31536000, immutable");
+});
+
+test("CDN rejects unsafe cache headers and keeps the legacy default", async () => {
+  const f = fixture({ value: new Uint8Array(1), metadata: { contentType: "image/webp", cacheControl: "public\r\nX-Injected: yes" } });
+  const response = await worker.fetch(new Request("https://cdn.phunghakorea.com/assets/example.webp"), f.env, f.ctx);
+  expect(response.headers.get("Cache-Control")).toBe("public, max-age=86400");
+  expect(response.headers.has("X-Injected")).toBe(false);
+});
+
+test("CDN preserves no-store/private policies and does not put them into shared cache", async () => {
+  const f = fixture({ value: new Uint8Array(1), metadata: { contentType: "image/webp", cacheControl: "private, no-store, no-transform" } });
+  const response = await worker.fetch(new Request("https://cdn.phunghakorea.com/assets/example.webp"), f.env, f.ctx);
+  expect(response.headers.get("Cache-Control")).toBe("private, no-store, no-transform");
+  expect(f.pending).toHaveLength(0);
 });

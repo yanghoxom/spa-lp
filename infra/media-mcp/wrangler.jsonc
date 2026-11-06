@@ -1,0 +1,37 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "phungha-media-mcp",
+  "account_id": "8cecae22ddd80c656ecc7d2dba9e1a9e",
+  "main": "src/index.ts",
+  "minify": true,
+  "compatibility_date": "2026-11-06",
+  "compatibility_flags": ["nodejs_compat", "global_fetch_strictly_public"],
+  "workers_dev": true,
+  "preview_urls": false,
+  "kv_namespaces": [
+    {"binding": "MEDIA", "id": "f9b9b8a418bd440ca0f6841852292a82"},
+    {"binding": "OAUTH_KV", "id": "d239ba4760bb482eb0679bc92216cec0"}
+  ],
+  "durable_objects": {
+    "bindings": [
+      {"name": "MEDIA_COORDINATOR", "class_name": "MediaCoordinator"},
+      {"name": "MCP_RUNTIME", "class_name": "McpRuntime"}
+    ]
+  },
+  "migrations": [{"tag": "v1", "new_sqlite_classes": ["MediaCoordinator", "McpRuntime"]}],
+  "secrets": {"required": ["ALLOWED_EMAIL"]},
+  "vars": {
+    "SERVER_ORIGIN": "https://phungha-media-mcp.tieugia969719.workers.dev",
+    "CDN_BASE_URL": "https://cdn.phunghakorea.com",
+    "MAX_IMAGE_BYTES": "10000000",
+    "ACCESS_TEAM_DOMAIN": "https://qidianvp.cloudflareaccess.com",
+    "ACCESS_AUD": "237815b1a08662e3681e9191e65d277d8c01dc6a1d50f0408bd6d84ec6607482",
+    "DOWNLOAD_ALLOWED_HOSTS": "cdn.phunghakorea.com,files.oaiusercontent.com"
+  },
+  "observability": {
+    "enabled": true,
+    "redact_query_string": true,
+    "logs": {"enabled": true, "invocation_logs": false},
+    "traces": {"enabled": true, "head_sampling_rate": 0.05}
+  }
+}
