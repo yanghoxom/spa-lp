@@ -70,10 +70,12 @@ export class McpRuntime extends DurableObject<Env> {
         allowedOriginHostnames: [new URL(this.env.SERVER_ORIGIN).hostname, "chatgpt.com", "chat.openai.com", "platform.openai.com"],
         onerror: () => { /* Never log data, credentials, signed URLs or raw errors. */ },
       }).fetch(request, {parsedBody});
-      // Legacy SDK replies use finite SSE streams. Finish each exchange before
-      // admitting another large input; all five tool outputs are metadata only.
+      // download_media can return a full 10 MB image as MCP ImageContent.
+      // Base64 is the standard image wire encoding, not textual tool output.
+      // The response may also include small metadata and protocol framing.
       if (!response.body) return response;
-      const body = await readBoundedBody(response, 1_000_000, timeout.signal);
+      const maxResponseBytes = Math.ceil(configuredMaxBytes(this.env.MAX_IMAGE_BYTES) / 3) * 4 + 1_000_000;
+      const body = await readBoundedBody(response, maxResponseBytes, timeout.signal);
       return new Response(body, {status: response.status, headers: response.headers});
     } catch {
       return Response.json({error: "media_runtime_unavailable"}, {status: 503});
