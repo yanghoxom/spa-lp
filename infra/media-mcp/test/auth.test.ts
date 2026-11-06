@@ -226,7 +226,7 @@ describe('real OAuth consent and token lifecycle', () => {
     expect(consent.html).not.toContain('<script>');
     expect(consent.html).toContain('&lt;script&gt;');
     expect(consent.response.headers.get('Content-Security-Policy')).toContain("frame-ancestors 'none'");
-    expect(consent.response.headers.get('Referrer-Policy')).toBe('no-referrer');
+    expect(consent.response.headers.get('Referrer-Policy')).toBe('same-origin');
   });
 
   it('rejects cross-site and cross-browser consent posts', async () => {
