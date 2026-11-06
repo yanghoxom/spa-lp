@@ -107,14 +107,7 @@ describe("Korean Editorial multi-page generator", () => {
     const html = read("index.html");
     expect(html).toContain('"@type":"Organization"');
     expect(html).toContain("Khám phá mỹ phẩm Hàn");
-    expect(html).toContain("/assets/hero/phungha-real-products-hero-desktop-v1.webp");
-    expect(html).toContain("/assets/hero/phungha-real-products-hero-mobile-v1.webp");
-    expect(html).not.toContain('class="portrait-frame"><img src="/assets/fanpage-product.jpg"');
-    for(const name of ["phungha-real-products-hero-desktop-v1.webp","phungha-real-products-hero-mobile-v1.webp"]) {
-      const file="public/assets/hero/"+name;
-      expect(existsSync(file)).toBe(true);
-      expect(readFileSync(file).subarray(8,12).toString("ascii")).toBe("WEBP");
-    }
+    expect(html).toContain("/assets/fanpage-service-2.jpg");
     expect(html).toContain('href="/chinh-sach/"');
     expect(read("kien-thuc/da-nam-sam-chong-nang-the-nao/index.html")).toContain('"@type":"Article"');
   });

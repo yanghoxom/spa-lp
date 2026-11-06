@@ -75,7 +75,7 @@ function footer() {
     '<div class="footer-bottom container"><span>© ' + new Date().getFullYear() + ' Phùng Hà Korea. Tiên Du, Bắc Ninh.</span>' +
     '<span>Kiến thức trên website chỉ mang tính tham khảo, không thay thế tư vấn y tế.</span></div></footer>';
 }
-function layout({ title, description, url = "/", active = "", image = "/assets/hero/phungha-real-products-hero-desktop-v1.webp", type = "website", date = "", quiz = false }, body) {
+function layout({ title, description, url = "/", active = "", image = "/assets/fanpage-service-2.jpg", type = "website", date = "", quiz = false }, body) {
   const canonical = BASE + url;
   const safeTitle = escapeHTML(title);
   const organizationSchema = JSON.stringify({
@@ -159,7 +159,7 @@ function home() {
     '<div class="hero-actions"><a class="btn btn-dark" href="/my-pham/">Khám phá mỹ phẩm Hàn <span>↗</span></a>' +
     '<a class="btn btn-plain" href="/tu-van-da/">Tư vấn da riêng <span>↗</span></a></div>' +
     '<div class="hero-note"><span>01 / HIỂU DA</span><span>02 / CHỌN ĐÚNG</span><span>03 / CHĂM ĐỀU</span></div></div>' +
-    '<div class="hero-portrait"><div class="portrait-frame"><picture><source media="(max-width: 600px)" srcset="/assets/hero/phungha-real-products-hero-mobile-v1.webp" type="image/webp"><img src="/assets/hero/phungha-real-products-hero-desktop-v1.webp" alt="Chân dung Phùng Hà cùng chai ampoule chống nắng và Anti Rosi Ampoule chụp từ ảnh fanpage, được bố cục lại" width="960" height="1200" fetchpriority="high" decoding="async"></picture></div>' +
+    '<div class="hero-portrait"><div class="portrait-frame"><img src="/assets/fanpage-product.jpg" alt="Hình ảnh giới thiệu mỹ phẩm và chân dung từ fanpage Phùng Hà Korea" width="524" height="640" fetchpriority="high" decoding="async"></div>' +
     '<div class="portrait-caption"><span>CHĂM DA ĐÚNG<br>VỚI BẠN.</span><span>PHÙNG HÀ<br>↘ KOREA</span></div>' +
     '<div class="portrait-seal">HIỂU DA<br>CHĂM ĐÚNG ✳</div></div></section>' +
     '<div class="marquee-line"><div class="container"><span>CHĂM DA CÓ HIỂU BIẾT</span><span>✳</span><span>ĐẸP Ở MỌI ĐỘ TUỔI</span><span>✳</span><span>MỸ PHẨM HÀN</span><span>✳</span><span>CHĂM DA THEO CÁCH CỦA BẠN</span></div></div>' +

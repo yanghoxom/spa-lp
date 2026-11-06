@@ -93,11 +93,3 @@ Logo PH được lấy từ ảnh AI đã duyệt, tối ưu bằng Pillow (cắ
 - `public/site.webmanifest` cung cấp icon khi thêm website ra màn hình chính.
 
 Cập nhật toàn bộ `<head>` trong `site/build.mjs` và `Organization.logo` sang phiên bản mới. Website không cần Cloudflare Images trả phí: các asset được Workers Static Assets phân phối qua CDN của Cloudflare. Khi thay favicon sau này, dùng tên file có phiên bản để tránh favicon cũ bị cache trên điện thoại.
-
-## Hero ảnh thật từ fanpage
-
-- Desktop: `public/assets/hero/phungha-real-products-hero-desktop-v1.webp` (960×1200).
-- Mobile: `public/assets/hero/phungha-real-products-hero-mobile-v1.webp` (720×900), sử dụng `<picture>` để tránh gửi ảnh lớn cho điện thoại.
-- Nguồn hình từ fanpage: `fanpage-service-2.jpg` (Hà cầm ampoule chống nắng), `fanpage-product.jpg` (Anti Rosi Ampoule). Chữ trên nhãn được giữ nguyên từ ảnh thật. Không đưa sản phẩm AI dựng hoặc bao bì không xác thực lên hero.
-- Tạo lại bằng `python scripts/compose_real_hero.py` (Pillow); GitHub Actions `.github/workflows/real-hero-assets.yml` chạy khi thay mã nguồn hoặc kích hoạt thủ công.
-- Ảnh có bố cục lại từ ảnh chụp gốc, không phải ảnh chụp một buổi studio mới.
