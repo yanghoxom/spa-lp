@@ -136,6 +136,8 @@ describe('authentication boundary', () => {
     expect(await resource.json()).toMatchObject({ resource: `${ORIGIN}/mcp`, authorization_servers: [ORIGIN], scopes_supported: ['media:read'] });
     const discovery = await request('/.well-known/oauth-authorization-server');
     expect(await discovery.json()).toMatchObject({ issuer: ORIGIN, code_challenge_methods_supported: ['S256'], authorization_response_iss_parameter_supported: true, token_endpoint: `${ORIGIN}/oauth/token`, registration_endpoint: `${ORIGIN}/oauth/register` });
+    const serverMetadata = await discovery.clone().json() as {scopes_supported: string[]};
+    expect(serverMetadata.scopes_supported).toEqual(expect.arrayContaining(['media:read', 'media:write', 'media:delete']));
     const response = await request('/mcp', { method: 'POST', body: '{}' });
     expect(response.status).toBe(401);
     expect(response.headers.get('WWW-Authenticate')).toContain(`${ORIGIN}/.well-known/oauth-protected-resource/mcp`);
@@ -189,6 +191,20 @@ describe('authentication boundary', () => {
 });
 
 describe('real OAuth consent and token lifecycle', () => {
+  it('offers all three media permissions when a client omits OAuth scope, but respects narrower requests', async () => {
+    const implicit = await beginAuthorization({scopes: []});
+    expect(implicit.response.status).toBe(200);
+    expect(implicit.html).toContain('value="media:read"');
+    expect(implicit.html).toContain('value="media:write"');
+    expect(implicit.html).toContain('value="media:delete"');
+    const approved = await approve(implicit, {scopes: ['media:read', 'media:write', 'media:delete']});
+    expect(approved.status).toBe(302);
+    const explicitReadOnly = await beginAuthorization({scopes: ['media:read']});
+    expect(explicitReadOnly.html).toContain('value="media:read"');
+    expect(explicitReadOnly.html).not.toContain('value="media:write"');
+    expect(explicitReadOnly.html).not.toContain('value="media:delete"');
+  });
+
   it('completes DCR, PKCE and explicit consent, then authenticates MCP and refreshes', async () => {
     const consent = await beginAuthorization();
     expect(consent.response.status).toBe(200);
