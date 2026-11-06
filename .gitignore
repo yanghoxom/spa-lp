@@ -15,3 +15,13 @@ dist
 public/sitemap.xml
 public/feed.xml
 public/404.html
+
+# Media is uploaded to Cloudflare CDN; never commit image files.
+*.png
+*.jpg
+*.jpeg
+*.webp
+*.avif
+*.gif
+*.svg
+*.ico
