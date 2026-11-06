@@ -84,7 +84,7 @@ describe("Korean Editorial multi-page generator", () => {
     expect(read("my-pham/index.html")).toContain("không phải giỏ hàng trực tuyến");
   });
 
-  test("displays both optimized editorial WebP photos with clear AI disclosure", () => {
+  test("displays optimized editorial WebP photos without overlay badges", () => {
     const shop = read("my-pham/index.html");
     const photos = ["riena-sun-ampoule-ai-editorial.webp", "korean-skincare-trio-ai-editorial.webp"];
     for (const name of photos) {
@@ -92,8 +92,8 @@ describe("Korean Editorial multi-page generator", () => {
       expect(shop).toContain("/assets/editorial/" + name);
     }
     expect(shop).toContain('width="720" height="900" loading="lazy"');
-    expect(shop).toContain("Ảnh minh họa AI");
-    expect(shop).toContain("bao bì chưa đối chiếu với sản phẩm thực tế");
+    expect(shop).not.toContain("Ảnh minh họa AI");
+    expect(shop).not.toContain("ai-photo-badge");
   });
   test("provides topic navigation for evergreen daily publishing", () => {
     const archive = read("kien-thuc/index.html");
@@ -106,7 +106,7 @@ describe("Korean Editorial multi-page generator", () => {
     expect(read("chinh-sach/index.html")).toContain("không lưu câu trả lời vào cơ sở dữ liệu riêng");
     const html = read("index.html");
     expect(html).toContain('"@type":"Organization"');
-    expect(html).toContain("Khám phá mỹ phẩm Hàn");
+    expect(html).toContain("Khám phá cùng Hà");
     expect(html).toContain("/assets/fanpage-service-2.jpg");
     expect(html).toContain('href="/chinh-sach/"');
     expect(read("kien-thuc/da-nam-sam-chong-nang-the-nao/index.html")).toContain('"@type":"Article"');
@@ -139,7 +139,7 @@ describe("Korean Editorial multi-page generator", () => {
       expect(existsSync("public"+img)).toBe(true);
       expect(home).toContain(img);
     }
-    expect(home).toContain("Hình minh họa nhóm sản phẩm");
+    expect(home).not.toContain("Hình minh họa nhóm sản phẩm");
   });
   test("all generated internal page links resolve", () => {
     const routes = ["index.html", "kien-thuc/index.html", "my-pham/index.html", "tu-van-da/index.html",

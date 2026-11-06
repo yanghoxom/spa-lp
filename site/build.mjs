@@ -128,16 +128,16 @@ function articleCard(a, index = 0) {
     '<span class="article-cta">Đọc bài viết <span aria-hidden="true">↗</span></span></a>';
 }
 const editorialArt = {
-  sun: ["chong-nang", "Minh họa lọ chống nắng theo phong cách tạp chí"],
-  cream: ["duong-am-phuc-hoi", "Minh họa hũ kem dưỡng ẩm và phục hồi"],
-  serum: ["duong-sang-deu-mau", "Minh họa lọ tinh chất dưỡng sáng"],
-  bottle: ["cham-da-tuoi-35", "Minh họa chai dưỡng da cho tuổi 35+"]
+  sun: ["chong-nang", "Lọ chống nắng trong không gian chăm da"],
+  cream: ["duong-am-phuc-hoi", "Hũ kem dưỡng ẩm và phục hồi"],
+  serum: ["duong-sang-deu-mau", "Lọ tinh chất dưỡng sáng"],
+  bottle: ["cham-da-tuoi-35", "Chai dưỡng da cho tuổi 35+"]
 };
 function productVisual(kind) {
   const [name, alt] = editorialArt[kind] || editorialArt.cream;
   return '<div class="product-visual product-' + kind + '">' +
     '<img class="product-editorial-art" src="/assets/collections/' + name + '.svg" alt="' + alt + '" width="640" height="760" loading="lazy" decoding="async">' +
-    '<span class="visual-note">Hình minh họa nhóm sản phẩm</span></div>';
+    '</div>';
 }
 function categoryCard(c) {
   return '<a class="collection-card" href="/my-pham/' + c.slug + '/">' + productVisual(c.look) +
@@ -152,16 +152,16 @@ function home() {
   const featured = articles.slice(0, 3).map(articleCard).join("");
   const collections = categories.map(categoryCard).join("");
   return layout({ title: "Phùng Hà Korea | Chăm da tinh tế & mỹ phẩm Hàn Quốc", description: "Không gian chăm da cùng Phùng Hà: kiến thức dành cho làn da Việt 30–50, cách chăm da dễ áp dụng, mỹ phẩm Hàn được tư vấn theo nhu cầu." , active: "home" }, 
-    '<section class="hero container"><div class="hero-copy">' +
-    '<p class="eyebrow"><span class="eyebrow-line"></span> PHÙNG HÀ KOREA • CHĂM DA CÙNG HÀ</p>' +
-    '<h1>Đẹp là khi <em>hiểu</em> làn da của mình.</h1>' +
-    '<p class="hero-lead">Không cần một kệ mỹ phẩm thật đầy. Hà giúp bạn hiểu nhu cầu làn da, chọn các bước chăm sóc dễ duy trì và tìm hiểu mỹ phẩm Hàn Quốc phù hợp trước khi mua.</p>' +
-    '<div class="hero-actions"><a class="btn btn-dark" href="/my-pham/">Khám phá mỹ phẩm Hàn <span>↗</span></a>' +
-    '<a class="btn btn-plain" href="/tu-van-da/">Tư vấn da riêng <span>↗</span></a></div>' +
-    '<div class="hero-note"><span>01 / HIỂU DA</span><span>02 / CHỌN ĐÚNG</span><span>03 / CHĂM ĐỀU</span></div></div>' +
-    '<div class="hero-portrait"><div class="portrait-frame"><img src="/assets/fanpage-product.jpg" alt="Hình ảnh giới thiệu mỹ phẩm và chân dung từ fanpage Phùng Hà Korea" width="524" height="640" fetchpriority="high" decoding="async"></div>' +
-    '<div class="portrait-caption"><span>CHĂM DA ĐÚNG<br>VỚI BẠN.</span><span>PHÙNG HÀ<br>↘ KOREA</span></div>' +
-    '<div class="portrait-seal">HIỂU DA<br>CHĂM ĐÚNG ✳</div></div></section>' +
+    '<section class="immersive-hero" aria-labelledby="hero-title">' +
+    '<picture class="hero-backdrop"><source media="(max-width: 600px)" srcset="/assets/editorial/hero-v4-mobile-640.webp 640w, /assets/editorial/hero-v4-mobile-960.webp 960w" sizes="100vw">' +
+    '<img src="/assets/editorial/hero-v4-desktop-1600.webp" srcset="/assets/editorial/hero-v4-desktop-1000.webp 1000w, /assets/editorial/hero-v4-desktop-1600.webp 1600w, /assets/editorial/hero-v4-desktop-2400.webp 2400w" sizes="100vw" alt="Phùng Hà cùng tinh chất nhỏ giọt, Anti Rosin Ampoule và kem dưỡng Hàn Quốc" width="1600" height="900" fetchpriority="high" decoding="async"></picture>' +
+    '<div class="hero-atmosphere" aria-hidden="true"></div><div class="hero-orbit" aria-hidden="true"><span>✦</span></div>' +
+    '<div class="container immersive-inner"><div class="immersive-copy"><p class="eyebrow">PHÙNG HÀ KOREA</p>' +
+    '<h1 id="hero-title">Hiểu làn da.<br><em>Chạm nét đẹp.</em></h1>' +
+    '<p class="immersive-lead">Mỹ phẩm Hàn, chọn riêng<br class="mobile-break"> cho làn da bạn.</p>' +
+    '<div class="immersive-actions"><a class="btn btn-dark" href="/my-pham/">Khám phá cùng Hà <span aria-hidden="true">↗</span></a>' +
+    '<a class="hero-consult" href="/tu-van-da/">Tư vấn da riêng <span aria-hidden="true">↗</span></a></div>' +
+    '</div></div><a class="hero-scroll" href="#discover" aria-label="Khám phá cách chăm da">CHĂM DA CÙNG HÀ <span aria-hidden="true">↓</span></a></section>' +
     '<div class="marquee-line"><div class="container"><span>CHĂM DA CÓ HIỂU BIẾT</span><span>✳</span><span>ĐẸP Ở MỌI ĐỘ TUỔI</span><span>✳</span><span>MỸ PHẨM HÀN</span><span>✳</span><span>CHĂM DA THEO CÁCH CỦA BẠN</span></div></div>' +
     '<section class="section container" id="discover">' + sectionLabel("01 /", "BẮT ĐẦU TỪ LÀN DA") +
     '<div class="section-heading split-heading"><div><p class="overline">MỖI LÀN DA, MỘT CÁCH CHĂM</p><h2>Chọn chăm sóc <em>theo nhu cầu.</em></h2></div>' +
@@ -340,13 +340,13 @@ function shopIndex() {
     '<div class="notice-panel"><strong>Danh mục tư vấn, không phải giỏ hàng trực tuyến.</strong><span>Giá, thương hiệu, hạn sử dụng và tình trạng hàng được Hà xác nhận qua Messenger trước khi bạn đặt.</span></div></section>' +
     '<section class="section container ai-editorial-section" aria-labelledby="ai-gallery-title">' + sectionLabel("02 /","GÓC HÌNH ẢNH MỸ PHẨM") +
     '<div class="ai-gallery-heading"><div><p class="overline">MỸ PHẨM HÀN CÙNG HÀ</p><h2 id="ai-gallery-title">Một chút cảm hứng <em>chăm da.</em></h2></div>' +
-    '<p>Hai hình ảnh biên tập được dựng bằng AI để tham khảo phong cách. Tên nhãn và bao bì chưa đối chiếu với sản phẩm thực tế đang bán.</p></div>' +
+    '<p>Bắt đầu từ điều làn da cần, tìm một cách chăm sóc bạn muốn duy trì mỗi ngày.</p></div>' +
     '<div class="ai-editorial-grid">' +
-    '<figure class="ai-editorial-card"><div class="ai-editorial-photo"><img src="/assets/editorial/riena-sun-ampoule-ai-editorial.webp" alt="Ảnh AI minh họa chai và hộp mang chữ RIENA Sun Ampoule, không phải ảnh bao bì sản phẩm được xác nhận" width="720" height="900" loading="lazy" decoding="async"><span class="ai-photo-badge">Ảnh minh họa AI</span></div>' +
+    '<figure class="ai-editorial-card"><div class="ai-editorial-photo"><img src="/assets/editorial/riena-sun-ampoule-ai-editorial.webp" alt="Chai và hộp RIENA Sun Ampoule trong không gian chăm da" width="720" height="900" loading="lazy" decoding="async"></div>' +
     '<figcaption><div><span>01 / CHĂM DA MỖI NGÀY</span><h3>Quan tâm đến chống nắng?</h3><p>Tìm hiểu cách lựa chọn nhóm sản phẩm chống nắng phù hợp với thói quen sử dụng.</p></div><a href="/my-pham/chong-nang/" class="arrow-link">Xem nhóm chống nắng <span aria-hidden="true">↗</span></a></figcaption></figure>' +
-    '<figure class="ai-editorial-card"><div class="ai-editorial-photo"><img src="/assets/editorial/korean-skincare-trio-ai-editorial.webp" alt="Ảnh AI minh họa bộ mỹ phẩm Hàn với nhãn chai hộp mô phỏng, không phải ảnh sản phẩm đã xác minh" width="720" height="900" loading="lazy" decoding="async"><span class="ai-photo-badge">Ảnh minh họa AI</span></div>' +
+    '<figure class="ai-editorial-card"><div class="ai-editorial-photo"><img src="/assets/editorial/korean-skincare-trio-ai-editorial.webp" alt="Bộ mỹ phẩm Hàn trong không gian chăm da" width="720" height="900" loading="lazy" decoding="async"></div>' +
     '<figcaption><div><span>02 / CHỌN LỌC THEO NHU CẦU</span><h3>Chọn cách dưỡng da vừa đủ.</h3><p>Ưu tiên độ ẩm, dưỡng sáng và sự thoải mái khi xây dựng thói quen chăm da.</p></div><a href="/my-pham/duong-am-phuc-hoi/" class="arrow-link">Xem nhóm dưỡng ẩm <span aria-hidden="true">↗</span></a></figcaption></figure>' +
-    '</div><p class="ai-editorial-disclaimer">Lưu ý: hình ảnh được tạo bằng AI và chỉ mang tính minh họa. Vui lòng xác nhận hình ảnh, thương hiệu, nguồn gốc và giá của sản phẩm thực tế với Hà trước khi đặt mua.</p></section>' +
+    '</div></section>' +
     '<section class="section container simple-steps">'+sectionLabel("03 /","CÁCH HÀ HỖ TRỢ")+'<h2>Chọn đúng trước khi <em>đặt mua.</em></h2><div class="steps-grid">' +
     '<div><span>01</span><h3>Hiểu da</h3><p>Chọn vấn đề và mục tiêu bạn đang quan tâm.</p></div>' +
     '<div><span>02</span><h3>Trao đổi</h3><p>Kiểm tra sản phẩm đang dùng, độ nhạy cảm và ngân sách.</p></div>' +
