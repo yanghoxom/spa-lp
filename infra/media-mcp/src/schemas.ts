@@ -23,6 +23,16 @@ export const uploadInput = z.object({
 export const uploadOutput = z.object({key, cdn_url: z.string(), content_type: mime,
   byte_size: z.number().int().positive(), sha256: hash, etag: z.string(), uploaded_at: z.string()});
 
+export const downloadInput = z.object({
+  key,
+  expected_sha256: hash.optional().describe("Optional SHA-256 to assert before returning a real MCP ImageContent block."),
+}).strict();
+export const downloadOutput = z.object({
+  key, cdn_url: z.string(), filename: z.string(), content_type: mime,
+  byte_size: z.number().int().nonnegative(), sha256: hash,
+  etag: z.string().nullable(), last_modified: z.string().nullable(),
+});
+
 export const locatorInput = z.object({key: key.optional(), cdn_url: z.string().max(1024).optional()}).strict();
 export const keyInput = z.object({key}).strict();
 export const metadataShape = {
@@ -48,6 +58,7 @@ export const deleteOutput = z.object({key, cdn_url: z.string(), status: z.enum([
 
 export const toolSchemas = {
   upload_media: {input: uploadInput, output: uploadOutput},
+  download_media: {input: downloadInput, output: downloadOutput},
   verify_media: {input: locatorInput, output: verifyOutput},
   get_media_metadata: {input: keyInput, output: metadataOutput},
   list_media: {input: listInput, output: listOutput},
