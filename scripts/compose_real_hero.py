@@ -56,8 +56,12 @@ def arch_mask(w,h):
     # Make original overlay copy disappear along left photo edge.
     m=mask.load()
     for yy in range(h):
-        for xx in range(min(240,w)):
-            fade=max(0.0,min(1.0,(xx-34)/190))
+        # Hide ad copy in the upper-left, preserve the authentic RIENA bottle below.
+        upper=max(0.0,min(1.0,(690-yy)/190))
+        opaque_until=34*(1-upper)+252*upper
+        feather_end=opaque_until+(190*(1-upper)+100*upper)
+        for xx in range(min(460,w)):
+            fade=max(0.0,min(1.0,(xx-opaque_until)/(feather_end-opaque_until)))
             fade=fade*fade*(3-2*fade)
             m[xx,yy]=int(m[xx,yy]*fade)
     return mask.filter(ImageFilter.GaussianBlur(.65))
@@ -85,8 +89,8 @@ base.alpha_composite(crop,(204,62))
 # Photo cards with completely authentic, unretouched package labeling.
 # Crop far from ad text in the supplied product photographs.
 cards=[
-    (ampoules.crop((205,365,385,628)), (90,880,236,274), -5),
-    (cream.crop((46,210,306,514)), (330,932,203,230), 5)
+    # Original photograph; no synthetic package artwork or ad-copy photo crop.
+    (ampoules.crop((205,365,385,628)), (105,894,250,278), -4)
 ]
 for src,(left,top,cw,ch),angle in cards:
     shadow=Image.new("RGBA",(cw+54,ch+58),(0,0,0,0))
