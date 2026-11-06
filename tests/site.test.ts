@@ -32,6 +32,16 @@ describe("Korean Editorial multi-page generator", () => {
     expect(manifest.icons.map((x: { sizes: string })=>x.sizes)).toEqual(["192x192","512x512"]);
   });
 
+  test("keeps article consultation CTA white on dark green, including mobile and visited states", () => {
+    const css = read("src/styles.css");
+    const article = read("kien-thuc/peel-da-phuc-hoi-an-toan/index.html");
+    expect(css).toContain(".article-body a:not(.btn)");
+    expect(css).toContain(".article-body a.btn.btn-dark:visited");
+    expect(css).toContain("color: #FFFFFF;");
+    expect(css).toContain("min-height: 52px;");
+    expect(article).toContain('class="btn btn-dark" href="/tu-van-da/"');
+  });
+
   test("creates homepage with brand positioning and unique canonical URL", () => {
     const html = read("index.html");
     expect(html).toContain("PHÙNG HÀ");

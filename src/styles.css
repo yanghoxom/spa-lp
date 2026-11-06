@@ -77,7 +77,7 @@ p{line-height:1.9}
 .article-cover-inner{position:relative;z-index:1;padding:40px 0 73px}.breadcrumb{display:inline-block;margin-bottom:70px;color:#5c7661;font-size:11px;letter-spacing:.03em}.breadcrumb.dark{color:#69816c}.article-cover h1{font-size:clamp(46px,6vw,85px);max-width:900px;margin:15px 0}.article-intro{font-size:15px;max-width:680px;color:#556c5b}.article-cover-meta{display:flex;gap:25px;flex-wrap:wrap;color:#7a8a7c;margin-top:25px}
 .cover-art-decoration{position:absolute;right:-170px;bottom:-350px;width:690px;height:690px;opacity:.5;transform:rotate(-20deg)}.cover-art-decoration i{position:absolute;width:60%;height:90%;border:1px solid #97ae9b;border-radius:50%;left:0}.cover-art-decoration i:last-child{left:35%;transform:rotate(18deg)}
 .article-layout{display:grid;grid-template-columns:minmax(0,720px) minmax(220px,1fr);gap:8%;padding-top:72px}
-.article-body{font-size:15px;color:#39503c;line-height:1.9}.article-body p{margin-bottom:25px;line-height:2}.article-body h2{font:500 35px/1.4 var(--serif);margin:49px 0 21px;scroll-margin-top:120px}.article-body h3{font-size:19px;margin:30px 0 17px}.article-body ul,.article-body ol{padding-left:22px;margin:15px 0 30px}.article-body li{line-height:1.9;margin:12px 0}.article-body a{color:#3d7854;text-decoration:underline;text-underline-offset:4px}.article-body blockquote{padding:17px 25px;border-left:3px solid #a2b8a6;background:#eaf0e6;margin:26px 0}
+.article-body{font-size:15px;color:#39503c;line-height:1.9}.article-body p{margin-bottom:25px;line-height:2}.article-body h2{font:500 35px/1.4 var(--serif);margin:49px 0 21px;scroll-margin-top:120px}.article-body h3{font-size:19px;margin:30px 0 17px}.article-body ul,.article-body ol{padding-left:22px;margin:15px 0 30px}.article-body li{line-height:1.9;margin:12px 0}.article-body a:not(.btn){color:#3d7854;text-decoration:underline;text-underline-offset:4px}.article-body blockquote{padding:17px 25px;border-left:3px solid #a2b8a6;background:#eaf0e6;margin:26px 0}
 .toc{position:sticky;top:117px;padding-bottom:32px;border-bottom:1px solid var(--line)}.toc p{font:700 11px var(--label);letter-spacing:.15em;margin-bottom:22px}.toc a{display:block;color:#728974;font-size:12px;margin-bottom:17px;line-height:1.8}.sidebar-card{background:#e4e9df;padding:28px;margin-top:30px}.sidebar-card h3{font:500 27px/1.45 var(--serif)}.sidebar-card a{font-size:12px;text-decoration:underline}
 .article-disclaimer{margin-top:52px;border:1px solid #c6d6c6;background:#ebf0e7;padding:22px 24px;font-size:12px}.article-disclaimer p{margin:9px 0 0}.article-next{margin-top:50px;padding:36px;background:#e7ece2}.article-next h2{font-size:30px;margin:12px 0}.article-next p{font-size:13px}.related-section{margin-top:22px}
 .notice-panel{display:flex;justify-content:space-between;gap:30px;background:#eaf0e8;border:1px solid #cdd8cc;padding:23px;margin-top:30px}.notice-panel strong{font-size:13px}.notice-panel span{font-size:12px;color:var(--muted);max-width:600px;line-height:1.8}.simple-steps h2{margin-bottom:45px}.steps-grid,.values-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:25px}.steps-grid>div,.values-grid>div{border-top:1px solid #c6d5c5;padding-top:25px}.steps-grid span,.values-grid span{font:700 12px var(--label);color:#8ba68f}.steps-grid h3,.values-grid h3{font:500 28px var(--serif);margin:19px 0 10px}.steps-grid p,.values-grid p{font-size:13px;color:var(--muted)}.center-action{text-align:center;margin-top:35px}
@@ -328,4 +328,24 @@ h1 em,h2 em { color:#57765f; }
  .immersive-actions{gap:14px;}
  .immersive-actions .btn{font-size:11px;padding-inline:19px;}
  .hero-consult{font-size:10px;gap:7px;}
+}
+
+
+/* Contrasting editorial call-to-action. Do not apply article text link colors to buttons. */
+.article-body a.btn.btn-dark,
+.article-body a.btn.btn-dark:visited,
+.article-body a.btn.btn-dark:hover,
+.article-body a.btn.btn-dark:focus-visible {
+  color: #FFFFFF;
+  text-decoration: none;
+}
+.article-next .btn-dark {
+  min-height: 52px;
+  padding: 15px 24px;
+  font-size: 14px;
+  font-weight: 700;
+}
+.article-next .btn-dark:focus-visible {
+  outline: 3px solid #BD9C62;
+  outline-offset: 4px;
 }
