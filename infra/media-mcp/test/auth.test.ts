@@ -80,10 +80,10 @@ async function request(path: string, init: RequestInit = {}) {
   return handler.fetch(new Request(`${ORIGIN}${path}`, init), env, executionContext());
 }
 
-async function registerClient(name = 'ChatGPT') {
+async function registerClient(name = 'ChatGPT', redirectUri = CALLBACK) {
   const response = await request('/oauth/register', {
     method: 'POST', headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ client_name: name, redirect_uris: [CALLBACK], token_endpoint_auth_method: 'none', grant_types: ['authorization_code', 'refresh_token'], response_types: ['code'] }),
+    body: JSON.stringify({ client_name: name, redirect_uris: [redirectUri], token_endpoint_auth_method: 'none', grant_types: ['authorization_code', 'refresh_token'], response_types: ['code'] }),
   });
   expect(response.status).toBe(201);
   const data = await response.json() as { client_id: string };
@@ -91,13 +91,14 @@ async function registerClient(name = 'ChatGPT') {
   return data.client_id;
 }
 
-async function beginAuthorization(options: { clientName?: string; scopes?: string[]; claims?: Record<string, unknown>; query?: Record<string, string> } = {}) {
-  const clientId = await registerClient(options.clientName);
+async function beginAuthorization(options: { clientName?: string; scopes?: string[]; claims?: Record<string, unknown>; query?: Record<string, string>; redirectUri?: string } = {}) {
+  const redirectUri = options.redirectUri ?? CALLBACK;
+  const clientId = await registerClient(options.clientName, redirectUri);
   const verifier = 'v'.repeat(64);
   const challenge = Buffer.from(await crypto.subtle.digest('SHA-256', new TextEncoder().encode(verifier))).toString('base64url');
   const scopes = options.scopes ?? ['media:read', 'media:write', 'media:delete', 'offline_access'];
   const access = await accessToken(options.claims);
-  const query = new URLSearchParams({ response_type: 'code', client_id: clientId, redirect_uri: CALLBACK,
+  const query = new URLSearchParams({ response_type: 'code', client_id: clientId, redirect_uri: redirectUri,
     scope: scopes.join(' '), state: 'client-state', code_challenge: challenge, code_challenge_method: 'S256', resource: `${ORIGIN}/mcp`, ...options.query });
   const response = await request(`/authorize?${query}`, { headers: { 'Cf-Access-Jwt-Assertion': access } });
   const html = await response.text();
@@ -227,6 +228,20 @@ describe('real OAuth consent and token lifecycle', () => {
     expect(consent.html).toContain('&lt;script&gt;');
     expect(consent.response.headers.get('Content-Security-Policy')).toContain("frame-ancestors 'none'");
     expect(consent.response.headers.get('Referrer-Policy')).toBe('same-origin');
+    expect(consent.response.headers.get('Content-Security-Policy')).toContain("form-action 'self' https://chatgpt.com;");
+    expect(consent.response.headers.get('Content-Security-Policy')).not.toContain('https://attacker.invalid');
+  });
+
+  it('allows a browser to follow the consent POST redirect only to the registered client origin', async () => {
+    const consent = await beginAuthorization({ redirectUri: 'https://client.example.com/oauth/callback' });
+    expect(consent.response.status).toBe(200);
+    const csp = consent.response.headers.get('Content-Security-Policy') ?? '';
+    expect(csp).toContain("form-action 'self' https://client.example.com;");
+    expect(csp).not.toContain('https://attacker.invalid');
+    expect(csp).not.toContain('https://chatgpt.com');
+    const approved = await approve(consent);
+    expect(approved.status).toBe(302);
+    expect(new URL(approved.headers.get('Location')!).origin).toBe('https://client.example.com');
   });
 
   it('rejects cross-site and cross-browser consent posts', async () => {
