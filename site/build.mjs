@@ -153,8 +153,8 @@ function home() {
   const collections = categories.map(categoryCard).join("");
   return layout({ title: "Phùng Hà Korea | Mỹ phẩm Hàn, nâng niu làn da chị", description: "Chị xứng đáng được nâng niu. Cùng Phùng Hà chọn mỹ phẩm Hàn hợp da, tìm cách chăm da dễ làm mỗi ngày và nhận tư vấn riêng trước khi mua." , active: "home" },
     '<section class="immersive-hero" aria-labelledby="hero-title">' +
-    '<picture class="hero-backdrop"><source media="(max-width: 600px)" srcset="/assets/editorial/hero-v4-mobile-640.webp 640w, /assets/editorial/hero-v4-mobile-960.webp 960w" sizes="100vw">' +
-    '<img src="/assets/editorial/hero-v4-desktop-1600.webp" srcset="/assets/editorial/hero-v4-desktop-1000.webp 1000w, /assets/editorial/hero-v4-desktop-1600.webp 1600w, /assets/editorial/hero-v4-desktop-2400.webp 2400w" sizes="100vw" alt="Phùng Hà cùng tinh chất nhỏ giọt, Anti Rosin Ampoule và kem dưỡng Hàn Quốc" width="1600" height="900" fetchpriority="high" decoding="async"></picture>' +
+    '<picture class="hero-backdrop"><source media="(max-width: 600px)" srcset="/assets/editorial/hero-v5-mobile-640.webp 640w, /assets/editorial/hero-v5-mobile-960.webp 960w" sizes="100vw">' +
+    '<img src="/assets/editorial/hero-v5-desktop-1600.webp" srcset="/assets/editorial/hero-v5-desktop-1000.webp 1000w, /assets/editorial/hero-v5-desktop-1600.webp 1600w, /assets/editorial/hero-v5-desktop-2400.webp 2400w" sizes="100vw" alt="Phùng Hà cùng tinh chất nhỏ giọt, Anti Rosin Ampoule và kem dưỡng Hàn Quốc" width="1600" height="900" fetchpriority="high" decoding="async"></picture>' +
     '<div class="hero-atmosphere" aria-hidden="true"></div>' +
     '<div class="container immersive-inner"><div class="immersive-copy"><p class="eyebrow">PHÙNG HÀ KOREA</p>' +
     '<h1 id="hero-title">Chị xứng đáng<br><em>được nâng niu.</em></h1>' +
