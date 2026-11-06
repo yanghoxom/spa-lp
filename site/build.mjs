@@ -128,15 +128,15 @@ function articleCard(a, index = 0) {
     '<span class="article-cta">Đọc tiếp cùng Hà <span aria-hidden="true">↗</span></span></a>';
 }
 const editorialArt = {
-  sun: ["chong-nang", "Lọ chống nắng trong không gian chăm da"],
-  cream: ["duong-am-phuc-hoi", "Hũ kem dưỡng ẩm và phục hồi"],
-  serum: ["duong-sang-deu-mau", "Lọ tinh chất dưỡng sáng"],
-  bottle: ["cham-da-tuoi-35", "Chai dưỡng da cho tuổi 35+"]
+  sun: ["chong-nang", "Chai chống nắng RIEN’A STC UV Sun Ampoule và hộp"],
+  cream: ["duong-am-phuc-hoi", "Hũ kem dưỡng nắp bạc từ bộ mỹ phẩm của Hà"],
+  serum: ["duong-sang-deu-mau", "Tinh chất Anti Rosin Ampoule Niacin 4%"],
+  bottle: ["cham-da-tuoi-35", "Bộ tinh chất và kem dưỡng từ fanpage Phùng Hà Korea"]
 };
 function productVisual(kind) {
   const [name, alt] = editorialArt[kind] || editorialArt.cream;
   return '<div class="product-visual product-' + kind + '">' +
-    '<img class="product-editorial-art" src="/assets/collections/' + name + '.svg" alt="' + alt + '" width="640" height="760" loading="lazy" decoding="async">' +
+    '<img class="product-editorial-art" src="/assets/collections/' + name + '-v2-960.webp" srcset="/assets/collections/' + name + '-v2-480.webp 480w, /assets/collections/' + name + '-v2-960.webp 960w" sizes="(max-width: 560px) 46vw, (max-width: 900px) 44vw, 560px" alt="' + alt + '" width="960" height="1200" loading="lazy" decoding="async">' +
     '</div>';
 }
 function categoryCard(c) {
@@ -342,9 +342,9 @@ function shopIndex() {
     '<div class="ai-gallery-heading"><div><p class="overline">DÀNH MỘT CHÚT CHO MÌNH</p><h2 id="ai-gallery-title">Để mỗi lần chăm da <em>là một niềm vui.</em></h2></div>' +
     '<p>Từ lớp chống nắng nhẹ nhàng đến chút kem dưỡng mềm mại, chị chọn điều làn da mình đang cần nhé.</p></div>' +
     '<div class="ai-editorial-grid">' +
-    '<figure class="ai-editorial-card"><div class="ai-editorial-photo"><img src="/assets/editorial/riena-sun-ampoule-ai-editorial.webp" alt="Chai và hộp RIENA Sun Ampoule trong không gian chăm da" width="720" height="900" loading="lazy" decoding="async"></div>' +
+    '<figure class="ai-editorial-card"><div class="ai-editorial-photo"><img src="/assets/collections/chong-nang-v2-960.webp" alt="Chai và hộp RIEN’A STC UV Sun Ampoule" width="960" height="1200" loading="lazy" decoding="async"></div>' +
     '<figcaption><div><span>01 / GIỮ GÌN LÀN DA</span><h3>Ra ngoài, nhớ thương làn da.</h3><p>Chị cùng Hà tìm loại chống nắng hợp da, dễ thoa và thoải mái khi dùng mỗi ngày.</p></div><a href="/my-pham/chong-nang/" class="arrow-link">Chọn kem chống nắng <span aria-hidden="true">↗</span></a></figcaption></figure>' +
-    '<figure class="ai-editorial-card"><div class="ai-editorial-photo"><img src="/assets/editorial/korean-skincare-trio-ai-editorial.webp" alt="Bộ mỹ phẩm Hàn trong không gian chăm da" width="720" height="900" loading="lazy" decoding="async"></div>' +
+    '<figure class="ai-editorial-card"><div class="ai-editorial-photo"><img src="/assets/collections/cham-da-tuoi-35-v2-960.webp" alt="Bộ tinh chất và kem dưỡng từ fanpage Phùng Hà Korea" width="960" height="1200" loading="lazy" decoding="async"></div>' +
     '<figcaption><div><span>02 / NÂNG NIU MỖI NGÀY</span><h3>Dưỡng ẩm để da mềm mại.</h3><p>Dành cho da một chút chăm sóc dịu dàng. Hà cùng chị chọn món dưỡng ẩm phù hợp nhé.</p></div><a href="/my-pham/duong-am-phuc-hoi/" class="arrow-link">Chọn dưỡng ẩm <span aria-hidden="true">↗</span></a></figcaption></figure>' +
     '</div></section>' +
     '<section class="section container simple-steps">'+sectionLabel("03 /","HÀ LẮNG NGHE, CHỊ AN TÂM")+'<h2>Ưng món hợp da, <em>rồi mình đặt nhé.</em></h2><div class="steps-grid">' +
@@ -354,7 +354,7 @@ function shopIndex() {
     '<div class="center-action"><a href="/tu-van-da/" class="btn btn-dark">Nhờ Hà tư vấn <span>↗</span></a></div></section>');
 }
 function shopDetail(c) {
-  return layout({ title:c.title+" – chọn cùng Hà | Phùng Hà Korea", description:c.detail+" Nhắn Hà để được tư vấn và báo giá.", url:"/my-pham/"+c.slug+"/", active:"shop" },
+  return layout({ title:c.title+" – chọn cùng Hà | Phùng Hà Korea", description:c.detail+" Nhắn Hà để được tư vấn và báo giá.", url:"/my-pham/"+c.slug+"/", active:"shop", image:"/assets/collections/"+c.slug+"-v2-960.webp" },
     '<div class="container detail-layout"><div class="detail-art">'+productVisual(c.look)+'</div>' +
     '<div class="detail-copy"><a href="/my-pham/" class="breadcrumb dark">← Xem các nhóm mỹ phẩm</a>' +
     '<p class="overline">MỸ PHẨM HÀN CHỌN LỌC / '+c.no+'</p><h1>'+escapeHTML(c.title)+'</h1><p class="detail-lead">'+escapeHTML(c.detail)+'</p>' +

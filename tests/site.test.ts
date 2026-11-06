@@ -96,12 +96,12 @@ describe("Korean Editorial multi-page generator", () => {
 
   test("displays optimized editorial WebP photos without overlay badges", () => {
     const shop = read("my-pham/index.html");
-    const photos = ["riena-sun-ampoule-ai-editorial.webp", "korean-skincare-trio-ai-editorial.webp"];
+    const photos = ["chong-nang-v2-960.webp", "cham-da-tuoi-35-v2-960.webp"];
     for (const name of photos) {
-      expect(existsSync("public/assets/editorial/" + name)).toBe(true);
-      expect(shop).toContain("/assets/editorial/" + name);
+      expect(existsSync("public/assets/collections/" + name)).toBe(true);
+      expect(shop).toContain("/assets/collections/" + name);
     }
-    expect(shop).toContain('width="720" height="900" loading="lazy"');
+    expect(shop).toContain('width="960" height="1200" loading="lazy"');
     expect(shop).not.toContain("Ảnh minh họa AI");
     expect(shop).not.toContain("ai-photo-badge");
   });
@@ -134,15 +134,16 @@ describe("Korean Editorial multi-page generator", () => {
       expect(page).not.toContain("THE SKIN JOURNAL");
     }
   });
-  test("ships original editorial category illustrations and skin concern icons", () => {
+  test("ships responsive product photographs across categories and skin concern icons", () => {
     const home = read("index.html");
     const shop = read("my-pham/index.html");
     for (const id of ["chong-nang", "duong-am-phuc-hoi", "duong-sang-deu-mau", "cham-da-tuoi-35"]) {
-      const img = "/assets/collections/" + id + ".svg";
+      const img = "/assets/collections/" + id + "-v2-960.webp";
       expect(existsSync("public" + img)).toBe(true);
       expect(home).toContain(img);
       expect(shop).toContain(img);
-      expect(read("public" + img)).toContain("<svg");
+      expect(readFileSync("public" + img).subarray(8,12).toString("ascii")).toBe("WEBP");
+      expect(read("my-pham/" + id + "/index.html")).toContain(img);
     }
     for(const icon of ["nam-sam", "duong-am", "tuoi-35", "chong-nang"]){
       const img="/assets/icons/"+icon+".svg";
