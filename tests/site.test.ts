@@ -29,7 +29,7 @@ describe("Korean Editorial multi-page generator", () => {
     expect(apple.subarray(0,8).toString("hex")).toBe("89504e470d0a1a0a");
     const manifest = JSON.parse(read("public/site.webmanifest"));
     expect(manifest.icons).toHaveLength(2);
-    expect(manifest.icons.map(x=>x.sizes)).toEqual(["192x192","512x512"]);
+    expect(manifest.icons.map((x: { sizes: string })=>x.sizes)).toEqual(["192x192","512x512"]);
   });
 
   test("creates homepage with brand positioning and unique canonical URL", () => {
