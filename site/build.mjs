@@ -158,7 +158,7 @@ function home() {
     '<div class="hero-atmosphere" aria-hidden="true"></div>' +
     '<div class="container immersive-inner"><div class="immersive-copy"><p class="eyebrow">PHÙNG HÀ KOREA</p>' +
     '<h1 id="hero-title">Chị xứng đáng<br><em>được nâng niu.</em></h1>' +
-    '<p class="immersive-lead">Mỹ phẩm Hàn, chọn kỹ<br class="mobile-break"> cho làn da của chị.</p>' +
+    '<p class="immersive-lead">Dành riêng cho chị.</p>' +
     '<div class="immersive-actions"><a class="btn btn-dark" href="/my-pham/">Chọn mỹ phẩm <span aria-hidden="true">↗</span></a>' +
     '<a class="hero-consult" href="/tu-van-da/">Nhờ Hà tư vấn <span aria-hidden="true">↗</span></a></div>' +
     '</div></div><a class="hero-scroll" href="#discover" aria-label="Chọn điều chị muốn chăm sóc cho da">CHĂM DA CÙNG HÀ <span aria-hidden="true">↓</span></a></section>' +
@@ -176,7 +176,7 @@ function home() {
     arrowLink("/kien-thuc/", "Xem tất cả bài viết") + '</div>' +
     '<div class="article-grid">' + featured + '</div></div></section>' +
     '<section class="section container" id="shop">' + sectionLabel("03 /", "MỸ PHẨM HÀN CHỌN LỌC") +
-    '<div class="section-heading split-heading"><div><p class="overline">CHỌN KỸ CHO LÀN DA CHỊ</p><h2>Mỹ phẩm Hàn, <em>chọn riêng cùng chị.</em></h2></div>' +
+    '<div class="section-heading split-heading"><div><p class="overline">VÌ NÉT ĐẸP RIÊNG CỦA CHỊ</p><h2>Mỹ phẩm Hàn, <em>chọn riêng cùng chị.</em></h2></div>' +
     '<p>Mỗi món mỹ phẩm nên là một lựa chọn xứng đáng. Chị xem nhóm mình thích, Hà sẽ tư vấn món hợp da và báo giá rõ ràng trước khi chị đặt.</p></div>' +
     '<div class="collections-grid">' + collections + '</div><div class="shop-bottom">' +
     '<p>Chị chưa biết chọn món nào? Trả lời 5 câu ngắn để Hà hiểu da chị hơn nhé.</p>' +
@@ -347,7 +347,7 @@ function shopIndex() {
     '<figure class="ai-editorial-card"><div class="ai-editorial-photo"><img src="/assets/editorial/korean-skincare-trio-ai-editorial.webp" alt="Bộ mỹ phẩm Hàn trong không gian chăm da" width="720" height="900" loading="lazy" decoding="async"></div>' +
     '<figcaption><div><span>02 / NÂNG NIU MỖI NGÀY</span><h3>Dưỡng ẩm để da mềm mại.</h3><p>Dành cho da một chút chăm sóc dịu dàng. Hà cùng chị chọn món dưỡng ẩm phù hợp nhé.</p></div><a href="/my-pham/duong-am-phuc-hoi/" class="arrow-link">Chọn dưỡng ẩm <span aria-hidden="true">↗</span></a></figcaption></figure>' +
     '</div></section>' +
-    '<section class="section container simple-steps">'+sectionLabel("03 /","HÀ CÙNG CHỊ CHỌN KỸ")+'<h2>Ưng món hợp da, <em>rồi mình đặt nhé.</em></h2><div class="steps-grid">' +
+    '<section class="section container simple-steps">'+sectionLabel("03 /","HÀ LẮNG NGHE, CHỊ AN TÂM")+'<h2>Ưng món hợp da, <em>rồi mình đặt nhé.</em></h2><div class="steps-grid">' +
     '<div><span>01</span><h3>Chị chia sẻ</h3><p>Cho Hà biết làn da và điều chị muốn chăm chút nhất.</p></div>' +
     '<div><span>02</span><h3>Hà lắng nghe</h3><p>Mình trao đổi thêm về những món chị đang dùng và mức chi chị thấy thoải mái.</p></div>' +
     '<div><span>03</span><h3>Mình cùng chọn</h3><p>Hà gợi ý sản phẩm, nói rõ giá và cách dùng để chị cân nhắc trước khi đặt.</p></div></div>' +
@@ -372,7 +372,7 @@ function aboutPage() {
     '<p>Chị cũng sẽ tìm thấy ở đây những chia sẻ chăm da dễ hiểu, dễ làm theo. Khi da cần điều trị hoặc chị muốn peel (thay da hóa học), chị nên hỏi bác sĩ da liễu trước nhé.</p>' +
     '<a href="'+FANPAGE+'" class="btn btn-dark" target="_blank" rel="noopener noreferrer">Gặp Hà trên Facebook <span>↗</span></a></div>' +
     '<div class="about-image"><div class="about-photo"><img src="/assets/fanpage-product.jpg" alt="Hình ảnh giới thiệu từ fanpage Phùng Hà Korea" loading="lazy"></div>' +
-    '<span>NGHE CHỊ CHIA SẺ, CÙNG CHỊ CHỌN KỸ</span></div></section>' +
+    '<span>LẮNG NGHE CHỊ, TRÂN TRỌNG NÉT ĐẸP RIÊNG</span></div></section>' +
     '<section class="values-section"><div class="container">'+sectionLabel("VỀ HÀ /","CÁCH HÀ CHĂM CHÚT CHO CHỊ")+'<div class="values-grid">' +
     '<div><span>01 /</span><h3>Lắng nghe chị trước</h3><p>Hà hỏi về làn da, mong muốn và những món chị đang dùng để cùng chị chọn cho phù hợp.</p></div>' +
     '<div><span>02 /</span><h3>Dễ dùng mỗi ngày</h3><p>Cách chăm da cần dễ hiểu, dễ làm, để dù bận rộn chị vẫn có thể chăm chút cho mình.</p></div>' +
@@ -400,7 +400,7 @@ function quizPage() {
     '<a id="messenger-link" class="btn btn-dark" href="'+MESSAGE+'" target="_blank" rel="noopener noreferrer">② Mở Messenger ↗</a></div>' +
     '<p class="copy-feedback" id="copy-feedback" role="status" aria-live="polite">Chị sao chép kết quả, mở Messenger rồi dán vào tin nhắn gửi Hà nhé. Website không lưu câu trả lời của chị.</p>' +
     '<p class="quiz-disclaimer">Gợi ý này chỉ để tham khảo, không thay thế chẩn đoán của bác sĩ. Nếu da đang kích ứng hoặc chị muốn peel (thay da hóa học), hãy hỏi bác sĩ da liễu trước nhé.</p></aside></div></section>' +
-    '<section class="section container quiz-info"><div><p class="overline">CHỌN KỸ, ĐỂ CHỊ YÊN TÂM</p><h2>Chị thấy phù hợp, <em>mình hãy chọn.</em></h2></div>' +
+    '<section class="section container quiz-info"><div><p class="overline">ĐỂ CHỊ AN TÂM LÀM ĐẸP</p><h2>Chị thấy phù hợp, <em>mình hãy chọn.</em></h2></div>' +
     '<div><p>Hà muốn hiểu da và mong muốn của chị trước khi gợi ý mỹ phẩm. Mình cùng xem những món chị đang dùng, cách chăm mỗi ngày và mức chi chị thấy thoải mái nhé.</p>' +
     '<a class="arrow-link" href="/kien-thuc/">Ghé góc chăm da <span>↗</span></a></div></section>');
 }
