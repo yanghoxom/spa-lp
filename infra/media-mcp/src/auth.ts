@@ -203,7 +203,15 @@ export async function handleAuthorize(
     consent.headers.set('Content-Type', 'text/html; charset=utf-8');
     consent.headers.set('Cache-Control', 'no-store');
     consent.headers.set('Referrer-Policy', 'same-origin');
-    consent.headers.set('Content-Security-Policy', "default-src 'none'; style-src 'unsafe-inline'; form-action 'self'; base-uri 'none'; frame-ancestors 'none'");
+    // Browsers apply form-action to the OAuth 302 redirect after POST as well as the form target.
+    // Permit only the redirect origin already validated against the registered OAuth client.
+    const redirect = new URL(authRequest.redirectUri);
+    const loopback = redirect.protocol === 'http:' && ['localhost', '127.0.0.1', '[::1]'].includes(redirect.hostname);
+    if ((redirect.protocol !== 'https:' && !loopback) || redirect.username || redirect.password) {
+      throw new AuthFailure(400, 'invalid_redirect_uri');
+    }
+    consent.headers.set('Content-Security-Policy',
+      `default-src 'none'; style-src 'unsafe-inline'; form-action 'self' ${redirect.origin}; base-uri 'none'; frame-ancestors 'none'`);
     consent.headers.set('X-Frame-Options', 'DENY');
     consent.headers.set('X-Content-Type-Options', 'nosniff');
     return new Response(consentPage(details, consent.handle), { headers: consent.headers });
