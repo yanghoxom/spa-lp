@@ -1,0 +1,48 @@
+name: Verify deployed Phung Ha Media MCP OAuth
+on:
+  push:
+    paths:
+      - ".github/workflows/verify-media-mcp-oauth.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  verify-live-oauth:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check live OAuth protected resource and authorization metadata
+        run: |
+          node --input-type=module <<'NODE'
+          import assert from 'node:assert/strict';
+
+          const origin = 'https://phungha-media-mcp.tieugia969719.workers.dev';
+          const required = ['media:read', 'media:write', 'media:delete'];
+
+          async function get(path) {
+            const result = await fetch(origin + path, {
+              redirect: 'manual', signal: AbortSignal.timeout(15000),
+              headers: {'Accept': 'application/json'},
+            });
+            assert.equal(result.status, 200, `Expected HTTP 200 for ${path}; got ${result.status}`);
+            return result.json();
+          }
+          const protectedResource = await get('/.well-known/oauth-protected-resource/mcp');
+          assert.equal(protectedResource.resource, origin + '/mcp');
+          assert.deepEqual(protectedResource.scopes_supported, required);
+
+          const authorizationServer = await get('/.well-known/oauth-authorization-server');
+          for (const scope of required) assert(authorizationServer.scopes_supported.includes(scope), `Missing auth scope ${scope}`);
+          assert.equal(authorizationServer.issuer, origin);
+
+          const health = await get('/healthz');
+          assert.equal(health.status, 'ok');
+
+          const unauthorized = await fetch(origin + '/mcp', {
+            redirect: 'manual', signal: AbortSignal.timeout(15000),
+          });
+          assert.equal(unauthorized.status, 401);
+          assert((unauthorized.headers.get('www-authenticate') || '').includes('oauth-protected-resource/mcp'));
+          console.log('Live OAuth discovery exposes read/write/delete; MCP still requires auth; health OK.');
+          NODE
