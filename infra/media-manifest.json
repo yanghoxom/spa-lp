@@ -348,5 +348,31 @@
     "size": 55950,
     "sha256": "e40a5255110e7c528d999a98c8b0915962ebe86638b92580d7fd6e8a952b63fc",
     "contentType": "image/webp"
+  },
+  "/assets/articles/kem-chong-nang-da-mun-cover-v1-480.webp": {
+    "size": 15132,
+    "sha256": "c6b0ce1ef73b975c677d6f44347d4fe5176ba049777fef665583c1b469ab6d7d",
+    "contentType": "image/webp"
+  },
+  "/assets/articles/kem-chong-nang-da-mun-cover-v1-960.webp": {
+    "size": 44212,
+    "sha256": "259a11a2e6edba9cc366a24851d9ab4183fa0228381672df68f292b9cee10bff",
+    "contentType": "image/webp"
+  },
+  "/assets/articles/kem-chong-nang-da-mun-cover-v1-1440.webp": {
+    "size": 82220,
+    "sha256": "283c6a058b84677ad7d4c24d221bd90a5a8226fb26e56ab9ea0a1bac9fe7a659",
+    "contentType": "image/webp"
+  },
+  "/assets/articles/kem-chong-nang-da-mun-noi-dung-v1-480.webp": {
+    "size": 21936,
+    "sha256": "ee8b595a7ec895f67c3158a5ee3159e0479264d8dc8dd5e8e2564df665e0a072",
+    "contentType": "image/webp"
+  },
+  "/assets/articles/kem-chong-nang-da-mun-noi-dung-v1-960.webp": {
+    "size": 52994,
+    "sha256": "0b8c350c173408b1f65f2a3d1315113725d6f45153f854da440e29abeae5b475",
+    "contentType": "image/webp"
   }
 }
+
