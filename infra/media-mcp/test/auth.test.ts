@@ -133,7 +133,10 @@ describe('authentication boundary', () => {
 
   it('publishes OAuth discovery and protects MCP with an audience-specific challenge', async () => {
     const resource = await request('/.well-known/oauth-protected-resource/mcp');
-    expect(await resource.json()).toMatchObject({ resource: `${ORIGIN}/mcp`, authorization_servers: [ORIGIN], scopes_supported: ['media:read'] });
+    expect(await resource.json()).toMatchObject({
+      resource: `${ORIGIN}/mcp`, authorization_servers: [ORIGIN],
+      scopes_supported: ['media:read', 'media:write', 'media:delete'],
+    });
     const discovery = await request('/.well-known/oauth-authorization-server');
     const serverMetadata = await discovery.json() as {issuer: string; code_challenge_methods_supported: string[]; scopes_supported: string[]};
     expect(serverMetadata).toMatchObject({ issuer: ORIGIN, code_challenge_methods_supported: ['S256'], authorization_response_iss_parameter_supported: true, token_endpoint: `${ORIGIN}/oauth/token`, registration_endpoint: `${ORIGIN}/oauth/register` });
