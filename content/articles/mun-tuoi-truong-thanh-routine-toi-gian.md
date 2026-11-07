@@ -4,8 +4,8 @@ description: Routine chăm da mụn ở người trưởng thành gồm làm s�
 date: 2026-11-07
 category: Mụn & chăm da
 readingTime: 7 phút đọc
-cover: /assets/articles/mun-tuoi-truong-thanh-v1-1440.webp
-coverAlt: Người phụ nữ trưởng thành quan sát vài nốt mụn nhẹ ở vùng má trước gương
+cover: /assets/articles/mun-tuoi-truong-thanh-phung-ha-v2-1440.webp
+coverAlt: Phùng Hà cùng RIEN’A STC UV Sun Ampoule trong không gian chăm da sáng tự nhiên
 accent: pink
 ---
 
@@ -23,7 +23,9 @@ Theo Hiệp hội Da liễu Hoa Kỳ (AAD), mụn ở người lớn có thể l
 
 ## Routine chăm da mụn người lớn gồm những bước nào?
 
-![Ba sản phẩm không nhãn tượng trưng cho làm sạch, dưỡng ẩm và chống nắng trong routine da mụn](/assets/articles/routine-da-mun-nguoi-lon-v1-960.webp)
+![Phùng Hà cùng bộ tinh chất và kem dưỡng thật đang được Phùng Hà Korea tư vấn](/assets/articles/phung-ha-san-pham-that-v2-960.webp)
+
+*Ảnh sử dụng sản phẩm thật Phùng Hà Korea đang bán để minh họa cách chọn sản phẩm. Đây không phải bộ điều trị mụn; sản phẩm cần được đối chiếu với tình trạng da và mục tiêu sử dụng của từng người.*
 
 ### Buổi sáng: làm sạch, dưỡng ẩm, chống nắng
 

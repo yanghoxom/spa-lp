@@ -373,6 +373,30 @@
     "size": 52994,
     "sha256": "0b8c350c173408b1f65f2a3d1315113725d6f45153f854da440e29abeae5b475",
     "contentType": "image/webp"
+  },
+  "/assets/articles/mun-tuoi-truong-thanh-phung-ha-v2-480.webp": {
+    "size": 18098,
+    "sha256": "63810c3f76814902eb4496809514777bcd9c1cbe1019b3185a4975bf92769fc7",
+    "contentType": "image/webp"
+  },
+  "/assets/articles/mun-tuoi-truong-thanh-phung-ha-v2-960.webp": {
+    "size": 51260,
+    "sha256": "6b75a9e5d018790cdee071a446311b53f64bbba108fd89934fc68a192702c3cc",
+    "contentType": "image/webp"
+  },
+  "/assets/articles/mun-tuoi-truong-thanh-phung-ha-v2-1440.webp": {
+    "size": 93640,
+    "sha256": "dbaa5a344f0c6b7b159c390f79698854268980c9f20898abc55f75226f97973a",
+    "contentType": "image/webp"
+  },
+  "/assets/articles/phung-ha-san-pham-that-v2-480.webp": {
+    "size": 20430,
+    "sha256": "a201083b4cebd993098daec793b9978c5cff86952cf73e572fb66260b590db24",
+    "contentType": "image/webp"
+  },
+  "/assets/articles/phung-ha-san-pham-that-v2-960.webp": {
+    "size": 62360,
+    "sha256": "b78fc87f111f3c2fa4eb3a36e0b82881a48e7e03017b51a8141e0e00028f3260",
+    "contentType": "image/webp"
   }
 }
-
