@@ -297,9 +297,6 @@ export function createOAuthHandler<E extends AuthEnv>(apiHandler: AuthenticatedH
           const resourceServer = new OAuthResourceServer<E, AuthProps>({
             resourceMetadata: {
               resource: `${config.origin}/mcp`, authorization_servers: [config.origin], resource_name: 'Phùng Hà Korea Media',
-              // Advertise every available media permission to OAuth clients during resource discovery.
-              // Keep requiredScopes below at media:read so read-only access remains possible.
-              scopes_supported: [...OAUTH_SCOPES.filter(scope => scope !== 'offline_access')],
             },
             requiredScopes: ['media:read'],
             validateToken: currentEnv => async (resource, token) => {
@@ -320,7 +317,24 @@ export function createOAuthHandler<E extends AuthEnv>(apiHandler: AuthenticatedH
               },
             },
           });
-          return await resourceServer.fetch(request, env, ctx);
+          const response = await resourceServer.fetch(request, env, ctx);
+          // This SDK derives protected-resource scopes_supported from requiredScopes.
+          // Keep its read-only authentication boundary, but advertise all *available*
+          // media capabilities to OAuth clients (including upload and delete).
+          // Setting resourceMetadata.scopes_supported together with requiredScopes
+          // would throw in the SDK, so adjust only successful discovery responses.
+          if (url.pathname.startsWith('/.well-known/oauth-protected-resource')
+            && request.method === 'GET' && response.status === 200) {
+            const metadata = await response.json() as Record<string, unknown>;
+            const headers = new Headers(response.headers);
+            headers.delete('Content-Length');
+            headers.set('Cache-Control', 'no-store');
+            return Response.json({
+              ...metadata,
+              scopes_supported: OAUTH_SCOPES.filter(scope => scope !== 'offline_access'),
+            }, {status: 200, headers});
+          }
+          return response;
         }
         const bounded = request.method === 'POST' ? await boundedBody(request) : request;
         return await authServer.fetch(bounded, env, ctx);
