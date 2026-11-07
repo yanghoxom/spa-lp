@@ -297,6 +297,9 @@ export function createOAuthHandler<E extends AuthEnv>(apiHandler: AuthenticatedH
           const resourceServer = new OAuthResourceServer<E, AuthProps>({
             resourceMetadata: {
               resource: `${config.origin}/mcp`, authorization_servers: [config.origin], resource_name: 'Phùng Hà Korea Media',
+              // Advertise every available media permission to OAuth clients during resource discovery.
+              // Keep requiredScopes below at media:read so read-only access remains possible.
+              scopes_supported: [...OAUTH_SCOPES.filter(scope => scope !== 'offline_access')],
             },
             requiredScopes: ['media:read'],
             validateToken: currentEnv => async (resource, token) => {
