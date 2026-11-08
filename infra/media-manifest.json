@@ -398,5 +398,30 @@
     "size": 62360,
     "sha256": "b78fc87f111f3c2fa4eb3a36e0b82881a48e7e03017b51a8141e0e00028f3260",
     "contentType": "image/webp"
+  },
+  "/assets/articles/phuc-hoi-hang-rao-da-mun-cover-v1-480.webp": {
+    "size": 6192,
+    "sha256": "bc7c69f5e31beec44e70a34d4c1005f2b335bff025b5ca3c02741100967d631d",
+    "contentType": "image/webp"
+  },
+  "/assets/articles/phuc-hoi-hang-rao-da-mun-cover-v1-960.webp": {
+    "size": 14574,
+    "sha256": "548d8f62d782847ad99767fbcbcbae3c77b05fe9ca8de9b0406b9cbcf03dc081",
+    "contentType": "image/webp"
+  },
+  "/assets/articles/phuc-hoi-hang-rao-da-mun-cover-v1-1440.webp": {
+    "size": 28428,
+    "sha256": "b5c4f9cc2e717715a5ba24b16a7b8a5caa536191d10e0a2fa8163731f6ff6218",
+    "contentType": "image/webp"
+  },
+  "/assets/articles/phuc-hoi-hang-rao-da-mun-noi-dung-v1-480.webp": {
+    "size": 14956,
+    "sha256": "e91d49b036e924e8adb08e5f23dcc379e91e11082e3854db520f9a6988e1aae0",
+    "contentType": "image/webp"
+  },
+  "/assets/articles/phuc-hoi-hang-rao-da-mun-noi-dung-v1-960.webp": {
+    "size": 42852,
+    "sha256": "9460626370dc8f9de6c2ecae29d6e8572f8f1a94903e3beb424b51b6032b97c1",
+    "contentType": "image/webp"
   }
 }
