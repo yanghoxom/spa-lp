@@ -1,0 +1,32 @@
+{
+  "version": 1,
+  "updated_at": "2026-11-09T01:25:00Z",
+  "products": [
+    {
+      "product_id": "riena-stc-uv-sun-ampoule",
+      "product_name": "RIEN'A STC UV Sun Ampoule",
+      "brand": "RIEN'A",
+      "sku": null,
+      "aliases": [
+        "STC UV Sun Ampoule",
+        "RIENA Sun Ampoule",
+        "Ampoule chống nắng RIEN'A"
+      ],
+      "status": "approved",
+      "canonical_reference_keys": [
+        "/assets/fanpage-service-2.jpg"
+      ],
+      "approved_derivative_keys": [
+        "/assets/editorial/riena-sun-ampoule-ai-editorial.webp"
+      ],
+      "cdn_urls": [
+        "https://cdn.phunghakorea.com/assets/fanpage-service-2.jpg"
+      ],
+      "sha256": {
+        "/assets/fanpage-service-2.jpg": "cfe2f491491a39281d36225a37759b94645baf3f5dc1513589cdfaf7e3f7c060"
+      },
+      "verified_at": "2026-11-09T01:25:00Z",
+      "notes": "Ảnh gốc fanpage đã được tải lại từ CDN, đối chiếu SHA-256 và kiểm tra trực quan: bao bì ghi STC UV SUN AMPOULE, SPF 50+ PA++++, thương hiệu RIEN'A. Không suy đoán SKU; ảnh phái sinh chỉ dùng để tránh trùng bố cục."
+    }
+  ]
+}

@@ -423,5 +423,30 @@
     "size": 42852,
     "sha256": "9460626370dc8f9de6c2ecae29d6e8572f8f1a94903e3beb424b51b6032b97c1",
     "contentType": "image/webp"
+  },
+  "/assets/articles/tham-mun-va-nam-cover-v1-480.webp": {
+    "size": 10460,
+    "sha256": "a256f553c35f83ee0bda8bbf73debb143dc90b5d35ba43bc1b463e063a4f5196",
+    "contentType": "image/webp"
+  },
+  "/assets/articles/tham-mun-va-nam-cover-v1-960.webp": {
+    "size": 34100,
+    "sha256": "713c632f50a1e22a4f2ffb557a4449601a960c14d30ba9359d99d88dfe268fca",
+    "contentType": "image/webp"
+  },
+  "/assets/articles/tham-mun-va-nam-cover-v1-1440.webp": {
+    "size": 65616,
+    "sha256": "a6a87342e57a06d84b5d8f01a691181fb1404b710ad89493aa20cce6c98e9744",
+    "contentType": "image/webp"
+  },
+  "/assets/articles/tham-mun-va-nam-noi-dung-v1-480.webp": {
+    "size": 12554,
+    "sha256": "1130f943371e92e5ac9f4093db37523a13e4f502f8ac1f07134f7209a08ff6cc",
+    "contentType": "image/webp"
+  },
+  "/assets/articles/tham-mun-va-nam-noi-dung-v1-960.webp": {
+    "size": 35674,
+    "sha256": "9d7ec1c30dbef8157716230dc2b3a6e0e18d707b6aa9f88a4f7a995f98daae9e",
+    "contentType": "image/webp"
   }
 }
