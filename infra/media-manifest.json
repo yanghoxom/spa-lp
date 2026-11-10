@@ -448,5 +448,31 @@
     "size": 35674,
     "sha256": "9d7ec1c30dbef8157716230dc2b3a6e0e18d707b6aa9f88a4f7a995f98daae9e",
     "contentType": "image/webp"
+  },
+  "/assets/articles/da-mun-co-nen-peel-cover-v1-480.webp": {
+    "size": 11258,
+    "sha256": "97b8e05f11900af926fc19ce8da955bffad237e9eb625be7972269e0c78e6c01",
+    "contentType": "image/webp"
+  },
+  "/assets/articles/da-mun-co-nen-peel-cover-v1-960.webp": {
+    "size": 33692,
+    "sha256": "008f20bcbae1d2a5a0d548ae0cec97683da7dfbfe86faeb193f85430ac7acbfa",
+    "contentType": "image/webp"
+  },
+  "/assets/articles/da-mun-co-nen-peel-cover-v1-1440.webp": {
+    "size": 61548,
+    "sha256": "8c6924f85a73f974750f66509ace1c6d0bf64ec9065a133d7ef58b769f9a6423",
+    "contentType": "image/webp"
+  },
+  "/assets/articles/da-mun-co-nen-peel-noi-dung-v1-480.webp": {
+    "size": 16370,
+    "sha256": "46e6cbf1fba18c4f7f5e814c9df0231c9a1a56e92076266ef5629309deb85ba2",
+    "contentType": "image/webp"
+  },
+  "/assets/articles/da-mun-co-nen-peel-noi-dung-v1-960.webp": {
+    "size": 51642,
+    "sha256": "799638b005c066c9a58863188c1b09c967c4efa315e232e594e77ed05d984fb6",
+    "contentType": "image/webp"
   }
 }
+

@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated_at": "2026-11-09T01:25:00Z",
+  "updated_at": "2026-11-10T01:24:16Z",
   "products": [
     {
       "product_id": "riena-stc-uv-sun-ampoule",
@@ -17,7 +17,9 @@
         "/assets/fanpage-service-2.jpg"
       ],
       "approved_derivative_keys": [
-        "/assets/editorial/riena-sun-ampoule-ai-editorial.webp"
+        "/assets/editorial/riena-sun-ampoule-ai-editorial.webp",
+        "/assets/articles/da-mun-co-nen-peel-cover-v1-1440.webp",
+        "/assets/articles/da-mun-co-nen-peel-noi-dung-v1-960.webp"
       ],
       "cdn_urls": [
         "https://cdn.phunghakorea.com/assets/fanpage-service-2.jpg"
@@ -25,8 +27,9 @@
       "sha256": {
         "/assets/fanpage-service-2.jpg": "cfe2f491491a39281d36225a37759b94645baf3f5dc1513589cdfaf7e3f7c060"
       },
-      "verified_at": "2026-11-09T01:25:00Z",
-      "notes": "Ảnh gốc fanpage đã được tải lại từ CDN, đối chiếu SHA-256 và kiểm tra trực quan: bao bì ghi STC UV SUN AMPOULE, SPF 50+ PA++++, thương hiệu RIEN'A. Không suy đoán SKU; ảnh phái sinh chỉ dùng để tránh trùng bố cục."
+      "verified_at": "2026-11-10T01:24:16Z",
+      "notes": "Ảnh gốc fanpage đã được tải lại từ CDN, đối chiếu SHA-256 và kiểm tra trực quan: bao bì ghi STC UV SUN AMPOULE, SPF 50+ PA++++, thương hiệu RIEN'A. Không suy đoán SKU. Hai bố cục AI ngày 2026-11-10 dùng file này làm portrait_reference, giữ nhận diện Phùng Hà và loại toàn bộ sản phẩm, chữ, logo khỏi ảnh cuối; chỉ lưu bản lớn đại diện trong approved_derivative_keys để tránh trùng bố cục."
     }
   ]
 }
+
