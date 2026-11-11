@@ -473,6 +473,31 @@
     "size": 51642,
     "sha256": "799638b005c066c9a58863188c1b09c967c4efa315e232e594e77ed05d984fb6",
     "contentType": "image/webp"
+  },
+  "/assets/articles/kem-chong-nang-co-mau-cover-v1-480.webp": {
+    "size": 12742,
+    "sha256": "b034a039e3b0f5cadd45a122665b0a51b039dd6cf8cccdc0da026c5db6bb26db",
+    "contentType": "image/webp"
+  },
+  "/assets/articles/kem-chong-nang-co-mau-cover-v1-960.webp": {
+    "size": 35056,
+    "sha256": "0770ce75c05b552ae97e65700bf7b1a3b9c17d2d063584fc789b48531f359418",
+    "contentType": "image/webp"
+  },
+  "/assets/articles/kem-chong-nang-co-mau-cover-v1-1440.webp": {
+    "size": 65884,
+    "sha256": "928272808eb2b5bc524606d17f213258a771c8c735b0ac91022fac6d101339c5",
+    "contentType": "image/webp"
+  },
+  "/assets/articles/kem-chong-nang-co-mau-noi-dung-v1-480.webp": {
+    "size": 36860,
+    "sha256": "12570ae31abbff6c259b86dc906a02c594b3bac378ca019f73a44f17fbf42807",
+    "contentType": "image/webp"
+  },
+  "/assets/articles/kem-chong-nang-co-mau-noi-dung-v1-960.webp": {
+    "size": 101354,
+    "sha256": "9e1203e92e5ae1dcd1c3743cba742207bc307af89f1874f60b8435ccb2b6cf97",
+    "contentType": "image/webp"
   }
 }
 
