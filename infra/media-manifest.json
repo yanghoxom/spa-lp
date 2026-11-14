@@ -523,5 +523,30 @@
     "size": 30074,
     "sha256": "3bd75aa00304637bb8559f7d961f1dd96a8f9690b343c3d28756131862cb40ff",
     "contentType": "image/webp"
+  },
+  "/assets/articles/benzoyl-peroxide-nguoi-moi-cover-v1-480.webp": {
+    "size": 9310,
+    "sha256": "347821c699cc8d098a231f845575fac22a1232e5a53104b41b3bd1dfea1e2fec",
+    "contentType": "image/webp"
+  },
+  "/assets/articles/benzoyl-peroxide-nguoi-moi-cover-v1-960.webp": {
+    "size": 27416,
+    "sha256": "e3845c232881021ddfe34ed197c631d7a94a8167898c3580e9c1567ebb227da6",
+    "contentType": "image/webp"
+  },
+  "/assets/articles/benzoyl-peroxide-nguoi-moi-cover-v1-1440.webp": {
+    "size": 54692,
+    "sha256": "735711ccf4c624c44621dc281f81e085de87e01e05b65c0a576db56db46129a8",
+    "contentType": "image/webp"
+  },
+  "/assets/articles/benzoyl-peroxide-nguoi-moi-noi-dung-v1-480.webp": {
+    "size": 15806,
+    "sha256": "69574cdbd5c1078c41247bc91fe07998df0585a22857af94bc920e1e222becb7",
+    "contentType": "image/webp"
+  },
+  "/assets/articles/benzoyl-peroxide-nguoi-moi-noi-dung-v1-960.webp": {
+    "size": 44564,
+    "sha256": "a502e14c4c59e40f7608d35668a697d602b3826e533de626f928e95244d52789",
+    "contentType": "image/webp"
   }
 }

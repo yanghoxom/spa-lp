@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated_at": "2026-11-13T01:27:38.228Z",
+  "updated_at": "2026-11-14T01:23:03.722Z",
   "products": [
     {
       "product_id": "riena-stc-uv-sun-ampoule",
@@ -23,7 +23,9 @@
         "/assets/articles/kem-chong-nang-co-mau-cover-v1-1440.webp",
         "/assets/articles/kem-chong-nang-co-mau-noi-dung-v1-960.webp",
         "/assets/articles/duong-am-da-tuoi-35-cover-v1-1440.webp",
-        "/assets/articles/duong-am-da-tuoi-35-noi-dung-v1-960.webp"
+        "/assets/articles/duong-am-da-tuoi-35-noi-dung-v1-960.webp",
+        "/assets/articles/benzoyl-peroxide-nguoi-moi-cover-v1-1440.webp",
+        "/assets/articles/benzoyl-peroxide-nguoi-moi-noi-dung-v1-960.webp"
       ],
       "cdn_urls": [
         "https://cdn.phunghakorea.com/assets/fanpage-service-2.jpg"
@@ -32,7 +34,7 @@
         "/assets/fanpage-service-2.jpg": "cfe2f491491a39281d36225a37759b94645baf3f5dc1513589cdfaf7e3f7c060"
       },
       "verified_at": "2026-11-10T01:24:16Z",
-      "notes": "Ảnh gốc fanpage đã được tải lại từ CDN, đối chiếu SHA-256 và kiểm tra trực quan: bao bì ghi STC UV SUN AMPOULE, SPF 50+ PA++++, thương hiệu RIEN'A. Không suy đoán SKU. Hai bố cục AI ngày 2026-11-10 dùng file này làm portrait_reference, giữ nhận diện Phùng Hà và loại toàn bộ sản phẩm, chữ, logo khỏi ảnh cuối; chỉ lưu bản lớn đại diện trong approved_derivative_keys để tránh trùng bố cục. Hai bố cục AI ngày 2026-11-11 tiếp tục dùng ảnh gốc này làm portrait_reference; ảnh cuối về kem chống nắng có màu giữ nhận diện Phùng Hà nhưng loại toàn bộ sản phẩm, bao bì, chữ và logo. Cover dùng thẻ màu dưới hành lang nắng; ảnh thân bài dùng ô che nắng ngoài trời, khác các bố cục cũ. Hai bố cục AI ngày 2026-11-13 dùng ảnh gốc này làm portrait_reference cho bài dưỡng ẩm da tuổi 35 dễ nổi mụn; ảnh cuối giữ nhận diện Phùng Hà nhưng loại toàn bộ sản phẩm, bao bì, chữ và logo. Cover là cảnh buổi sáng kiểm tra độ dễ chịu của da; ảnh thân bài là góc nghiêng buổi tối sau làm sạch, khác các bố cục cũ."
+      "notes": "Ảnh gốc fanpage đã được tải lại từ CDN, đối chiếu SHA-256 và kiểm tra trực quan: bao bì ghi STC UV SUN AMPOULE, SPF 50+ PA++++, thương hiệu RIEN'A. Không suy đoán SKU. Hai bố cục AI ngày 2026-11-10 dùng file này làm portrait_reference, giữ nhận diện Phùng Hà và loại toàn bộ sản phẩm, chữ, logo khỏi ảnh cuối; chỉ lưu bản lớn đại diện trong approved_derivative_keys để tránh trùng bố cục. Hai bố cục AI ngày 2026-11-11 tiếp tục dùng ảnh gốc này làm portrait_reference; ảnh cuối về kem chống nắng có màu giữ nhận diện Phùng Hà nhưng loại toàn bộ sản phẩm, bao bì, chữ và logo. Cover dùng thẻ màu dưới hành lang nắng; ảnh thân bài dùng ô che nắng ngoài trời, khác các bố cục cũ. Hai bố cục AI ngày 2026-11-13 dùng ảnh gốc này làm portrait_reference cho bài dưỡng ẩm da tuổi 35 dễ nổi mụn; ảnh cuối giữ nhận diện Phùng Hà nhưng loại toàn bộ sản phẩm, bao bì, chữ và logo. Cover là cảnh buổi sáng kiểm tra độ dễ chịu của da; ảnh thân bài là góc nghiêng buổi tối sau làm sạch, khác các bố cục cũ. Hai bố cục AI ngày 2026-11-14 dùng ảnh gốc này làm portrait_reference cho bài benzoyl peroxide cho người mới; ảnh cuối giữ nhận diện Phùng Hà nhưng loại toàn bộ sản phẩm, bao bì, chữ, logo và bối cảnh nguồn. Cover là cảnh buổi tối quan sát da trước gương; ảnh thân bài là cảnh ban ngày chuẩn bị khăn và áo gối trắng để minh họa lưu ý bạc màu vải, khác các bố cục cũ."
     }
   ]
 }
