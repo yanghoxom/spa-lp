@@ -548,5 +548,30 @@
     "size": 44564,
     "sha256": "a502e14c4c59e40f7608d35668a697d602b3826e533de626f928e95244d52789",
     "contentType": "image/webp"
+  },
+  "/assets/articles/kem-chong-nang-bi-von-cover-v1-480.webp": {
+    "size": 8298,
+    "sha256": "0e022d41e6bd0ebbc67bdc80a4c355c33ea77c4f3ba3eb5888384246cae60814",
+    "contentType": "image/webp"
+  },
+  "/assets/articles/kem-chong-nang-bi-von-cover-v1-960.webp": {
+    "size": 24310,
+    "sha256": "dcf4979f8616eebfafd925b03728958fc6eb972e36390f9bd5ea36fadc1155df",
+    "contentType": "image/webp"
+  },
+  "/assets/articles/kem-chong-nang-bi-von-cover-v1-1440.webp": {
+    "size": 48184,
+    "sha256": "bf7b8e5ee9190690d53e1977374cfa93cc6eb2988b4ef6c97b1a13a38e72c022",
+    "contentType": "image/webp"
+  },
+  "/assets/articles/kem-chong-nang-bi-von-noi-dung-v1-480.webp": {
+    "size": 15444,
+    "sha256": "916cf337b347b1dcb9658e89d9a22ae54115d0d063a72b911f7167272b4805eb",
+    "contentType": "image/webp"
+  },
+  "/assets/articles/kem-chong-nang-bi-von-noi-dung-v1-960.webp": {
+    "size": 42182,
+    "sha256": "2f246c59e55029e5ea5cb0f00633dac0e0c90c827494fb011c1d43ab5a378922",
+    "contentType": "image/webp"
   }
 }
