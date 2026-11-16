@@ -573,5 +573,30 @@
     "size": 42182,
     "sha256": "2f246c59e55029e5ea5cb0f00633dac0e0c90c827494fb011c1d43ab5a378922",
     "contentType": "image/webp"
+  },
+  "/assets/articles/mun-cam-sau-tuoi-35-cover-v1-480.webp": {
+    "size": 10010,
+    "sha256": "22e24a3ad6153b3f244a91b87c0448801dc7b7102f81b85c96e20b614bb67424",
+    "contentType": "image/webp"
+  },
+  "/assets/articles/mun-cam-sau-tuoi-35-cover-v1-960.webp": {
+    "size": 28990,
+    "sha256": "aa9d380bbc6c24eba958aca6a56fbae6b53a67c51148db00c2343795f8e70557",
+    "contentType": "image/webp"
+  },
+  "/assets/articles/mun-cam-sau-tuoi-35-cover-v1-1440.webp": {
+    "size": 52762,
+    "sha256": "c10506294d79a5916ed508b56a0a75de2efb1e5072ef308b2deba51157beee36",
+    "contentType": "image/webp"
+  },
+  "/assets/articles/mun-cam-sau-tuoi-35-noi-dung-v1-480.webp": {
+    "size": 17766,
+    "sha256": "f00e2566f15ea039d64f57cafe341955bfa206e9669ee47062bd0636a78d1b9b",
+    "contentType": "image/webp"
+  },
+  "/assets/articles/mun-cam-sau-tuoi-35-noi-dung-v1-960.webp": {
+    "size": 58394,
+    "sha256": "49a4ca801030c1deb9697797dac70e3b35cb5ffde419a527f312a1ecdf299828",
+    "contentType": "image/webp"
   }
 }
