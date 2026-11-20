@@ -4,7 +4,7 @@ description: Da khô, căng, bong hoặc châm chích khi dùng sản phẩm tr�
 date: 2026-11-08
 category: Mụn & chăm da
 readingTime: 8 phút đọc
-cover: /assets/articles/phuc-hoi-hang-rao-da-mun-cover-v1-1440.webp
+cover: /assets/articles/phuc-hoi-hang-rao-da-mun-cover-v2-1440.webp
 coverAlt: Chân dung Phùng Hà trong ánh sáng dịu, minh họa cách chăm da nhẹ nhàng khi da khô rát
 accent: sage
 ---
@@ -61,7 +61,7 @@ Khi đọc nhãn, có thể ưu tiên các mô tả như:
 
 Thoa sau khi rửa, khi da còn hơi ẩm, có thể giúp giữ nước. Không có một thành phần bắt buộc cho tất cả mọi người; ceramide, glycerin hay các chất làm mềm có thể hữu ích trong công thức phù hợp, nhưng tên thành phần đơn lẻ không bảo đảm sản phẩm sẽ hợp da.
 
-![Phùng Hà cầm sản phẩm chống nắng thật trong routine chăm da buổi sáng](/assets/articles/phuc-hoi-hang-rao-da-mun-noi-dung-v1-960.webp)
+![Phùng Hà cầm sản phẩm chống nắng thật trong routine chăm da buổi sáng](/assets/articles/phuc-hoi-hang-rao-da-mun-noi-dung-v2-960.webp)
 
 *Ảnh minh họa sản phẩm thật Phùng Hà Korea đang tư vấn. Kem chống nắng không phải sản phẩm điều trị mụn hay chữa tổn thương hàng rào da; cần chọn theo khả năng dung nạp và hướng dẫn trên nhãn.*
 
