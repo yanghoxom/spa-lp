@@ -2,11 +2,11 @@
 title: Mụn ở cằm sau tuổi 35: có phải do nội tiết không?
 description: Mụn ở cằm sau tuổi 35 có phải do nội tiết? Cùng Hà xem 6 dấu hiệu nên kiểm tra, cách chăm da nhẹ nhàng và khi nào cần gặp bác sĩ.
 date: 2026-11-16
-updated: 2026-11-20
+updated: 2026-11-21
 category: Mụn & chăm da
 readingTime: 8 phút đọc
-cover: /assets/articles/mun-cam-sau-tuoi-35-cover-v1-1440.webp
-coverAlt: Phùng Hà soi vùng cằm bằng gương cầm tay trong ánh sáng tự nhiên
+cover: /assets/articles/mun-cam-sau-tuoi-35-cover-v2-1440.webp
+coverAlt: Phùng Hà bên bộ mỹ phẩm chăm da, nhẹ nhàng quan sát vùng cằm
 accent: pink
 ---
 
@@ -40,7 +40,7 @@ Chỉ cần ghi ngắn gọn mỗi lần:
 - Nốt mụn có sâu, đau hoặc để lại thâm không?
 - Trước đó chị có đổi mỹ phẩm, thuốc hoặc thói quen sinh hoạt không?
 
-![Phùng Hà ghi chép diễn tiến mụn vùng cằm, giúp chị theo dõi thay đổi của làn da](/assets/articles/mun-cam-sau-tuoi-35-noi-dung-v1-960.webp)
+![Phùng Hà chăm sóc vùng cằm với bộ mỹ phẩm thực tế, minh họa cho việc theo dõi diễn tiến mụn](/assets/articles/mun-cam-sau-tuoi-35-noi-dung-v2-960.webp)
 
 *Ghi chép diễn tiến giúp việc trao đổi với bác sĩ rõ ràng hơn; đây không phải cách tự xét đoán hormone.*
 
