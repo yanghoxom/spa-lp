@@ -30,7 +30,7 @@ npm run dev
 1. Tạo file Markdown tại `content/articles/ten-bai-khong-dau.md` (slug chỉ dùng chữ thường, số và dấu gạch ngang).
 2. Thêm front matter có các trường bắt buộc `title`, `description`, `date` (YYYY-MM-DD), `category`. Có thể thêm `updated` (ngày cập nhật), `readingTime`, `accent` (`sage`, `pink`, `gold`, `olive`, `cream`), `cover: /assets/articles/ten-anh.webp` và `coverAlt` mô tả ảnh. Ảnh cover tự xuất hiện trên thẻ bài và trang bài viết.
 3. Viết nội dung với heading Markdown `##`, `###`, danh sách `-`, `1.`, liên kết `[nguồn](https://...)`, liên kết nội bộ `[/my-pham/.../](/my-pham/)`, bảng Markdown và ảnh `![Mô tả ảnh](/assets/articles/ten-anh.webp)`.
-   Tất cả ảnh bài viết phải được lưu dưới `public/assets/`, có quyền sử dụng hợp lệ và mô tả alt hữu ích; không nhúng ảnh lấy từ URL bên ngoài.
+   Tất cả ảnh bài viết phải tải lên CDN `https://cdn.phunghakorea.com`, có quyền sử dụng hợp lệ, alt hữu ích và metadata trong `infra/media-manifest.json`. Không commit file ảnh hoặc base64 lên GitHub.
 4. Kiểm tra nguồn, thông tin sức khỏe, quyền sử dụng hình ảnh và tính chính xác trước khi đăng.
 5. Commit/push lên `main`; Cloudflare Builds tự tạo /kien-thuc/ten-bai-khong-dau/, cập nhật trang cẩm nang, nội dung mới ở trang chủ, sitemap.xml và feed.xml.
 
@@ -72,3 +72,7 @@ Mọi ảnh và biểu tượng được lưu trên Cloudflare, phục vụ tạ
 - Quiz có nút sao chép bản tóm tắt để gửi Messenger, không dựa vào query text chưa được hỗ trợ.
 - Custom 404 page qua Workers Static Assets.
 - Mỗi lần deploy phải kiểm tra /, /kien-thuc/, /my-pham/, /tu-van-da/, /ve-phung-ha/ và ít nhất một bài viết.
+
+## Quy trinh xuat ban SEO hang ngay (Agent)
+
+Doc [runbook khoi phuc va kiem tra an toan](docs/daily-seo-publishing.md). Tu dong tao sitemap tai buoc build; dung GitHub `content/articles/` lam danh sach bai nguon chinh khi truy cap HTTP truc tiep loi. Truoc khi commit chay `npm run generate`, `npm run publish:preflight -- --article content/articles/<slug>.md --date YYYY-MM-DD`, `npm test`, `npm run build`. Xac minh moi anh qua `verify_media` va URL live sau Cloudflare deploy. Khong bo qua cac gate an toan.
