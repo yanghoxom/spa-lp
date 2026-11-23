@@ -1,0 +1,23 @@
+name: SEO publication preflight
+on:
+  pull_request:
+    paths:
+      - 'content/articles/**'
+      - 'infra/media-manifest.json'
+      - 'site/**'
+      - 'tests/**'
+      - '.github/workflows/seo-publication-preflight.yml'
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: 'npm'
+      - run: npm ci
+      - run: npm run generate
+      - run: npm run publish:preflight -- --article content/articles/phu-nu-35-tuoi-nen-dung-kem-duong-da-gi.md --date 2026-11-23
+      - run: npm test
+      - run: npm run build
