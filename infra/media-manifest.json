@@ -648,5 +648,25 @@
     "size": 59408,
     "sha256": "56de7a62db7863fda76e189fb40c3a8c95f8f85d9c42535ba9ed690d449a183a",
     "contentType": "image/webp"
+  },
+  "/assets/articles/phu-nu-35-tuoi-kem-duong-cover-v1-960.webp": {
+    "size": 9586,
+    "sha256": "d65e00d9e95f0696d894900ad059024afa858952b4543dc37faf17288594572a",
+    "contentType": "image/webp"
+  },
+  "/assets/articles/phu-nu-35-tuoi-kem-duong-cover-v1-480.webp": {
+    "size": 3844,
+    "sha256": "d33fbbc1dec1ea7e1d57456858968c04b65219296e0dcc13c64b4302345a480b",
+    "contentType": "image/webp"
+  },
+  "/assets/articles/phu-nu-35-tuoi-kem-duong-noi-dung-v1-960.webp": {
+    "size": 18238,
+    "sha256": "70792b409d469cddc6b37fe31818cf4a5082e64ad7aee3dbf877e1991b7119ca",
+    "contentType": "image/webp"
+  },
+  "/assets/articles/phu-nu-35-tuoi-kem-duong-noi-dung-v1-480.webp": {
+    "size": 7192,
+    "sha256": "8eb91d1397ab602077dc02e642846ab231cd794b63132eb2bf54036ce5eac0b1",
+    "contentType": "image/webp"
   }
 }
