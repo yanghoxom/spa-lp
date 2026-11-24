@@ -1,23 +1,40 @@
 name: SEO publication preflight
 on:
+  push:
+    branches: [main]
+    paths:
+      - 'content/articles/**'
+      - 'infra/media-manifest.json'
+      - 'site/**'
+      - 'tests/**'
+      - 'package.json'
+      - '.github/workflows/seo-publication-preflight.yml'
   pull_request:
     paths:
       - 'content/articles/**'
       - 'infra/media-manifest.json'
       - 'site/**'
       - 'tests/**'
+      - 'package.json'
       - '.github/workflows/seo-publication-preflight.yml'
+permissions:
+  contents: read
 jobs:
   validate:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
           cache: 'npm'
       - run: npm ci
       - run: npm run generate
-      - run: npm run publish:preflight -- --article content/articles/phu-nu-35-tuoi-nen-dung-kem-duong-da-gi.md --date 2026-11-23
+      - name: Validate the articles changed by this push or pull request
+        run: node site/changed-article-preflight.mjs
+        env:
+          SEO_BASE_SHA: ${{ github.event.pull_request.base.sha || github.event.before }}
       - run: npm test
       - run: npm run build

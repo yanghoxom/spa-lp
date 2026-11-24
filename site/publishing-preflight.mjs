@@ -1,9 +1,32 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { execFileSync } from 'node:child_process';
 
 const CDN = 'https://cdn.phunghakorea.com';
 const SITE = 'https://phunghakorea.com';
+
+export function checkPrivateState(root) {
+  const errors = [];
+  const privatePath = value => /(^|\/)(seo(?:\/|$)|phunghakorea-seo-checkpoint\.json$)/i.test(value);
+  if (fs.existsSync(path.join(root, '.git'))) {
+    const tracked = execFileSync('git', ['ls-files', '-z'], { cwd: root, encoding: 'utf8' }).split('\0');
+    for (const file of tracked.filter(privatePath)) errors.push('Private SEO state must not be tracked: ' + file);
+  }
+  function walk(dir) {
+    if (!fs.existsSync(path.join(root, dir))) return;
+    if (fs.lstatSync(path.join(root, dir)).isSymbolicLink()) { errors.push('Symlinks must not be copied into public output: ' + dir); return; }
+    for (const entry of fs.readdirSync(path.join(root, dir), { withFileTypes: true })) {
+      const rel = path.posix.join(dir, entry.name);
+      if (entry.isSymbolicLink()) errors.push('Symlinks must not be copied into public output: ' + rel);
+      else if (privatePath(rel)) errors.push('Private SEO state must not be published: ' + rel);
+      else if (entry.isDirectory()) walk(rel);
+    }
+  }
+  walk('public');
+  walk('dist');
+  return errors;
+}
 
 export function parseFrontMatter(raw, name = 'article') {
   const m = raw.replace(/\r\n/g, '\n').match(/^---\n([\s\S]*?)\n---\n/);
@@ -22,9 +45,10 @@ export function imageKey(value) {
   return /^\/assets\/[a-zA-Z0-9/_-]+\.(?:webp|png|jpe?g|avif)$/.test(key) ? key : null;
 }
 
-export function checkPublication({ root = process.cwd(), article, date } = {}) {
-  const errors = [];
+export function checkPublication({ root = process.cwd(), article, date, mode = 'publish' } = {}) {
+  const errors = checkPrivateState(root);
   const add = s => errors.push(s);
+  if (!['publish', 'update'].includes(mode)) add('Unknown publication mode: ' + mode);
   const dir = path.join(root, 'content/articles');
   if (!fs.existsSync(dir)) return { ok: false, articleCount: 0, errors: ['Missing content/articles'] };
   const records = [];
@@ -53,8 +77,10 @@ export function checkPublication({ root = process.cwd(), article, date } = {}) {
         result.candidate = r.slug;
         for (const k of ['title','description','date','category','cover','coverAlt']) if (!r.meta[k]) add('Missing front matter: ' + k);
         if (!/^\d{4}-\d{2}-\d{2}$/.test(r.meta.date || '')) add('Invalid candidate date');
-        if (date && date !== r.meta.date) add('Candidate date does not match publish date: ' + date);
-        if (records.filter(x => x.meta.date === r.meta.date).length > 1) add('daily limit: more than one article with date ' + r.meta.date);
+        if (r.meta.updated && (!/^\d{4}-\d{2}-\d{2}$/.test(r.meta.updated) || r.meta.updated < r.meta.date)) add('Invalid candidate updated date');
+        const expectedDate = mode === 'update' ? r.meta.updated : r.meta.date;
+        if (date && date !== expectedDate) add('Candidate date does not match ' + (mode === 'update' ? 'update' : 'publish') + ' date: ' + date);
+        if (mode === 'publish' && records.filter(x => x.meta.date === r.meta.date).length > 1) add('daily limit: more than one article with date ' + r.meta.date);
         if (records.some(x => x.file !== r.file && x.meta.title?.toLocaleLowerCase('vi') === r.meta.title?.toLocaleLowerCase('vi'))) add('Duplicate exact title');
         if (!/^##\s+\S/m.test(r.body)) add('Missing H2 section');
         if (!/\]\(https?:\/\/(?!phunghakorea\.com|cdn\.phunghakorea\.com)[^)]+\)/.test(r.body)) add('Missing external source');
@@ -98,6 +124,7 @@ if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.me
   for (let i = 2; i < process.argv.length; i++) {
     if (process.argv[i] === '--article') opts.article = process.argv[++i];
     else if (process.argv[i] === '--date') opts.date = process.argv[++i];
+    else if (process.argv[i] === '--update') opts.mode = 'update';
     else if (process.argv[i] === '--root') opts.root = path.resolve(process.argv[++i]);
     else { console.error('Unknown argument: ' + process.argv[i]); process.exit(2); }
   }

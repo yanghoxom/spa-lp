@@ -4,6 +4,9 @@ import path from "node:path";
 const ROOT = process.cwd();
 const BASE = "https://phunghakorea.com";
 const CDN = "https://cdn.phunghakorea.com";
+const mediaManifest = JSON.parse(fs.readFileSync(path.join(ROOT, "infra/media-manifest.json"), "utf8"));
+// Dimensions are measured from CDN bytes and pinned to the manifest's content hash.
+const imageMetadata = JSON.parse(fs.readFileSync(path.join(ROOT, "site/image-metadata.json"), "utf8"));
 function mediaUrl(value) {
   const local = String(value).replace(/^https:\/\/phunghakorea\.com(?=\/)/, "");
   return /^\/(?:assets\/[a-zA-Z0-9/_\-.]+\.(?:png|jpe?g|webp|avif|svg|ico)|favicon\.ico|apple-touch-icon\.png)(?:[?#].*)?$/.test(local) ? CDN + local : value;
@@ -88,7 +91,7 @@ function footer() {
     '<div class="footer-bottom container"><span>© ' + new Date().getFullYear() + ' Phùng Hà Korea. Tiên Du, Bắc Ninh.</span>' +
     '<span>Nội dung chăm da để chị tham khảo, không thay thế tư vấn của bác sĩ.</span></div></footer>';
 }
-function layout({ title, description, url = "/", active = "", image = "/assets/fanpage-service-2.jpg", type = "website", date = "", quiz = false }, body) {
+function layout({ title, description, url = "/", active = "", image = "/assets/fanpage-service-2.jpg", type = "website", date = "", updated = "", quiz = false }, body) {
   const canonical = BASE + url;
   const safeTitle = escapeHTML(title);
   const organizationSchema = JSON.stringify({
@@ -116,6 +119,7 @@ function layout({ title, description, url = "/", active = "", image = "/assets/f
     '<meta property="og:image" content="' + escapeHTML(mediaUrl(image)) + '">' +
     '<meta name="twitter:card" content="summary_large_image">' +
     (date ? '<meta property="article:published_time" content="' + escapeHTML(date) + '">' : '') +
+    (updated ? '<meta property="article:modified_time" content="' + escapeHTML(updated) + '">' : '') +
     '<link rel="preconnect" href="https://cdn.phunghakorea.com">' +
     '<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>' +
     '<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">' +
@@ -129,11 +133,38 @@ function sectionLabel(n, text) { return '<div class="section-label"><span>' + n 
 function arrowLink(href, label, type = "") {
   return '<a class="arrow-link ' + type + '" href="' + href + '">' + escapeHTML(label) + '<span aria-hidden="true">↗</span></a>';
 }
-function articleImage(a, className, sizes) {
-  const responsive = a.cover.match(/^(\/assets\/articles\/.+)-1440\.webp$/);
-  return '<img class="' + className + '" src="' + escapeHTML(a.cover) + '"' +
-    (responsive ? ' srcset="' + [480,960,1440].map(w => escapeHTML(responsive[1]) + '-' + w + '.webp ' + w + 'w').join(', ') + '" sizes="' + sizes + '" width="1440" height="960"' : '') +
-    ' alt="' + escapeHTML(a.coverAlt || a.title) + '" loading="lazy" decoding="async">';
+function measuredImage(key) {
+  const value = imageMetadata[key];
+  const registered = mediaManifest[key];
+  return value && registered && /^[a-f0-9]{64}$/.test(value.sha256 || "") && value.sha256 === registered.sha256 &&
+    Number.isInteger(value.width) && value.width > 0 && Number.isInteger(value.height) && value.height > 0
+    ? value : null;
+}
+function responsiveImageAttributes(value, sizes) {
+  const key = value.startsWith(CDN + "/") ? value.slice(CDN.length) : value;
+  const dimensions = measuredImage(key);
+  if (!dimensions) return "";
+  let attrs = ' width="' + dimensions.width + '" height="' + dimensions.height + '"';
+  const family = key.match(/^(.*)-\d+\.(webp|png|jpe?g|avif)$/i);
+  if (family) {
+    const variants = Object.keys(imageMetadata).flatMap(candidate => {
+      const match = candidate.match(/^(.*)-\d+\.(webp|png|jpe?g|avif)$/i);
+      const measured = measuredImage(candidate);
+      if (!match || match[1] !== family[1] || match[2] !== family[2] || !measured) return [];
+      // Exclude different crops even when their filenames share a stem.
+      if (Math.abs(measured.width / measured.height - dimensions.width / dimensions.height) > 0.01) return [];
+      return [{ key: candidate, width: measured.width }];
+    }).sort((a, b) => a.width - b.width);
+    const unique = variants.filter((variant, index) => !index || variant.width !== variants[index - 1].width);
+    if (unique.length > 1) attrs += ' srcset="' + unique.map(v => escapeHTML(mediaUrl(v.key)) + ' ' + v.width + 'w').join(', ') + '" sizes="' + escapeHTML(sizes) + '"';
+  }
+  return attrs;
+}
+function articleImage(a, className, sizes, lead = false) {
+  return '<img class="' + className + '" src="' + escapeHTML(mediaUrl(a.cover)) + '"' +
+    responsiveImageAttributes(a.cover, sizes) +
+    ' alt="' + escapeHTML(a.coverAlt || a.title) + '" loading="' + (lead ? 'eager' : 'lazy') + '"' +
+    (lead ? ' fetchpriority="high"' : '') + ' decoding="async">';
 }
 function articleCard(a, index = 0) {
   const art = a.cover
@@ -240,9 +271,10 @@ function articleIndex(page = 1, topicSlug = "") {
     Array.from({length:pages},(_,i)=>'<a href="' + archiveURL(i+1,topicSlug) + '"' + (i+1===page?' aria-current="page"':'') + '>'+(i+1)+'</a>').join("") +
     (page < pages ? '<a rel="next" href="' + archiveURL(page+1,topicSlug) + '">Trang sau →</a>' : '') + '</nav>';
   const displayTitle = topic ? "Chăm da: " + topic.name : "Góc chăm da cùng Hà";
+  const description = topic ? "Cùng Hà tìm hiểu về " + topic.name.toLowerCase() + " qua những bài chia sẻ dễ hiểu, giúp chị chăm da mỗi ngày." :
+    "Hà chia sẻ cách chăm da dễ hiểu, dễ làm theo: chống nắng, dưỡng ẩm, nám sạm và chọn mỹ phẩm Hàn hợp với làn da chị.";
   return layout({ title: displayTitle + (page>1?" – Trang "+page:"") + " | Phùng Hà Korea",
-    description: topic ? "Cùng Hà tìm hiểu về " + topic.name.toLowerCase() + " qua những bài chia sẻ dễ hiểu, giúp chị chăm da mỗi ngày." :
-    "Hà chia sẻ cách chăm da dễ hiểu, dễ làm theo: chống nắng, dưỡng ẩm, nám sạm và chọn mỹ phẩm Hàn hợp với làn da chị.",
+    description: page > 1 ? "Trang " + page + ": " + description : description,
     url:archiveURL(page,topicSlug), active:"articles" },
     '<section class="page-hero container"><p class="eyebrow">GÓC CHĂM DA / PHÙNG HÀ KOREA</p>' +
     '<h1>' + (topic ? 'Chuyện chăm da: <em>' + escapeHTML(topic.name) + '</em>' : 'Chăm da mỗi ngày, <em>cùng Hà nhé.</em>') + '</h1>' +
@@ -295,7 +327,8 @@ function renderMarkdown(src) {
     if(image && safeImagePath(image[2])) {
       flushParagraph();flushList();
       output.push('<figure class="article-figure"><img src="' + escapeHTML(mediaUrl(image[2])) +
-        '" alt="' + escapeHTML(image[1]) + '" loading="lazy" decoding="async">' +
+        '"' + responsiveImageAttributes(image[2], '(max-width: 560px) calc(100vw - 34px), (max-width: 900px) 90vw, 720px') +
+        ' alt="' + escapeHTML(image[1]) + '" loading="lazy" decoding="async">' +
         (image[1] ? '<figcaption>' + escapeHTML(image[1]) + '</figcaption>' : '') + '</figure>');
       continue;
     }
@@ -335,13 +368,17 @@ function articlePage(a) {
   const article = renderMarkdown(a.body);
   const toc = article.toc.length ? '<div class="toc"><p>NỘI DUNG BÀI VIẾT</p>' + article.toc.map(x => '<a href="#'+x.id+'">'+escapeHTML(x.label)+'</a>').join("")+'</div>' : "";
   const articleJson = JSON.stringify({ "@context":"https://schema.org", "@type":"Article", headline:a.title, description:a.description, datePublished:a.date, dateModified:a.updated || a.date, image:mediaUrl(a.cover || "/assets/fanpage-service-2.jpg"), inLanguage:"vi", mainEntityOfPage:BASE+a.url, author:{"@type":"Organization",name:"Phùng Hà Korea"}, publisher:{"@type":"Organization",name:"Phùng Hà Korea"} }).replace(/</g,"\\u003c");
-  return layout({ title: a.title + " | Phùng Hà Korea", description:a.description, url:a.url, image:a.cover || "/assets/fanpage-service-2.jpg", type:"article", date:a.date, active:"articles" },
-    '<div class="article-cover art-'+escapeHTML(a.accent)+'"><div class="article-cover-inner container"><a class="breadcrumb" href="/kien-thuc/">← Về góc chăm da</a>' +
+  const breadcrumbs = [{name:"Trang chủ",url:"/"},{name:"Góc chăm da",url:"/kien-thuc/"},{name:a.category,url:archiveURL(1,slugify(a.category))}];
+  const breadcrumbJson = JSON.stringify({"@context":"https://schema.org","@type":"BreadcrumbList",itemListElement:breadcrumbs.map((item,index)=>({"@type":"ListItem",position:index+1,name:item.name,item:BASE+item.url}))}).replace(/</g,"\\u003c");
+  const dateText = '<span>Đăng ngày <time datetime="'+a.date+'">'+formatDate(a.date)+'</time></span>' +
+    (a.updated && a.updated !== a.date ? '<span>Cập nhật <time datetime="'+a.updated+'">'+formatDate(a.updated)+'</time></span>' : '');
+  return layout({ title: a.title + " | Phùng Hà Korea", description:a.description, url:a.url, image:a.cover || "/assets/fanpage-service-2.jpg", type:"article", date:a.date, updated:a.updated || a.date, active:"articles" },
+    '<div class="article-cover art-'+escapeHTML(a.accent)+'"><div class="article-cover-inner container"><nav class="breadcrumb article-breadcrumb" aria-label="Đường dẫn bài viết"><ol>'+breadcrumbs.map(item=>'<li><a href="'+item.url+'">'+escapeHTML(item.name)+'</a></li>').join('')+'</ol></nav>' +
     '<p class="eyebrow">'+escapeHTML(a.category)+' / GÓC CHĂM DA</p><h1>'+escapeHTML(a.title)+'</h1>' +
-    '<p class="article-intro">'+escapeHTML(a.description)+'</p><div class="article-cover-meta"><span>'+formatDate(a.date)+'</span><span>'+escapeHTML(a.readingTime)+'</span><span>Phùng Hà Korea biên tập</span></div></div>' +
+    '<p class="article-intro">'+escapeHTML(a.description)+'</p><div class="article-cover-meta">'+dateText+'<span>'+escapeHTML(a.readingTime)+'</span><span>Phùng Hà Korea biên tập</span></div></div>' +
     '<div class="cover-art-decoration" aria-hidden="true"><i></i><i></i></div></div>' +
     '<div class="container article-layout"><article class="article-body">'+
-    (a.cover ? '<figure class="article-figure article-lead-image">' + articleImage(a, 'article-lead-photo', '(max-width: 780px) 94vw, 780px') + '</figure>' : '') +
+    (a.cover ? '<figure class="article-figure article-lead-image">' + articleImage(a, 'article-lead-photo', '(max-width: 560px) calc(100vw - 34px), (max-width: 900px) 90vw, 720px', true) + '</figure>' : '') +
     article.html+
     '<div class="article-disclaimer"><strong>Lưu ý</strong><p>Thông tin mang tính tham khảo, không thay thế chẩn đoán hay điều trị. Nếu da đang viêm, tổn thương, kích ứng kéo dài hoặc bạn cân nhắc peel, hãy trao đổi với bác sĩ da liễu.</p></div>' +
     '<div class="article-next"><p class="overline">CHĂM DA CÙNG HÀ</p><h2>Chị muốn Hà tư vấn riêng?</h2>' +
@@ -351,7 +388,7 @@ function articlePage(a) {
     '<h3>Một chút chăm da, một niềm vui cho chị.</h3><a href="/my-pham/">Chọn mỹ phẩm cùng Hà ↗</a></div></aside></div>' +
     '<section class="section container related-section">'+sectionLabel("ĐỌC THÊM /", "CÓ THỂ CHỊ QUAN TÂM")+
     '<div class="article-grid">'+articles.filter(x=>x.slug!==a.slug).sort((x,y)=>Number(y.category===a.category)-Number(x.category===a.category)).slice(0,3).map(articleCard).join("")+'</div></section>' +
-    '<script type="application/ld+json">'+articleJson+'</script>');
+    '<script type="application/ld+json">'+articleJson+'</script><script type="application/ld+json">'+breadcrumbJson+'</script>');
 }
 function shopIndex() {
   return layout({ title:"Chọn mỹ phẩm Hàn cùng Hà | Phùng Hà Korea", description:"Chị cùng Hà chọn mỹ phẩm Hàn hợp da: chống nắng, dưỡng ẩm, dưỡng sáng và chăm da tuổi 35+. Hà tư vấn và báo giá rõ ràng trước khi chị đặt.", url:"/my-pham/", active:"shop" },
@@ -449,8 +486,9 @@ function sitemap() {
     ...Array.from({length:archiveCount()-1},(_,i)=>archiveURL(i+2)),
     ...topicList().flatMap(t=>Array.from({length:archiveCount(t.slug)},(_,i)=>archiveURL(i+1,t.slug))),
     ...categories.map(c=>"/my-pham/"+c.slug+"/"), ...articles.map(a=>a.url)];
+  const lastModified = new Map(articles.map(a => [a.url, a.updated || a.date]));
   return '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' +
-    all.map(u=>'  <url><loc>'+BASE+u+'</loc></url>').join("\n") + '\n</urlset>\n';
+    all.map(u=>'  <url><loc>'+BASE+u+'</loc>'+(lastModified.has(u)?'<lastmod>'+lastModified.get(u)+'</lastmod>':'')+'</url>').join("\n") + '\n</urlset>\n';
 }
 
 write("index.html",home());

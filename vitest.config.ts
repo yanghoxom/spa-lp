@@ -4,6 +4,6 @@
 export default {
   test: {
     include: ["tests/**/*.test.{ts,js,mjs}"],
-    exclude: ["tests/publishing-preflight.test.mjs"],
+    exclude: ["tests/*preflight.test.mjs"],
   },
 };

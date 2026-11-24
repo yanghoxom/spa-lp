@@ -19,6 +19,7 @@ Source of truth: GitHub `yanghoxom/spa-lp` on `main`; generated pages and sitema
 - Produce one useful Vietnamese article for women 30-50; provide clear headings, explicit answer, accurate sources, readable explanations, truthful medical cautions, helpful internal links, accurate alt text and structured metadata. Do not invent medical evidence, product labels, product stock, or the owner's face.
 - Use authorized original face/product references whenever a real person or real product is depicted. Generate **one cover** and **at least one distinct in-body image**; do not use the existing article illustration as an identity reference.
 - Upload binary to the Media Manager tool under unique versioned `/assets/` keys, never into GitHub. Write for each key its `size`, `sha256`, and `contentType` into `infra/media-manifest.json`.
+- Measure the actual width and height from the image bytes and register each variant with its SHA-256 in `site/image-metadata.json`. Do not infer dimensions or assume all images have the same crop. The renderer uses only matching-ratio verified variants for responsive images and reserves the measured aspect ratio.
 - Call the existing `verify_media` tool **for every new image**. Require `exists === true`, `publicly_available === true`, `integrity_ok === true` and exact MIME, SHA-256 and byte-size agreement with the manifest. `verify_media` reads KV and performs public HEAD/GET and is an acceptable byte-integrity read-back. Use `download_media` for original binary/visual inspection if it is exposed to this agent. If download is not exposed but verify is, do not try to edit the private app and do not claim download succeeded. If neither verification path is available, **do not publish**.
 - Capture the verification results in the run report. Never include binary/base64 in GitHub, logs or the report.
 
@@ -27,6 +28,7 @@ Source of truth: GitHub `yanghoxom/spa-lp` on `main`; generated pages and sitema
 - From the project root, run: `npm run generate`, then `npm run publish:preflight -- --article content/articles/<slug>.md --date YYYY-MM-DD`, then `npm test`, then `npm run build`.
 - `publish:preflight` is a **local structural gate only**. Its success does not replace source/medical review, live CDN verification or the post-deployment check. Read its `requiresExternalVerification` output and complete every item.
 - Before committing, re-read the latest `main` and confirm another agent has not already published today's article. Use one atomic main commit for the Markdown and manifest if possible; never overwrite unrelated changes.
+- For an update, preserve the original `date`, set `updated` for the meaningful change, and run `npm run publish:preflight -- --article content/articles/<slug>.md --update --date YYYY-MM-DD` using the update date. The daily new-article limit must not reject a historical publication date. CI distinguishes added from modified articles using the actual push/PR diff; never pin the workflow to one slug or date.
 - Any safety, content rights, image integrity, duplicate, route, test or build failure: stop before committing. Do not silently downgrade a required check.
 
 ## 5. Deploy and truthful result
@@ -39,6 +41,12 @@ Source of truth: GitHub `yanghoxom/spa-lp` on `main`; generated pages and sitema
 - For a no-publish rehearsal: `npm ci && npm run generate && npm run publish:preflight && npm test && npm run build`. Confirm existing content matches the locally generated sitemap. Separately verify one known CDN image and check the public sitemap through the Cloudflare fallback.
 - When fixing the pipeline, do **not** publish an article, add a second schedule, or silently change the cadence. This file cannot update a ChatGPT agent's separately owned saved schedule; the schedule owner must update that existing task's prompt to follow this runbook.
 - If the agent cannot view or edit its saved schedule, report that as a **separate** permissions/ownership blocker. Do not declare the scheduling fix complete from a GitHub commit alone.
+
+## 7. Private continuity for autonomous SEO
+- Restore `phunghakorea-seo-checkpoint.json` from the owner's private files at the start of a new run and materialize its strategy, inventory, keyword map, backlog, logs and agent state under the gitignored local `seo/` directory. The public GitHub repository holds the application and generic runbook only.
+- Save the updated private checkpoint after each verified cycle. Record the commit, Cloudflare build/deployment, checks performed, observations, unresolved issues, and next valuable task. Never copy operational state into `public/`, `dist/`, GitHub, analytics events or public reports.
+- Choose work based on evidence and expected user value. Reuse existing intent owners; prefer improving weak existing pages before publishing overlapping articles. At most one new article per local calendar day remains the default publishing pace; useful repairs and substantive updates are not limited to one.
+- Read the current recurring-task configuration before changing scheduling. Do not create a second task for the same workflow. If another cycle is still actively publishing, defer overlapping mutations and retain the evidence for the next run.
 
 ## Blocker classification
 - `NETWORK_PRIMARY_FAILED`: retry/fallback; not a content block on its own.

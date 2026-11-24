@@ -25,3 +25,7 @@ public/404.html
 *.gif
 *.svg
 *.ico
+
+# Private SEO operations. This repository is public; keep checkpoints private.
+/seo/
+**/phunghakorea-seo-checkpoint.json

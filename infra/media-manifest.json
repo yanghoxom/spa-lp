@@ -668,5 +668,30 @@
     "size": 7192,
     "sha256": "8eb91d1397ab602077dc02e642846ab231cd794b63132eb2bf54036ce5eac0b1",
     "contentType": "image/webp"
+  },
+  "/assets/articles/routine-mun-truong-thanh-cover-v3-20261124-480.webp": {
+    "size": 23158,
+    "sha256": "09ece0d2f46e117e2946e38b252eea346145a1d2a6cd14e3e3a10acb1e53cd7b",
+    "contentType": "image/webp"
+  },
+  "/assets/articles/routine-mun-truong-thanh-cover-v3-20261124-960.webp": {
+    "size": 67570,
+    "sha256": "b467173eef4859f8fe604ad54e77e0765a83d6cfa312cae1c50c6791fd2598e5",
+    "contentType": "image/webp"
+  },
+  "/assets/articles/routine-mun-truong-thanh-cover-v3-20261124-1440.webp": {
+    "size": 130676,
+    "sha256": "4f461d275ed2f5a3dd3c48c977b0abc3d1d723cd1873a570ff0be8f775c6378f",
+    "contentType": "image/webp"
+  },
+  "/assets/articles/routine-mun-truong-thanh-noi-dung-v3-20261124-480.webp": {
+    "size": 23280,
+    "sha256": "9600afe8f5344cb0782c463403d4d670f3ad313d535c9c346543d57d1fc54b9c",
+    "contentType": "image/webp"
+  },
+  "/assets/articles/routine-mun-truong-thanh-noi-dung-v3-20261124-960.webp": {
+    "size": 73112,
+    "sha256": "7f2878b260e255011e4873cff1da61ed90bb6ba97e9af5b384a2eca30014e159",
+    "contentType": "image/webp"
   }
 }

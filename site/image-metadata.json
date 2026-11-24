@@ -1,0 +1,387 @@
+{
+  "/assets/articles/benzoyl-peroxide-nguoi-moi-cover-v1-1440.webp": {
+    "width": 1440,
+    "height": 960,
+    "sha256": "735711ccf4c624c44621dc281f81e085de87e01e05b65c0a576db56db46129a8"
+  },
+  "/assets/articles/benzoyl-peroxide-nguoi-moi-cover-v1-480.webp": {
+    "width": 480,
+    "height": 320,
+    "sha256": "347821c699cc8d098a231f845575fac22a1232e5a53104b41b3bd1dfea1e2fec"
+  },
+  "/assets/articles/benzoyl-peroxide-nguoi-moi-cover-v1-960.webp": {
+    "width": 960,
+    "height": 640,
+    "sha256": "e3845c232881021ddfe34ed197c631d7a94a8167898c3580e9c1567ebb227da6"
+  },
+  "/assets/articles/benzoyl-peroxide-nguoi-moi-noi-dung-v1-480.webp": {
+    "width": 480,
+    "height": 320,
+    "sha256": "69574cdbd5c1078c41247bc91fe07998df0585a22857af94bc920e1e222becb7"
+  },
+  "/assets/articles/benzoyl-peroxide-nguoi-moi-noi-dung-v1-960.webp": {
+    "width": 960,
+    "height": 640,
+    "sha256": "a502e14c4c59e40f7608d35668a697d602b3826e533de626f928e95244d52789"
+  },
+  "/assets/articles/chong-nang-v1-1440.webp": {
+    "width": 1440,
+    "height": 960,
+    "sha256": "2620760fea6347c6e9520c4d98111f1dbd131a6656c4a28bf5faa7904bc57a9f"
+  },
+  "/assets/articles/chong-nang-v1-480.webp": {
+    "width": 480,
+    "height": 320,
+    "sha256": "95aa587e229be47de55ac6c587bf28cc244a3c7a88e90cdefb46a066161ea60b"
+  },
+  "/assets/articles/chong-nang-v1-960.webp": {
+    "width": 960,
+    "height": 640,
+    "sha256": "acc0555af6598b3fc6720ddd9c8d7f67e84093a844208eeef002b66cf4d7669d"
+  },
+  "/assets/articles/da-mun-co-nen-peel-cover-v1-1440.webp": {
+    "width": 1440,
+    "height": 960,
+    "sha256": "8c6924f85a73f974750f66509ace1c6d0bf64ec9065a133d7ef58b769f9a6423"
+  },
+  "/assets/articles/da-mun-co-nen-peel-cover-v1-480.webp": {
+    "width": 480,
+    "height": 320,
+    "sha256": "97b8e05f11900af926fc19ce8da955bffad237e9eb625be7972269e0c78e6c01"
+  },
+  "/assets/articles/da-mun-co-nen-peel-cover-v1-960.webp": {
+    "width": 960,
+    "height": 640,
+    "sha256": "008f20bcbae1d2a5a0d548ae0cec97683da7dfbfe86faeb193f85430ac7acbfa"
+  },
+  "/assets/articles/da-mun-co-nen-peel-noi-dung-v1-480.webp": {
+    "width": 480,
+    "height": 360,
+    "sha256": "46e6cbf1fba18c4f7f5e814c9df0231c9a1a56e92076266ef5629309deb85ba2"
+  },
+  "/assets/articles/da-mun-co-nen-peel-noi-dung-v1-960.webp": {
+    "width": 960,
+    "height": 720,
+    "sha256": "799638b005c066c9a58863188c1b09c967c4efa315e232e594e77ed05d984fb6"
+  },
+  "/assets/articles/da-nhay-cam-v1-1440.webp": {
+    "width": 1440,
+    "height": 960,
+    "sha256": "78e50b407d84df22bce7c41bd5f3e1cfcebfdf184fffa2657f1dc1234d07bf09"
+  },
+  "/assets/articles/da-nhay-cam-v1-480.webp": {
+    "width": 480,
+    "height": 320,
+    "sha256": "0721023ee7fb8a4baefd7d15e6ea0e3faaf2bb207f24c97bce2d7d068889b677"
+  },
+  "/assets/articles/da-nhay-cam-v1-960.webp": {
+    "width": 960,
+    "height": 640,
+    "sha256": "9c45ded32b53b3f92f9534b2f9b8b45146ba5b23d2603364bf284e3c7bbc67aa"
+  },
+  "/assets/articles/duong-am-da-tuoi-35-cover-v1-1440.webp": {
+    "width": 1440,
+    "height": 960,
+    "sha256": "205bd32476cfef68bf801c7063a912867ddc3f4142eda6e7c737d0ce0baaf70c"
+  },
+  "/assets/articles/duong-am-da-tuoi-35-cover-v1-480.webp": {
+    "width": 480,
+    "height": 320,
+    "sha256": "15cd62e2ce08bd366e494310fad0f3fc6a1e71150e0febbab3bb6416ef1a4a7e"
+  },
+  "/assets/articles/duong-am-da-tuoi-35-cover-v1-960.webp": {
+    "width": 960,
+    "height": 640,
+    "sha256": "978a0dfe6ae75085ec7d951bde4fb1dee51c3af337d8beaa6262237d01e11dcd"
+  },
+  "/assets/articles/duong-am-da-tuoi-35-noi-dung-v1-480.webp": {
+    "width": 480,
+    "height": 360,
+    "sha256": "b0c55de43c28e86310a97a3f474518a7f90943296cd321c364d80c35b6fe15d2"
+  },
+  "/assets/articles/duong-am-da-tuoi-35-noi-dung-v1-960.webp": {
+    "width": 960,
+    "height": 720,
+    "sha256": "3bd75aa00304637bb8559f7d961f1dd96a8f9690b343c3d28756131862cb40ff"
+  },
+  "/assets/articles/kem-chong-nang-bi-von-cover-v1-1440.webp": {
+    "width": 1440,
+    "height": 960,
+    "sha256": "bf7b8e5ee9190690d53e1977374cfa93cc6eb2988b4ef6c97b1a13a38e72c022"
+  },
+  "/assets/articles/kem-chong-nang-bi-von-cover-v1-480.webp": {
+    "width": 480,
+    "height": 320,
+    "sha256": "0e022d41e6bd0ebbc67bdc80a4c355c33ea77c4f3ba3eb5888384246cae60814"
+  },
+  "/assets/articles/kem-chong-nang-bi-von-cover-v1-960.webp": {
+    "width": 960,
+    "height": 640,
+    "sha256": "dcf4979f8616eebfafd925b03728958fc6eb972e36390f9bd5ea36fadc1155df"
+  },
+  "/assets/articles/kem-chong-nang-bi-von-noi-dung-v1-480.webp": {
+    "width": 480,
+    "height": 320,
+    "sha256": "916cf337b347b1dcb9658e89d9a22ae54115d0d063a72b911f7167272b4805eb"
+  },
+  "/assets/articles/kem-chong-nang-bi-von-noi-dung-v1-960.webp": {
+    "width": 960,
+    "height": 640,
+    "sha256": "2f246c59e55029e5ea5cb0f00633dac0e0c90c827494fb011c1d43ab5a378922"
+  },
+  "/assets/articles/kem-chong-nang-co-mau-cover-v1-1440.webp": {
+    "width": 1440,
+    "height": 960,
+    "sha256": "928272808eb2b5bc524606d17f213258a771c8c735b0ac91022fac6d101339c5"
+  },
+  "/assets/articles/kem-chong-nang-co-mau-cover-v1-480.webp": {
+    "width": 480,
+    "height": 320,
+    "sha256": "b034a039e3b0f5cadd45a122665b0a51b039dd6cf8cccdc0da026c5db6bb26db"
+  },
+  "/assets/articles/kem-chong-nang-co-mau-cover-v1-960.webp": {
+    "width": 960,
+    "height": 640,
+    "sha256": "0770ce75c05b552ae97e65700bf7b1a3b9c17d2d063584fc789b48531f359418"
+  },
+  "/assets/articles/kem-chong-nang-co-mau-noi-dung-v1-480.webp": {
+    "width": 480,
+    "height": 360,
+    "sha256": "12570ae31abbff6c259b86dc906a02c594b3bac378ca019f73a44f17fbf42807"
+  },
+  "/assets/articles/kem-chong-nang-co-mau-noi-dung-v1-960.webp": {
+    "width": 960,
+    "height": 720,
+    "sha256": "9e1203e92e5ae1dcd1c3743cba742207bc307af89f1874f60b8435ccb2b6cf97"
+  },
+  "/assets/articles/kem-chong-nang-da-mun-cover-v1-1440.webp": {
+    "width": 1440,
+    "height": 960,
+    "sha256": "283c6a058b84677ad7d4c24d221bd90a5a8226fb26e56ab9ea0a1bac9fe7a659"
+  },
+  "/assets/articles/kem-chong-nang-da-mun-cover-v1-480.webp": {
+    "width": 480,
+    "height": 320,
+    "sha256": "c6b0ce1ef73b975c677d6f44347d4fe5176ba049777fef665583c1b469ab6d7d"
+  },
+  "/assets/articles/kem-chong-nang-da-mun-cover-v1-960.webp": {
+    "width": 960,
+    "height": 640,
+    "sha256": "259a11a2e6edba9cc366a24851d9ab4183fa0228381672df68f292b9cee10bff"
+  },
+  "/assets/articles/kem-chong-nang-da-mun-noi-dung-v1-480.webp": {
+    "width": 480,
+    "height": 320,
+    "sha256": "ee8b595a7ec895f67c3158a5ee3159e0479264d8dc8dd5e8e2564df665e0a072"
+  },
+  "/assets/articles/kem-chong-nang-da-mun-noi-dung-v1-960.webp": {
+    "width": 960,
+    "height": 640,
+    "sha256": "0b8c350c173408b1f65f2a3d1315113725d6f45153f854da440e29abeae5b475"
+  },
+  "/assets/articles/mun-cam-sau-tuoi-35-cover-v2-1440.webp": {
+    "width": 1440,
+    "height": 810,
+    "sha256": "aaca346d7129c8e60aeb8f52ef369e894333ccb9655435889212d7ce5fd26099"
+  },
+  "/assets/articles/mun-cam-sau-tuoi-35-cover-v2-480.webp": {
+    "width": 480,
+    "height": 270,
+    "sha256": "3756a51369bad587900cb6fba1e01f26b57a5e9fbcf07c6d88c99cbf3822e481"
+  },
+  "/assets/articles/mun-cam-sau-tuoi-35-cover-v2-960.webp": {
+    "width": 960,
+    "height": 540,
+    "sha256": "6c2909a96d9f7db7846fa2f30342021bbadd821109d6547ba07a892cdac48426"
+  },
+  "/assets/articles/mun-cam-sau-tuoi-35-noi-dung-v2-480.webp": {
+    "width": 480,
+    "height": 270,
+    "sha256": "deff97d4cac7ac6d30e52dae96d538494134b3cddb2ee6197455fce5013a5ad8"
+  },
+  "/assets/articles/mun-cam-sau-tuoi-35-noi-dung-v2-960.webp": {
+    "width": 960,
+    "height": 540,
+    "sha256": "56de7a62db7863fda76e189fb40c3a8c95f8f85d9c42535ba9ed690d449a183a"
+  },
+  "/assets/articles/mun-tuoi-truong-thanh-phung-ha-v2-1440.webp": {
+    "width": 1440,
+    "height": 960,
+    "sha256": "dbaa5a344f0c6b7b159c390f79698854268980c9f20898abc55f75226f97973a"
+  },
+  "/assets/articles/mun-tuoi-truong-thanh-phung-ha-v2-480.webp": {
+    "width": 480,
+    "height": 320,
+    "sha256": "63810c3f76814902eb4496809514777bcd9c1cbe1019b3185a4975bf92769fc7"
+  },
+  "/assets/articles/mun-tuoi-truong-thanh-phung-ha-v2-960.webp": {
+    "width": 960,
+    "height": 640,
+    "sha256": "6b75a9e5d018790cdee071a446311b53f64bbba108fd89934fc68a192702c3cc"
+  },
+  "/assets/articles/peel-phuc-hoi-v1-1440.webp": {
+    "width": 1440,
+    "height": 960,
+    "sha256": "591422af995515ac28db512d9b0b02612ad86f953c8ca070b2128ad1a889b81f"
+  },
+  "/assets/articles/peel-phuc-hoi-v1-480.webp": {
+    "width": 480,
+    "height": 320,
+    "sha256": "292c6c9fe0e03d0c947f1245852eecf5560660bace5868d85584f6339f5b69ac"
+  },
+  "/assets/articles/peel-phuc-hoi-v1-960.webp": {
+    "width": 960,
+    "height": 640,
+    "sha256": "4e7d9dd4626e3a636da8b848df1cabf892537c2ae0344c26cb911a3e6558656e"
+  },
+  "/assets/articles/phu-nu-35-tuoi-kem-duong-cover-v1-480.webp": {
+    "width": 480,
+    "height": 270,
+    "sha256": "d33fbbc1dec1ea7e1d57456858968c04b65219296e0dcc13c64b4302345a480b"
+  },
+  "/assets/articles/phu-nu-35-tuoi-kem-duong-cover-v1-960.webp": {
+    "width": 960,
+    "height": 540,
+    "sha256": "d65e00d9e95f0696d894900ad059024afa858952b4543dc37faf17288594572a"
+  },
+  "/assets/articles/phu-nu-35-tuoi-kem-duong-noi-dung-v1-480.webp": {
+    "width": 480,
+    "height": 270,
+    "sha256": "8eb91d1397ab602077dc02e642846ab231cd794b63132eb2bf54036ce5eac0b1"
+  },
+  "/assets/articles/phu-nu-35-tuoi-kem-duong-noi-dung-v1-960.webp": {
+    "width": 960,
+    "height": 540,
+    "sha256": "70792b409d469cddc6b37fe31818cf4a5082e64ad7aee3dbf877e1991b7119ca"
+  },
+  "/assets/articles/phuc-hoi-hang-rao-da-mun-cover-v2-1440.webp": {
+    "width": 1440,
+    "height": 1080,
+    "sha256": "aefe7873f821782680317802ced3d2101631df4c28c92f70645d103dd3e67698"
+  },
+  "/assets/articles/phuc-hoi-hang-rao-da-mun-cover-v2-480.webp": {
+    "width": 480,
+    "height": 360,
+    "sha256": "287009c7c7d643859f87a1c31bc461d22ee3569062afaa916ce5c290e138e761"
+  },
+  "/assets/articles/phuc-hoi-hang-rao-da-mun-cover-v2-960.webp": {
+    "width": 960,
+    "height": 720,
+    "sha256": "a7e27472b0c08d6f90b3ed709ed14cc6e9520dff788c04061155a6ae0b6f303c"
+  },
+  "/assets/articles/phuc-hoi-hang-rao-da-mun-noi-dung-v2-480.webp": {
+    "width": 480,
+    "height": 360,
+    "sha256": "add348f55ceddc88224a16142fa597fe2b4721522df45dcabf1bb02b1e8b51f9"
+  },
+  "/assets/articles/phuc-hoi-hang-rao-da-mun-noi-dung-v2-960.webp": {
+    "width": 960,
+    "height": 720,
+    "sha256": "8e68feb9a43edcd287399d6c166c0315185e23f977ac10bf9eb08bc7778d4bad"
+  },
+  "/assets/articles/phung-ha-san-pham-that-v2-480.webp": {
+    "width": 480,
+    "height": 320,
+    "sha256": "a201083b4cebd993098daec793b9978c5cff86952cf73e572fb66260b590db24"
+  },
+  "/assets/articles/phung-ha-san-pham-that-v2-960.webp": {
+    "width": 960,
+    "height": 640,
+    "sha256": "b78fc87f111f3c2fa4eb3a36e0b82881a48e7e03017b51a8141e0e00028f3260"
+  },
+  "/assets/articles/retinol-duong-am-v1-1440.webp": {
+    "width": 1440,
+    "height": 960,
+    "sha256": "959e866300bea9e11ce6574e5ff739f4f31fe86e07f7389f0f8757bc749dbfc4"
+  },
+  "/assets/articles/retinol-duong-am-v1-480.webp": {
+    "width": 480,
+    "height": 320,
+    "sha256": "5c3d8d3e3369f2ac9232a3ff9c2e816e0c633ae1e5fa5bad087568411078d5fc"
+  },
+  "/assets/articles/retinol-duong-am-v1-960.webp": {
+    "width": 960,
+    "height": 640,
+    "sha256": "d5706e2690a9ca8e350bfd532a5b137f7c3d56ffb2fca7dafa0d9c627df40fd5"
+  },
+  "/assets/articles/routine-han-gon-nhe-v1-1440.webp": {
+    "width": 1440,
+    "height": 960,
+    "sha256": "d3376a0e9cd901cb6be586aaf09f68c1f8f89a6289063f7b3a97e485894c87a2"
+  },
+  "/assets/articles/routine-han-gon-nhe-v1-480.webp": {
+    "width": 480,
+    "height": 320,
+    "sha256": "be3f5ad17a8cc3b5aa10e59f1610de19a25f255e2b3e7a2291d5f86accea331f"
+  },
+  "/assets/articles/routine-han-gon-nhe-v1-960.webp": {
+    "width": 960,
+    "height": 640,
+    "sha256": "c8c7b649f7b973ab09879bef2dbfefe56d9415612c49fbaa2053bf704079dc0e"
+  },
+  "/assets/articles/routine-tuoi-35-v1-1440.webp": {
+    "width": 1440,
+    "height": 960,
+    "sha256": "69e24d21cb3f2e6d43a44c79eec011aa6e0d35333723f55796a0326fe4e79a97"
+  },
+  "/assets/articles/routine-tuoi-35-v1-480.webp": {
+    "width": 480,
+    "height": 320,
+    "sha256": "28f46c419025a7d9177372373be44c5d665975f86e20950238dd9cba4fa569e6"
+  },
+  "/assets/articles/routine-tuoi-35-v1-960.webp": {
+    "width": 960,
+    "height": 640,
+    "sha256": "1623b6733257188c6ac5752293943b384aa98c1281f93b00170b67592ba57dd8"
+  },
+  "/assets/articles/tham-mun-va-nam-cover-v1-1440.webp": {
+    "width": 1440,
+    "height": 960,
+    "sha256": "a6a87342e57a06d84b5d8f01a691181fb1404b710ad89493aa20cce6c98e9744"
+  },
+  "/assets/articles/tham-mun-va-nam-cover-v1-480.webp": {
+    "width": 480,
+    "height": 320,
+    "sha256": "a256f553c35f83ee0bda8bbf73debb143dc90b5d35ba43bc1b463e063a4f5196"
+  },
+  "/assets/articles/tham-mun-va-nam-cover-v1-960.webp": {
+    "width": 960,
+    "height": 640,
+    "sha256": "713c632f50a1e22a4f2ffb557a4449601a960c14d30ba9359d99d88dfe268fca"
+  },
+  "/assets/articles/tham-mun-va-nam-noi-dung-v1-480.webp": {
+    "width": 480,
+    "height": 360,
+    "sha256": "1130f943371e92e5ac9f4093db37523a13e4f502f8ac1f07134f7209a08ff6cc"
+  },
+  "/assets/articles/tham-mun-va-nam-noi-dung-v1-960.webp": {
+    "width": 960,
+    "height": 720,
+    "sha256": "9d7ec1c30dbef8157716230dc2b3a6e0e18d707b6aa9f88a4f7a995f98daae9e"
+  },
+  "/assets/articles/routine-mun-truong-thanh-cover-v3-20261124-480.webp": {
+    "width": 480,
+    "height": 320,
+    "sha256": "09ece0d2f46e117e2946e38b252eea346145a1d2a6cd14e3e3a10acb1e53cd7b"
+  },
+  "/assets/articles/routine-mun-truong-thanh-cover-v3-20261124-960.webp": {
+    "width": 960,
+    "height": 640,
+    "sha256": "b467173eef4859f8fe604ad54e77e0765a83d6cfa312cae1c50c6791fd2598e5"
+  },
+  "/assets/articles/routine-mun-truong-thanh-cover-v3-20261124-1440.webp": {
+    "width": 1440,
+    "height": 960,
+    "sha256": "4f461d275ed2f5a3dd3c48c977b0abc3d1d723cd1873a570ff0be8f775c6378f"
+  },
+  "/assets/articles/routine-mun-truong-thanh-noi-dung-v3-20261124-480.webp": {
+    "width": 480,
+    "height": 320,
+    "sha256": "9600afe8f5344cb0782c463403d4d670f3ad313d535c9c346543d57d1fc54b9c"
+  },
+  "/assets/articles/routine-mun-truong-thanh-noi-dung-v3-20261124-960.webp": {
+    "width": 960,
+    "height": 640,
+    "sha256": "7f2878b260e255011e4873cff1da61ed90bb6ba97e9af5b384a2eca30014e159"
+  }
+}

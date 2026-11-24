@@ -1,5 +1,7 @@
 import { execFileSync } from "node:child_process";
-import { readFileSync, existsSync, readdirSync } from "node:fs";
+import { readFileSync, existsSync, readdirSync, mkdtempSync, mkdirSync, cpSync, writeFileSync, rmSync } from "node:fs";
+import { tmpdir } from "node:os";
+import { join, resolve } from "node:path";
 import { describe, expect, test } from "vitest";
 
 const read = (file: string) => readFileSync(file, "utf8");
@@ -106,6 +108,92 @@ describe("Korean Editorial multi-page generator", () => {
     expect(archive).toContain('/kien-thuc/chu-de/');
     expect(existsSync("kien-thuc/chu-de/da-tuoi-35/index.html")).toBe(true);
     expect(read("public/sitemap.xml")).toContain("https://phunghakorea.com/kien-thuc/chu-de/");
+  });
+  test("reserves measured image space and serves registered responsive variants in every article", () => {
+    const dimensions = JSON.parse(read("site/image-metadata.json"));
+    const attr = (tag: string, name: string) => tag.match(new RegExp('\\b' + name + '="([^"]*)"'))?.[1];
+    for (const file of readdirSync("content/articles").filter(f => f.endsWith(".md"))) {
+      const page = read("kien-thuc/" + file.slice(0, -3) + "/index.html");
+      const lead = page.match(/<img class="article-lead-photo"[^>]*>/)?.[0] || "";
+      expect(attr(lead, "loading"), file).toBe("eager");
+      expect(attr(lead, "fetchpriority"), file).toBe("high");
+      for (const match of page.matchAll(/<img\b[^>]*>/g)) {
+        const src = attr(match[0], "src") || "";
+        if (!src.startsWith(CDN + "/assets/articles/")) continue;
+        const key = new URL(src).pathname;
+        expect(dimensions[key], key).toBeDefined();
+        expect(dimensions[key].sha256, key).toBe(media[key].sha256);
+        expect(Number(attr(match[0], "width")), key).toBe(dimensions[key].width);
+        expect(Number(attr(match[0], "height")), key).toBe(dimensions[key].height);
+        const srcset = attr(match[0], "srcset") || "";
+        expect(srcset, key).toContain("480w");
+        expect(attr(match[0], "sizes"), key).toBeTruthy();
+        for (const variant of srcset.split(",")) {
+          const [url, descriptor] = variant.trim().split(/\s+/);
+          expect(url, key).toMatch(/^https:\/\/cdn\.phunghakorea\.com\/assets\//);
+          const variantKey = new URL(url).pathname;
+          expect(media[variantKey], variantKey).toBeDefined();
+          expect(dimensions[variantKey].sha256, variantKey).toMatch(/^[a-f0-9]{64}$/);
+          expect(dimensions[variantKey].sha256, variantKey).toBe(media[variantKey].sha256);
+          expect(descriptor, variantKey).toBe(dimensions[variantKey].width + "w");
+        }
+      }
+    }
+    // These existing covers have different measured ratios; no global 3:2 assumption is valid.
+    expect(read("kien-thuc/mun-o-cam-sau-tuoi-35/index.html")).toContain('width="1440" height="810"');
+    expect(read("kien-thuc/phuc-hoi-hang-rao-bao-ve-da-khi-tri-mun/index.html")).toContain('width="1440" height="1080"');
+  });
+  test("rejects unregistered or stale image variants even when dimension metadata is present", () => {
+    const root = mkdtempSync(join(tmpdir(), "phungha-image-variants-"));
+    try {
+      cpSync("content", join(root, "content"), { recursive: true });
+      mkdirSync(join(root, "infra"));
+      mkdirSync(join(root, "site"));
+      const manifest = { ...media };
+      const dimensions = JSON.parse(read("site/image-metadata.json"));
+      const stem = "/assets/articles/benzoyl-peroxide-nguoi-moi-cover-v1-";
+      dimensions[stem + "320.webp"] = { width: 320, height: 213 };
+      dimensions[stem + "240.webp"] = { width: 240, height: 160, sha256: "a".repeat(64) };
+      manifest[stem + "240.webp"] = { size: 100, contentType: "image/webp", sha256: "b".repeat(64) };
+      writeFileSync(join(root, "site/image-metadata.json"), JSON.stringify(dimensions));
+      writeFileSync(join(root, "infra/media-manifest.json"), JSON.stringify(manifest));
+      execFileSync("node", [resolve("site/build.mjs")], { cwd: root });
+      const page = read(join(root, "kien-thuc/benzoyl-peroxide-cho-nguoi-moi/index.html"));
+      expect(page).toContain(stem + "480.webp 480w");
+      expect(page).not.toContain(stem + "320.webp");
+      expect(page).not.toContain(stem + "240.webp");
+    } finally {
+      rmSync(root, { recursive: true, force: true });
+    }
+  });
+  test("keeps visible dates, article metadata and sitemap aligned with editorial dates", () => {
+    const sitemap = read("public/sitemap.xml");
+    const files = readdirSync("content/articles").filter(f => f.endsWith(".md"));
+    for (const file of files) {
+      const source = read("content/articles/" + file);
+      const published = source.match(/^date: (\d{4}-\d{2}-\d{2})$/m)?.[1];
+      const updated = source.match(/^updated: (\d{4}-\d{2}-\d{2})$/m)?.[1] || published;
+      const route = "/kien-thuc/" + file.slice(0, -3) + "/";
+      const page = read(route.slice(1) + "index.html");
+      const schemas = [...page.matchAll(/<script type="application\/ld\+json">([^<]+)<\/script>/g)].map(m => JSON.parse(m[1]));
+      const article = schemas.find(s => s["@type"] === "Article");
+      const breadcrumb = schemas.find(s => s["@type"] === "BreadcrumbList");
+      expect(article.datePublished, file).toBe(published);
+      expect(article.dateModified, file).toBe(updated);
+      expect(page, file).toContain('<time datetime="' + published + '">');
+      expect(page, file).toContain('<time datetime="' + updated + '">');
+      expect(page, file).toContain('<meta property="article:modified_time" content="' + updated + '">');
+      expect(sitemap, file).toContain('<loc>https://phunghakorea.com' + route + '</loc><lastmod>' + updated + '</lastmod>');
+      expect(breadcrumb.itemListElement).toHaveLength(3);
+      for (const item of breadcrumb.itemListElement) {
+        const href = new URL(item.item).pathname;
+        expect(page, item.name).toContain('href="' + href + '"');
+        expect(existsSync(href === "/" ? "index.html" : href.slice(1) + "index.html"), href).toBe(true);
+      }
+    }
+    expect([...sitemap.matchAll(/<lastmod>/g)]).toHaveLength(files.length);
+    const description = (file: string) => read(file).match(/<meta name="description" content="([^"]+)"/)?.[1];
+    expect(description("kien-thuc/trang/2/index.html")).not.toBe(description("kien-thuc/index.html"));
   });
   test("explains privacy and preserves canonical, structured organization data", () => {
     expect(existsSync("chinh-sach/index.html")).toBe(true);

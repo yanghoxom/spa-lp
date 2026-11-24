@@ -6,9 +6,9 @@
   "scripts": {
     "generate": "node site/build.mjs",
     "dev": "node site/build.mjs && vite --host 0.0.0.0",
-    "build": "node site/build.mjs && tsc && vite build",
+    "build": "node site/build.mjs && node site/publishing-preflight.mjs && tsc && vite build && node site/publishing-preflight.mjs",
     "preview": "vite preview --host 0.0.0.0",
-    "test": "node site/build.mjs && node --test tests/publishing-preflight.test.mjs && vitest run",
+    "test": "node site/build.mjs && node --test tests/*preflight.test.mjs && vitest run",
     "publish:preflight": "node site/publishing-preflight.mjs"
   },
   "devDependencies": {

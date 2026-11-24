@@ -3,7 +3,8 @@ import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
-import { checkPublication, imageKey, parseFrontMatter } from '../site/publishing-preflight.mjs';
+import { execFileSync } from 'node:child_process';
+import { checkPublication, checkPrivateState, imageKey, parseFrontMatter } from '../site/publishing-preflight.mjs';
 
 const COVER='/assets/articles/test-cover-v1-1440.webp';
 const INNER='/assets/articles/test-inner-v1-960.webp';
@@ -54,6 +55,17 @@ test('blocks second same-day article',t=>{
   assert.ok(r.errors.some(x=>x.includes('daily limit')));
 });
 
+test('updates keep historical publication dates without counting them as new publications', t => {
+  const f = fixture(); t.after(f.cleanup);
+  f.put('content/articles/second-post.md', f.article.replace('Test title', 'Historical article'));
+  f.put('public/sitemap.xml', '<urlset><url><loc>https://phunghakorea.com/kien-thuc/test-post/</loc></url><url><loc>https://phunghakorea.com/kien-thuc/second-post/</loc></url></urlset>');
+  f.put('content/articles/test-post.md', f.article.replace('date: 2026-11-21', 'date: 2026-11-21\nupdated: 2026-11-24'));
+  const result = checkPublication({ root: f.root, article: 'content/articles/test-post.md', mode: 'update', date: '2026-11-24' });
+  assert.equal(result.ok, true, JSON.stringify(result.errors));
+  assert.ok(checkPublication({ root: f.root, article: 'content/articles/test-post.md', date: '2026-11-21' }).errors.some(error => error.includes('daily limit')));
+  assert.ok(checkPublication({ root: f.root, article: 'content/articles/test-post.md', mode: 'update', date: '2026-11-25' }).errors.some(error => error.includes('update date')));
+});
+
 test('blocks non-CDN images and missing manifest',t=>{
   const f=fixture();t.after(f.cleanup);
   f.put('content/articles/test-post.md',f.article.replace(INNER,'https://example.com/fake.webp'));
@@ -82,4 +94,19 @@ test('blocks invalid date and stale sitemap',t=>{
   f.put('public/sitemap.xml','<urlset></urlset>');
   r=checkPublication({root:f.root});
   assert.ok(r.errors.some(e=>e.includes('Missing article URL')));
+});
+
+test('keeps private local checkpoints out of public output and the Git index', t => {
+  const f = fixture(); t.after(f.cleanup);
+  f.put('seo/AGENT_STATE.json', '{}');
+  assert.deepEqual(checkPrivateState(f.root), []);
+  f.put('public/seo/AGENT_STATE.json', '{}');
+  assert.ok(checkPrivateState(f.root).some(error => error.includes('must not be published')));
+  fs.rmSync(path.join(f.root, 'public/seo'), { recursive: true });
+  fs.symlinkSync('../seo', path.join(f.root, 'public/archive'), 'dir');
+  assert.ok(checkPrivateState(f.root).some(error => error.includes('Symlinks')));
+  fs.unlinkSync(path.join(f.root, 'public/archive'));
+  execFileSync('git', ['init', '-q'], { cwd: f.root });
+  execFileSync('git', ['add', 'seo/AGENT_STATE.json'], { cwd: f.root });
+  assert.ok(checkPrivateState(f.root).some(error => error.includes('must not be tracked')));
 });
