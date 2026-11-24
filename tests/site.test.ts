@@ -139,9 +139,17 @@ describe("Korean Editorial multi-page generator", () => {
         }
       }
     }
-    // These existing covers have different measured ratios; no global 3:2 assumption is valid.
-    expect(read("kien-thuc/mun-o-cam-sau-tuoi-35/index.html")).toContain('width="1440" height="810"');
-    expect(read("kien-thuc/phuc-hoi-hang-rao-bao-ve-da-khi-tri-mun/index.html")).toContain('width="1440" height="1080"');
+    // A versioned, measured 4:3 fixture protects against a global 3:2 assumption
+    // without tying an article's current cover to an obsolete crop.
+    const fixtureKey = "/assets/articles/phuc-hoi-hang-rao-da-mun-cover-v2-1440.webp";
+    const fixture = dimensions[fixtureKey];
+    expect(fixture.width / fixture.height).not.toBe(3 / 2);
+    const sample = "![Ảnh kiểm tra tỉ lệ](" + CDN + fixtureKey + ")";
+    const program = 'import {renderMarkdown} from "./site/build.mjs";console.log(renderMarkdown(' + JSON.stringify(sample) + ').html);';
+    const output = execFileSync("node", ["--input-type=module", "-e", program], { encoding: "utf8" });
+    const image = output.match(/<img\b[^>]*>/)?.[0] || "";
+    expect(Number(attr(image, "width"))).toBe(fixture.width);
+    expect(Number(attr(image, "height"))).toBe(fixture.height);
   });
   test("rejects unregistered or stale image variants even when dimension metadata is present", () => {
     const root = mkdtempSync(join(tmpdir(), "phungha-image-variants-"));

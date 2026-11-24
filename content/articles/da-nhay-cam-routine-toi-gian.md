@@ -5,8 +5,8 @@ date: 2026-11-05
 updated: 2026-11-24
 category: Phục hồi da
 readingTime: 8 phút đọc
-cover: /assets/articles/da-nhay-cam-v1-1440.webp
-coverAlt: Phùng Hà chăm da nhẹ nhàng với khăn mềm và routine tối giản
+cover: /assets/articles/routine-tuoi-35-noi-dung-v2-20261124-1440.webp
+coverAlt: Minh họa Phùng Hà quan sát da trước gương với thao tác nhẹ nhàng
 accent: olive
 ---
 
