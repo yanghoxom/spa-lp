@@ -2,10 +2,11 @@
 
 ## Images and CDN
 
-- Store every image and icon on Cloudflare CDN at `https://cdn.phunghakorea.com`. Never commit image files or base64 image payloads to GitHub.
+- Store every standalone image and icon asset on Cloudflare CDN at `https://cdn.phunghakorea.com`. Never commit image files or base64 image payloads to GitHub.
 - Cloudflare Worker `phungha-media` serves the dedicated public-media KV namespace `f9b9b8a418bd440ca0f6841852292a82`. Upload binary files through Cloudflare KV API with contentType and etag metadata.
 - Add the uploaded image path, byte size, MIME type and SHA-256 to `infra/media-manifest.json`, then reference its CDN URL. Use versioned filenames; verify delivery before publishing.
 - Keep image creation references and temporary image files outside the repository. No fallback to GitHub or website static assets.
+- Interface controls and decorative link symbols use the shared inline SVG helper in `site/ui-icons.mjs` and `.ui-icon` styles; never use Unicode emoji or icon fonts for UI icons. Inline vector markup is source code, not a standalone media file. Existing brand/favicon and image assets remain on the CDN.
 - Website source lives in `yanghoxom/spa-lp`; main deploys via Cloudflare Workers Builds. Preserve article text during UI-only changes.
 
 ## Daily SEO publishing / failure recovery

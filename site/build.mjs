@@ -1,5 +1,6 @@
 import fs from "node:fs";
 import path from "node:path";
+import { uiIcon } from "./ui-icons.mjs";
 
 const ROOT = process.cwd();
 const BASE = "https://phunghakorea.com";
@@ -70,22 +71,22 @@ function header(active = "") {
   return '<div class="topline"><span>PHÙNG HÀ KOREA • MỸ PHẨM HÀN CHỌN LỌC</span><span>NÂNG NIU LÀN DA • TÔN NÉT ĐẸP RIÊNG</span></div>' +
     '<header class="site-header" id="top"><div class="header-content">' +
     '<a class="wordmark" href="/" aria-label="Phùng Hà Korea - Trang chủ"><strong>PHÙNG HÀ</strong><small>KOREA</small></a>' +
-    '<button class="menu-toggle" type="button" aria-controls="main-nav" aria-expanded="false" aria-label="Mở danh mục">☰ <span>Danh mục</span></button>' +
+    '<button class="menu-toggle" type="button" aria-controls="main-nav" aria-expanded="false" aria-label="Mở danh mục">' + uiIcon("menu") + uiIcon("close") + ' <span>Danh mục</span></button>' +
     '<nav class="main-nav" id="main-nav" aria-label="Danh mục chính">' +
     navLink("/", "Trang chủ", active === "home") + navLink("/kien-thuc/", "Góc chăm da", active === "articles") +
     navLink("/my-pham/", "Mỹ phẩm Hàn", active === "shop") + navLink("/ve-phung-ha/", "Chuyện của Hà", active === "about") +
     '<a class="mobile-consult" href="/tu-van-da/">Nhờ Hà tư vấn</a></nav>' +
-    '<a class="nav-consult" href="/tu-van-da/">Nhờ Hà tư vấn <span aria-hidden="true">↗</span></a>' +
+    '<a class="nav-consult" href="/tu-van-da/">Nhờ Hà tư vấn ' + uiIcon("arrow-right") + '</a>' +
     '</div></header>';
 }
 function footer() {
   return '<footer class="site-footer"><div class="footer-top container">' +
     '<div><div class="footer-mark">PHÙNG HÀ <span>KOREA</span></div>' +
     '<p>Chị xứng đáng được nâng niu. Cùng Hà chọn mỹ phẩm Hàn, chăm chút làn da và nét đẹp riêng của chị mỗi ngày.</p>' +
-    '<a class="footer-social" href="' + FANPAGE + '" target="_blank" rel="noopener noreferrer">Gặp Hà trên Facebook ↗</a></div>' +
+    '<a class="footer-social" href="' + FANPAGE + '" target="_blank" rel="noopener noreferrer">Gặp Hà trên Facebook ' + uiIcon("external-link") + '</a></div>' +
     '<div><span class="footer-head">CHĂM DA CÙNG HÀ</span><a href="/kien-thuc/">Góc chăm da</a><a href="/my-pham/">Chọn mỹ phẩm Hàn</a><a href="/tu-van-da/">Nhờ Hà tư vấn</a></div>' +
     '<div><span class="footer-head">KẾT NỐI VỚI HÀ</span><a href="/ve-phung-ha/">Chuyện của Hà</a>' +
-    '<a href="' + MESSAGE + '" target="_blank" rel="noopener noreferrer">Nhắn riêng cho Hà ↗</a>' +
+    '<a href="' + MESSAGE + '" target="_blank" rel="noopener noreferrer">Nhắn riêng cho Hà ' + uiIcon("external-link") + '</a>' +
     '<a href="mailto:cskh@phunghakorea.com">cskh@phunghakorea.com</a><a href="tel:+84353950220">035 395 0220</a>' +
     '<a href="/chinh-sach/">Thông tin riêng tư &amp; đặt hàng</a></div></div>' +
     '<div class="footer-bottom container"><span>© ' + new Date().getFullYear() + ' Phùng Hà Korea. Tiên Du, Bắc Ninh.</span>' +
@@ -131,7 +132,7 @@ function layout({ title, description, url = "/", active = "", image = "/assets/f
 }
 function sectionLabel(n, text) { return '<div class="section-label"><span>' + n + '</span><span>' + text + '</span></div>'; }
 function arrowLink(href, label, type = "") {
-  return '<a class="arrow-link ' + type + '" href="' + href + '">' + escapeHTML(label) + '<span aria-hidden="true">↗</span></a>';
+  return '<a class="arrow-link ' + type + '" href="' + href + '">' + escapeHTML(label) + uiIcon("arrow-right") + '</a>';
 }
 function measuredImage(key) {
   const value = imageMetadata[key];
@@ -175,7 +176,7 @@ function articleCard(a, index = 0) {
     String(index + 1).padStart(2, "0") + '</span>') + '</div>' +
     '<div class="article-meta"><span>' + escapeHTML(a.category) + '</span><span>' + formatDate(a.date) + '</span></div>' +
     '<h3>' + escapeHTML(a.title) + '</h3><p>' + escapeHTML(a.description) + '</p>' +
-    '<span class="article-cta">Đọc tiếp cùng Hà <span aria-hidden="true">↗</span></span></a>';
+    '<span class="article-cta">Đọc tiếp cùng Hà ' + uiIcon("arrow-right") + '</span></a>';
 }
 const editorialArt = {
   sun: ["chong-nang", "Chai chống nắng RIEN’A STC UV Sun Ampoule và hộp"],
@@ -192,7 +193,7 @@ function productVisual(kind) {
 function categoryCard(c) {
   return '<a class="collection-card" href="/my-pham/' + c.slug + '/">' + productVisual(c.look) +
     '<div class="collection-text"><span>' + c.no + ' / CHỌN CÙNG HÀ</span><h3>' + escapeHTML(c.title) +
-    '</h3><p>' + escapeHTML(c.subtitle) + '</p><span class="round-arrow">↗</span></div></a>';
+    '</h3><p>' + escapeHTML(c.subtitle) + '</p><span class="round-arrow">' + uiIcon("arrow-right") + '</span></div></a>';
 }
 function formatDate(s) {
   const [y,m,d] = s.split("-");
@@ -209,18 +210,18 @@ function home() {
     '<div class="container immersive-inner"><div class="immersive-copy"><p class="eyebrow">PHÙNG HÀ KOREA</p>' +
     '<h1 id="hero-title">Chị xứng đáng<br><em>được nâng niu.</em></h1>' +
     '<p class="immersive-lead">Dành riêng cho chị.</p>' +
-    '<div class="immersive-actions"><a class="btn btn-dark" href="/my-pham/">Chọn mỹ phẩm <span aria-hidden="true">↗</span></a>' +
-    '<a class="hero-consult" href="/tu-van-da/">Nhờ Hà tư vấn <span aria-hidden="true">↗</span></a></div>' +
-    '</div></div><a class="hero-scroll" href="#discover" aria-label="Chọn điều chị muốn chăm sóc cho da">CHĂM DA CÙNG HÀ <span aria-hidden="true">↓</span></a></section>' +
-    '<div class="marquee-line"><div class="container"><span>NÂNG NIU LÀN DA</span><span>✳</span><span>TỰ TIN VỚI NÉT ĐẸP RIÊNG</span><span>✳</span><span>MỸ PHẨM HÀN CHỌN LỌC</span><span>✳</span><span>CHĂM CHÚT CHO CHÍNH MÌNH</span></div></div>' +
+    '<div class="immersive-actions"><a class="btn btn-dark" href="/my-pham/">Chọn mỹ phẩm ' + uiIcon("arrow-right") + '</a>' +
+    '<a class="hero-consult" href="/tu-van-da/">Nhờ Hà tư vấn ' + uiIcon("arrow-right") + '</a></div>' +
+    '</div></div><a class="hero-scroll" href="#discover" aria-label="Chọn điều chị muốn chăm sóc cho da">CHĂM DA CÙNG HÀ ' + uiIcon("arrow-down") + '</a></section>' +
+    '<div class="marquee-line"><div class="container"><span>NÂNG NIU LÀN DA</span>' + uiIcon("sparkle") + '<span>TỰ TIN VỚI NÉT ĐẸP RIÊNG</span>' + uiIcon("sparkle") + '<span>MỸ PHẨM HÀN CHỌN LỌC</span>' + uiIcon("sparkle") + '<span>CHĂM CHÚT CHO CHÍNH MÌNH</span></div></div>' +
     '<section class="section container" id="discover">' + sectionLabel("01 /", "HÀ LẮNG NGHE CHỊ") +
     '<div class="section-heading split-heading"><div><p class="overline">CHỌN ĐIỀU CHỊ QUAN TÂM</p><h2>Chị muốn làn da <em>được chăm thế nào?</em></h2></div>' +
     '<p>Chị muốn da mềm hơn, đều màu hơn hay tươi tắn hơn mỗi ngày? Chọn điều chị đang quan tâm, Hà cùng chị tìm cách chăm phù hợp nhé.</p></div>' +
     '<div class="concern-grid">' +
-    '<a href="/my-pham/duong-sang-deu-mau/"><span>01</span><img class="concern-icon" src="/assets/icons/nam-sam.svg" alt="" width="56" height="56" loading="lazy"><strong>Nám &amp; sạm màu</strong><small>Dưỡng sáng, chăm da đều màu</small><i>↗</i></a>' +
-    '<a href="/my-pham/duong-am-phuc-hoi/"><span>02</span><img class="concern-icon" src="/assets/icons/duong-am.svg" alt="" width="56" height="56" loading="lazy"><strong>Da khô, nhạy cảm</strong><small>Dưỡng ẩm, chăm da dịu nhẹ</small><i>↗</i></a>' +
-    '<a href="/my-pham/cham-da-tuoi-35/"><span>03</span><img class="concern-icon" src="/assets/icons/tuoi-35.svg" alt="" width="56" height="56" loading="lazy"><strong>Da tuổi 35+</strong><small>Chăm chút nét đẹp của chị</small><i>↗</i></a>' +
-    '<a href="/my-pham/chong-nang/"><span>04</span><img class="concern-icon" src="/assets/icons/chong-nang.svg" alt="" width="56" height="56" loading="lazy"><strong>Chống nắng</strong><small>Giữ gìn da mỗi khi ra ngoài</small><i>↗</i></a></div></section>' +
+    '<a href="/my-pham/duong-sang-deu-mau/"><span>01</span><img class="concern-icon" src="/assets/icons/nam-sam.svg" alt="" width="56" height="56" loading="lazy"><strong>Nám &amp; sạm màu</strong><small>Dưỡng sáng, chăm da đều màu</small>' + uiIcon("arrow-right") + '</a>' +
+    '<a href="/my-pham/duong-am-phuc-hoi/"><span>02</span><img class="concern-icon" src="/assets/icons/duong-am.svg" alt="" width="56" height="56" loading="lazy"><strong>Da khô, nhạy cảm</strong><small>Dưỡng ẩm, chăm da dịu nhẹ</small>' + uiIcon("arrow-right") + '</a>' +
+    '<a href="/my-pham/cham-da-tuoi-35/"><span>03</span><img class="concern-icon" src="/assets/icons/tuoi-35.svg" alt="" width="56" height="56" loading="lazy"><strong>Da tuổi 35+</strong><small>Chăm chút nét đẹp của chị</small>' + uiIcon("arrow-right") + '</a>' +
+    '<a href="/my-pham/chong-nang/"><span>04</span><img class="concern-icon" src="/assets/icons/chong-nang.svg" alt="" width="56" height="56" loading="lazy"><strong>Chống nắng</strong><small>Giữ gìn da mỗi khi ra ngoài</small>' + uiIcon("arrow-right") + '</a></div></section>' +
     '<section class="section journal-section"><div class="container">' + sectionLabel("02 /", "GÓC CHĂM DA") +
     '<div class="section-heading journal-heading"><div><p class="overline">CHUYỆN CHĂM DA MỖI NGÀY</p><h2>Hà chia sẻ, <em>chị dễ làm theo.</em></h2></div>' +
     arrowLink("/kien-thuc/", "Xem tất cả bài viết") + '</div>' +
@@ -240,8 +241,8 @@ function home() {
     '<figure class="note-portrait"><img src="/assets/editorial/phung-ha-founder-v2-960.webp" srcset="/assets/editorial/phung-ha-founder-v2-480.webp 480w, /assets/editorial/phung-ha-founder-v2-960.webp 960w" sizes="(max-width: 780px) 90vw, 460px" width="960" height="1200" alt="Phùng Hà cười tươi, khẽ vén tóc trong không gian chăm da" loading="lazy" decoding="async"></figure></div></section>' +
     '<section class="section container final-cta"><p class="overline">HÀ Ở ĐÂY, LẮNG NGHE CHỊ</p>' +
     '<h2>Chị muốn chăm da đẹp hơn? <em>Mình trò chuyện nhé.</em></h2>' +
-    '<div class="final-actions"><a class="btn btn-dark" href="/tu-van-da/">Nhờ Hà tư vấn <span>↗</span></a>' +
-    '<a class="btn btn-outline" href="' + MESSAGE + '" target="_blank" rel="noopener noreferrer">Nhắn riêng cho Hà <span>↗</span></a></div></section>');
+    '<div class="final-actions"><a class="btn btn-dark" href="/tu-van-da/">Nhờ Hà tư vấn ' + uiIcon("arrow-right") + '</a>' +
+    '<a class="btn btn-outline" href="' + MESSAGE + '" target="_blank" rel="noopener noreferrer">Nhắn riêng cho Hà ' + uiIcon("external-link") + '</a></div></section>');
 }
 const PAGE_SIZE = 9;
 function topicList() {
@@ -267,9 +268,9 @@ function articleIndex(page = 1, topicSlug = "") {
     '" href="' + archiveURL(1,item.slug) + '"' + (item.slug===topicSlug?' aria-current="page"':'') + '>' + escapeHTML(item.name) + '</a>'
   ).join("");
   const pagination = pages < 2 ? "" : '<nav class="pagination" aria-label="Các trang bài viết">' +
-    (page > 1 ? '<a rel="prev" href="' + archiveURL(page - 1, topicSlug) + '">← Trang trước</a>' : '') +
+    (page > 1 ? '<a rel="prev" href="' + archiveURL(page - 1, topicSlug) + '">' + uiIcon("arrow-left") + ' Trang trước</a>' : '') +
     Array.from({length:pages},(_,i)=>'<a href="' + archiveURL(i+1,topicSlug) + '"' + (i+1===page?' aria-current="page"':'') + '>'+(i+1)+'</a>').join("") +
-    (page < pages ? '<a rel="next" href="' + archiveURL(page+1,topicSlug) + '">Trang sau →</a>' : '') + '</nav>';
+    (page < pages ? '<a rel="next" href="' + archiveURL(page+1,topicSlug) + '">Trang sau ' + uiIcon("arrow-right") + '</a>' : '') + '</nav>';
   const displayTitle = topic ? "Chăm da: " + topic.name : "Góc chăm da cùng Hà";
   const description = topic ? "Cùng Hà tìm hiểu về " + topic.name.toLowerCase() + " qua những bài chia sẻ dễ hiểu, giúp chị chăm da mỗi ngày." :
     "Hà chia sẻ cách chăm da dễ hiểu, dễ làm theo: chống nắng, dưỡng ẩm, nám sạm và chọn mỹ phẩm Hàn hợp với làn da chị.";
@@ -292,7 +293,7 @@ function inline(text) {
   return escapeHTML(text).replace(/\[([^\]]+)\]\(((?:https?:\/\/|\/(?!\/))[^ )]+)\)/g, (_, label, href) => {
     const external = /^https?:\/\//.test(href);
     return '<a href="' + href + '"' + (external ? ' target="_blank" rel="noopener noreferrer"' : '') +
-      '>' + label + (external ? ' ↗' : '') + '</a>';
+      '>' + label + (external ? ' ' + uiIcon("external-link") : '') + '</a>';
   }).replace(/\*\*([^*]+)\*\*/g, "<strong>$1</strong>")
     .replace(/\*([^*]+)\*/g, "<em>$1</em>");
 }
@@ -383,9 +384,9 @@ function articlePage(a) {
     '<div class="article-disclaimer"><strong>Lưu ý</strong><p>Thông tin mang tính tham khảo, không thay thế chẩn đoán hay điều trị. Nếu da đang viêm, tổn thương, kích ứng kéo dài hoặc bạn cân nhắc peel, hãy trao đổi với bác sĩ da liễu.</p></div>' +
     '<div class="article-next"><p class="overline">CHĂM DA CÙNG HÀ</p><h2>Chị muốn Hà tư vấn riêng?</h2>' +
     '<p>Chị kể Hà nghe về làn da và những món đang dùng nhé. Hà sẽ cùng chị chọn cách chăm phù hợp.</p>' +
-    '<a class="btn btn-dark" href="/tu-van-da/">Nhờ Hà tư vấn <span>↗</span></a></div></article>' +
+    '<a class="btn btn-dark" href="/tu-van-da/">Nhờ Hà tư vấn ' + uiIcon("arrow-right") + '</a></div></article>' +
     '<aside class="article-sidebar">'+toc+'<div class="sidebar-card"><p class="overline">LỜI NHẮN TỪ HÀ</p>' +
-    '<h3>Một chút chăm da, một niềm vui cho chị.</h3><a href="/my-pham/">Chọn mỹ phẩm cùng Hà ↗</a></div></aside></div>' +
+    '<h3>Một chút chăm da, một niềm vui cho chị.</h3><a href="/my-pham/">Chọn mỹ phẩm cùng Hà ' + uiIcon("arrow-right") + '</a></div></aside></div>' +
     '<section class="section container related-section">'+sectionLabel("ĐỌC THÊM /", "CÓ THỂ CHỊ QUAN TÂM")+
     '<div class="article-grid">'+articles.filter(x=>x.slug!==a.slug).sort((x,y)=>Number(y.category===a.category)-Number(x.category===a.category)).slice(0,3).map(articleCard).join("")+'</div></section>' +
     '<script type="application/ld+json">'+articleJson+'</script><script type="application/ld+json">'+breadcrumbJson+'</script>');
@@ -401,24 +402,24 @@ function shopIndex() {
     '<p>Từ lớp chống nắng nhẹ nhàng đến chút kem dưỡng mềm mại, chị chọn điều làn da mình đang cần nhé.</p></div>' +
     '<div class="ai-editorial-grid">' +
     '<figure class="ai-editorial-card"><div class="ai-editorial-photo"><img src="/assets/collections/chong-nang-v2-960.webp" alt="Chai và hộp RIEN’A STC UV Sun Ampoule" width="960" height="1200" loading="lazy" decoding="async"></div>' +
-    '<figcaption><div><span>01 / GIỮ GÌN LÀN DA</span><h3>Ra ngoài, nhớ thương làn da.</h3><p>Chị cùng Hà tìm loại chống nắng hợp da, dễ thoa và thoải mái khi dùng mỗi ngày.</p></div><a href="/my-pham/chong-nang/" class="arrow-link">Chọn kem chống nắng <span aria-hidden="true">↗</span></a></figcaption></figure>' +
+    '<figcaption><div><span>01 / GIỮ GÌN LÀN DA</span><h3>Ra ngoài, nhớ thương làn da.</h3><p>Chị cùng Hà tìm loại chống nắng hợp da, dễ thoa và thoải mái khi dùng mỗi ngày.</p></div><a href="/my-pham/chong-nang/" class="arrow-link">Chọn kem chống nắng ' + uiIcon("arrow-right") + '</a></figcaption></figure>' +
     '<figure class="ai-editorial-card"><div class="ai-editorial-photo"><img src="/assets/collections/cham-da-tuoi-35-v2-960.webp" alt="Bộ tinh chất và kem dưỡng từ fanpage Phùng Hà Korea" width="960" height="1200" loading="lazy" decoding="async"></div>' +
-    '<figcaption><div><span>02 / NÂNG NIU MỖI NGÀY</span><h3>Dưỡng ẩm để da mềm mại.</h3><p>Dành cho da một chút chăm sóc dịu dàng. Hà cùng chị chọn món dưỡng ẩm phù hợp nhé.</p></div><a href="/my-pham/duong-am-phuc-hoi/" class="arrow-link">Chọn dưỡng ẩm <span aria-hidden="true">↗</span></a></figcaption></figure>' +
+    '<figcaption><div><span>02 / NÂNG NIU MỖI NGÀY</span><h3>Dưỡng ẩm để da mềm mại.</h3><p>Dành cho da một chút chăm sóc dịu dàng. Hà cùng chị chọn món dưỡng ẩm phù hợp nhé.</p></div><a href="/my-pham/duong-am-phuc-hoi/" class="arrow-link">Chọn dưỡng ẩm ' + uiIcon("arrow-right") + '</a></figcaption></figure>' +
     '</div></section>' +
     '<section class="section container simple-steps">'+sectionLabel("03 /","HÀ LẮNG NGHE, CHỊ AN TÂM")+'<h2>Ưng món hợp da, <em>rồi mình đặt nhé.</em></h2><div class="steps-grid">' +
     '<div><span>01</span><h3>Chị chia sẻ</h3><p>Cho Hà biết làn da và điều chị muốn chăm chút nhất.</p></div>' +
     '<div><span>02</span><h3>Hà lắng nghe</h3><p>Mình trao đổi thêm về những món chị đang dùng và mức chi chị thấy thoải mái.</p></div>' +
     '<div><span>03</span><h3>Mình cùng chọn</h3><p>Hà gợi ý sản phẩm, nói rõ giá và cách dùng để chị cân nhắc trước khi đặt.</p></div></div>' +
-    '<div class="center-action"><a href="/tu-van-da/" class="btn btn-dark">Nhờ Hà tư vấn <span>↗</span></a></div></section>');
+    '<div class="center-action"><a href="/tu-van-da/" class="btn btn-dark">Nhờ Hà tư vấn ' + uiIcon("arrow-right") + '</a></div></section>');
 }
 function shopDetail(c) {
   return layout({ title:c.title+" – chọn cùng Hà | Phùng Hà Korea", description:c.detail+" Nhắn Hà để được tư vấn và báo giá.", url:"/my-pham/"+c.slug+"/", active:"shop", image:"/assets/collections/"+c.slug+"-v2-960.webp" },
     '<div class="container detail-layout"><div class="detail-art">'+productVisual(c.look)+'</div>' +
-    '<div class="detail-copy"><a href="/my-pham/" class="breadcrumb dark">← Xem các nhóm mỹ phẩm</a>' +
+    '<div class="detail-copy"><a href="/my-pham/" class="breadcrumb dark">' + uiIcon("arrow-left") + ' Xem các nhóm mỹ phẩm</a>' +
     '<p class="overline">MỸ PHẨM HÀN CHỌN LỌC / '+c.no+'</p><h1>'+escapeHTML(c.title)+'</h1><p class="detail-lead">'+escapeHTML(c.detail)+'</p>' +
     '<div class="detail-tips"><h2>Hà nhắn chị vài điều</h2><ul>'+c.tips.map(t=>'<li>'+escapeHTML(t)+'</li>').join("")+'</ul></div>' +
     '<div class="notice-panel"><strong>Chị thích nhóm này? Nhắn Hà nhé.</strong><span>Đây là gợi ý nhóm chăm da để chị tham khảo. Hà sẽ gửi thông tin sản phẩm còn sẵn, nguồn gốc, giá và cách dùng trước khi chị quyết định.</span></div>' +
-    '<a href="'+MESSAGE+'" class="btn btn-dark" target="_blank" rel="noopener noreferrer">Hỏi Hà về sản phẩm <span>↗</span></a></div></div>' +
+    '<a href="'+MESSAGE+'" class="btn btn-dark" target="_blank" rel="noopener noreferrer">Hỏi Hà về sản phẩm ' + uiIcon("external-link") + '</a></div></div>' +
     '<section class="section container related-section">'+sectionLabel("ĐỌC THÊM /","CHĂM DA CÙNG HÀ")+'<div class="article-grid">'+articles.slice(0,3).map(articleCard).join("")+'</div></section>');
 }
 function aboutPage() {
@@ -428,14 +429,14 @@ function aboutPage() {
     '<p>Hà tin mỗi người phụ nữ đều có nét đẹp riêng. Hà mong chị thấy vui khi chăm mình, tự tin khi gặp gỡ và hài lòng với món mỹ phẩm đã chọn.</p>' +
     '<p>Ở Phùng Hà Korea, Hà cùng chị tìm mỹ phẩm Hàn phù hợp, từ những món chị đang dùng đến điều chị muốn cải thiện. Mình trao đổi rõ về sản phẩm, cách dùng và mức chi trước khi chọn mua.</p>' +
     '<p>Chị cũng sẽ tìm thấy ở đây những chia sẻ chăm da dễ hiểu, dễ làm theo. Khi da cần điều trị hoặc chị muốn peel (thay da hóa học), chị nên hỏi bác sĩ da liễu trước nhé.</p>' +
-    '<a href="'+FANPAGE+'" class="btn btn-dark" target="_blank" rel="noopener noreferrer">Gặp Hà trên Facebook <span>↗</span></a></div>' +
+    '<a href="'+FANPAGE+'" class="btn btn-dark" target="_blank" rel="noopener noreferrer">Gặp Hà trên Facebook ' + uiIcon("external-link") + '</a></div>' +
     '<div class="about-image"><div class="about-portrait"><img src="/assets/editorial/phung-ha-founder-v2-960.webp" srcset="/assets/editorial/phung-ha-founder-v2-480.webp 480w, /assets/editorial/phung-ha-founder-v2-960.webp 960w" sizes="(max-width: 780px) 90vw, 460px" width="960" height="1200" alt="Chân dung Phùng Hà" loading="lazy" decoding="async"></div>' +
     '<span>LẮNG NGHE CHỊ, TRÂN TRỌNG NÉT ĐẸP RIÊNG</span></div></section>' +
     '<section class="values-section"><div class="container">'+sectionLabel("VỀ HÀ /","CÁCH HÀ CHĂM CHÚT CHO CHỊ")+'<div class="values-grid">' +
     '<div><span>01 /</span><h3>Lắng nghe chị trước</h3><p>Hà hỏi về làn da, mong muốn và những món chị đang dùng để cùng chị chọn cho phù hợp.</p></div>' +
     '<div><span>02 /</span><h3>Dễ dùng mỗi ngày</h3><p>Cách chăm da cần dễ hiểu, dễ làm, để dù bận rộn chị vẫn có thể chăm chút cho mình.</p></div>' +
     '<div><span>03 /</span><h3>Rõ sản phẩm, rõ giá</h3><p>Chị được biết nguồn gốc, thông tin sản phẩm và giá trước khi quyết định đặt mua.</p></div></div></div></section>' +
-    '<section class="section container final-cta"><p class="overline">TRÒ CHUYỆN CÙNG HÀ</p><h2>Chị còn phân vân? <em>Cứ kể Hà nghe.</em></h2><a class="btn btn-dark" href="/tu-van-da/">Nhờ Hà tư vấn <span>↗</span></a></section>');
+    '<section class="section container final-cta"><p class="overline">TRÒ CHUYỆN CÙNG HÀ</p><h2>Chị còn phân vân? <em>Cứ kể Hà nghe.</em></h2><a class="btn btn-dark" href="/tu-van-da/">Nhờ Hà tư vấn ' + uiIcon("arrow-right") + '</a></section>');
 }
 function quizPage() {
   return layout({title:"Tư vấn chăm da cùng Hà | Phùng Hà Korea",description:"Chị trả lời 5 câu ngắn để nhận gợi ý chăm da ban đầu, rồi nhắn Hà qua Messenger. Hà sẽ cùng chị chọn sản phẩm hợp da và mức chi chị mong muốn.",url:"/tu-van-da/",quiz:true},
@@ -445,8 +446,8 @@ function quizPage() {
     '<div class="quiz-top"><span>CHIA SẺ CÙNG HÀ</span><span>5 CÂU HỎI</span></div><div class="progress-line"><span id="progress-fill"></span></div>' +
     '<p class="question-progress" id="question-progress" aria-live="polite">Câu 1/5</p><div class="selected-summary" id="selected-summary" aria-live="polite"></div>' +
     '<div id="question-list"></div><div class="quiz-actions">' +
-    '<button type="button" class="btn btn-outline" id="quiz-prev" disabled>← Quay lại</button>' +
-    '<button type="button" class="btn btn-dark" id="quiz-next" disabled>Câu tiếp →</button>' +
+    '<button type="button" class="btn btn-outline" id="quiz-prev" disabled>' + uiIcon("arrow-left") + ' Quay lại</button>' +
+    '<button type="button" class="btn btn-dark" id="quiz-next" disabled>Câu tiếp ' + uiIcon("arrow-right") + '</button>' +
     '<button type="button" class="reset-button" id="reset-quiz">Chọn lại từ đầu</button></div></form>' +
     '<aside class="result-card is-hidden" id="result-card" tabindex="-1" aria-live="polite"><p class="overline">GỢI Ý BAN ĐẦU CHO CHỊ</p>' +
     '<h2 id="result-title">Cách chăm da để chị tham khảo</h2><p class="result-summary" id="result-note">Hà sẽ trao đổi thêm với chị trước khi chọn sản phẩm.</p>' +
@@ -454,13 +455,13 @@ function quizPage() {
     '<div class="result-columns"><div><h3>Vì sao có gợi ý này?</h3><ul id="result-reasons"></ul></div>' +
     '<div><h3>Gợi ý chăm da sáng và tối</h3><p><strong>Buổi sáng:</strong> <span id="care-morning">—</span></p><p><strong>Buổi tối:</strong> <span id="care-evening">—</span></p></div>' +
     '<div><h3>Chị chia sẻ thêm giúp Hà nhé</h3><ul id="result-followups"></ul></div></div>' +
-    '<div class="lead-actions"><button type="button" id="copy-consultation" class="btn btn-outline">① Sao chép kết quả</button>' +
-    '<a id="messenger-link" class="btn btn-dark" href="'+MESSAGE+'" target="_blank" rel="noopener noreferrer">② Mở Messenger ↗</a></div>' +
+    '<div class="lead-actions"><button type="button" id="copy-consultation" class="btn btn-outline">1. Sao chép kết quả</button>' +
+    '<a id="messenger-link" class="btn btn-dark" href="'+MESSAGE+'" target="_blank" rel="noopener noreferrer">2. Mở Messenger ' + uiIcon("external-link") + '</a></div>' +
     '<p class="copy-feedback" id="copy-feedback" role="status" aria-live="polite">Chị sao chép kết quả, mở Messenger rồi dán vào tin nhắn gửi Hà nhé. Website không lưu câu trả lời của chị.</p>' +
     '<p class="quiz-disclaimer">Gợi ý này chỉ để tham khảo, không thay thế chẩn đoán của bác sĩ. Nếu da đang kích ứng hoặc chị muốn peel (thay da hóa học), hãy hỏi bác sĩ da liễu trước nhé.</p></aside></div></section>' +
     '<section class="section container quiz-info"><div><p class="overline">ĐỂ CHỊ AN TÂM LÀM ĐẸP</p><h2>Chị thấy phù hợp, <em>mình hãy chọn.</em></h2></div>' +
     '<div><p>Hà muốn hiểu da và mong muốn của chị trước khi gợi ý mỹ phẩm. Mình cùng xem những món chị đang dùng, cách chăm mỗi ngày và mức chi chị thấy thoải mái nhé.</p>' +
-    '<a class="arrow-link" href="/kien-thuc/">Ghé góc chăm da <span>↗</span></a></div></section>');
+    '<a class="arrow-link" href="/kien-thuc/">Ghé góc chăm da ' + uiIcon("arrow-right") + '</a></div></section>');
 }
 function privacyPage() {
   return layout({title:"Thông tin riêng tư và đặt hàng | Phùng Hà Korea",
@@ -506,7 +507,7 @@ write("ve-phung-ha/index.html",aboutPage());
 write("chinh-sach/index.html",privacyPage());
 write("public/sitemap.xml",sitemap());
 write("public/feed.xml",rssXML());
-write("public/404.html",'<!doctype html><html lang="vi"><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Chưa tìm thấy trang chị cần | Phùng Hà Korea</title><style>body{font-family:Arial,sans-serif;background:#f9f6ef;color:#263d34;min-height:80vh;display:grid;place-items:center;text-align:center}h1{font-size:5rem;margin:0}a{color:inherit}</style><main><p>PHÙNG HÀ KOREA</p><h1>404</h1><p>Trang chị tìm hiện chưa có hoặc đã chuyển chỗ.</p><p>Chị về trang chủ để xem thêm nhé.</p><a href="/">← Về trang chủ</a></main></html>');
+write("public/404.html",'<!doctype html><html lang="vi"><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Chưa tìm thấy trang chị cần | Phùng Hà Korea</title><style>body{font-family:Arial,sans-serif;background:#f9f6ef;color:#263d34;min-height:80vh;display:grid;place-items:center;text-align:center}h1{font-size:5rem;margin:0}a{color:inherit}.ui-icon{width:16px;height:16px;vertical-align:-.125em}</style><main><p>PHÙNG HÀ KOREA</p><h1>404</h1><p>Trang chị tìm hiện chưa có hoặc đã chuyển chỗ.</p><p>Chị về trang chủ để xem thêm nhé.</p><a href="/">' + uiIcon("arrow-left") + ' Về trang chủ</a></main></html>');
 console.log("Generated Korean Editorial pages, article archives, sitemap and RSS feed.");
 
 export { renderMarkdown };

@@ -9,6 +9,43 @@ const CDN = "https://cdn.phunghakorea.com";
 const media = JSON.parse(read("infra/media-manifest.json"));
 describe("Korean Editorial multi-page generator", () => {
   execFileSync("node", ["site/build.mjs"]);
+  test("uses one accessible SVG icon system on every generated UI route", () => {
+    const sitemap = read("public/sitemap.xml");
+    const routes = [...sitemap.matchAll(/<loc>([^<]+)<\/loc>/g)].map(match => {
+      const pathname = new URL(match[1]).pathname;
+      return pathname === "/" ? "index.html" : pathname.slice(1) + "index.html";
+    });
+    const uiGlyph = /[\u2190-\u21ff\u2300-\u23ff\u2460-\u2473\u2600-\u27ff\u2b00-\u2bff\u{1f000}-\u{1faff}\ufe0f]/u;
+    for (const route of [...routes, "public/404.html"]) {
+      const html = read(route);
+      const svgs = [...html.matchAll(/<svg\b[^>]*class="ui-icon [^"]+"[^>]*>/g)];
+      expect(svgs.length, route).toBeGreaterThan(0);
+      for (const [svg] of svgs) {
+        expect(svg, route).toContain('viewBox="0 0 24 24"');
+        expect(svg, route).toContain('stroke="currentColor"');
+        expect(svg, route).toContain('aria-hidden="true"');
+        expect(svg, route).toContain('focusable="false"');
+      }
+      // Article prose may use arrows as meaningful sequence notation.
+      for (const [control] of html.matchAll(/<(?:a|button)\b[^>]*>[\s\S]*?<\/(?:a|button)>/g)) {
+        expect(control.replace(/<[^>]*>/g, ""), route + ": " + control.slice(0, 100)).not.toMatch(uiGlyph);
+      }
+    }
+    for (const source of ["site/build.mjs", "src/main.ts", "src/site.ts", "src/quiz.ts", "src/styles.css"]) {
+      expect(read(source), source).not.toMatch(uiGlyph);
+    }
+    const home = read("index.html");
+    expect(home).toContain("ui-icon--menu");
+    expect(home).toContain("ui-icon--close");
+    expect(home).toContain("ui-icon--sparkle");
+    expect(home).toContain("ui-icon--arrow-down");
+    const quiz = read("tu-van-da/index.html");
+    expect(quiz).toContain("ui-icon--arrow-left");
+    expect(quiz).toContain("ui-icon--arrow-right");
+    expect(quiz).toContain("ui-icon--external-link");
+    expect(read("src/styles.css")).toContain('.menu-toggle[aria-expanded="true"] .ui-icon--close');
+  });
+
   test("uses the approved PH skincare icon across browser tabs and mobile home screens", () => {
     for (const page of ["index.html","my-pham/index.html","tu-van-da/index.html","kien-thuc/index.html"]) {
       const html = read(page);
