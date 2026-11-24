@@ -2,10 +2,11 @@
 title: Retinol sau tuổi 35: người mới bắt đầu thế nào để hạn chế kích ứng?
 description: Retinol có thể hỗ trợ nếp nhăn nhỏ nhưng dễ gây khô rát. Tìm hiểu cách bắt đầu thận trọng, dưỡng ẩm, chống nắng và khi nào cần hỏi bác sĩ.
 date: 2026-11-06
+updated: 2026-11-24
 category: Da tuổi 35+
 readingTime: 6 phút đọc
-cover: /assets/articles/retinol-duong-am-v1-1440.webp
-coverAlt: Phùng Hà thoa kem dưỡng ẩm trong routine chăm da buổi tối
+cover: /assets/articles/routine-tuoi-35-noi-dung-v2-20261124-1440.webp
+coverAlt: Minh họa Phùng Hà quan sát cảm giác da trước gương trước khi thêm hoạt chất
 accent: sage
 ---
 
@@ -17,7 +18,7 @@ Retinol thường được nhắc đến trong chăm sóc da tuổi 35–50, nh�
 
 Retinoid là tên chung của nhóm hoạt chất liên quan đến vitamin A; retinol là một dạng thường có trong mỹ phẩm. Tretinoin và một số retinoid khác là thuốc được sử dụng theo hướng dẫn y tế. **Không nên xem retinol mỹ phẩm là phương pháp bảo đảm xóa nám, xóa nhăn hoặc thay thế điều trị da liễu.**
 
-Theo Hiệp hội Da liễu Hoa Kỳ (AAD), retinoid có thể phù hợp với một số người quan tâm nếp nhăn nhỏ, da không đều màu hoặc mụn, nhưng cần cân nhắc kích ứng và tình trạng da hiện tại.
+Theo [Hiệp hội Da liễu Hoa Kỳ (AAD)](https://www.aad.org/public/everyday-care/skin-care-secrets/anti-aging/retinoid-retinol/), retinoid có thể phù hợp với một số người quan tâm nếp nhăn nhỏ, da không đều màu hoặc mụn, nhưng cần cân nhắc kích ứng và tình trạng da hiện tại.
 
 ## Ai cần hỏi bác sĩ trước khi dùng?
 
@@ -31,6 +32,10 @@ Theo Hiệp hội Da liễu Hoa Kỳ (AAD), retinoid có thể phù hợp với 
 ### 1. Xây nền chăm da trước
 
 Giữ routine gồm làm sạch dịu nhẹ, dưỡng ẩm phù hợp và chống nắng. Nếu da đang căng rát, hãy giải quyết tình trạng khó chịu trước khi thử sản phẩm mới.
+
+Chị có thể bắt đầu từ [routine chăm da tuổi 35](/kien-thuc/cham-da-tuoi-35-bat-dau-tu-dau/) và [cách chọn kem dưỡng theo nhu cầu da](/kien-thuc/phu-nu-35-tuoi-nen-dung-kem-duong-da-gi/). Nếu nhiều sản phẩm đều làm da châm chích, xem lại [routine cho da nhạy cảm](/kien-thuc/da-nhay-cam-routine-toi-gian/) trước khi thêm retinol.
+
+![Minh họa Phùng Hà thấm nhẹ da bằng khăn mềm trong bước làm sạch dịu nhẹ](/assets/articles/routine-mun-truong-thanh-noi-dung-v3-20261124-960.webp)
 
 ### 2. Chọn sản phẩm có thông tin rõ ràng
 
@@ -46,7 +51,7 @@ Dùng kem dưỡng ẩm phù hợp. Trong thời gian làm quen, tránh tự k�
 
 ### 5. Chống nắng và kiên nhẫn
 
-Dùng kem chống nắng phổ rộng SPF 30 trở lên mỗi sáng, kết hợp che chắn. Khi ở ngoài trời, bôi lại theo hướng dẫn, thông thường ít nhất mỗi hai giờ và sau khi bơi hoặc đổ mồ hôi. Hiệu quả chăm sóc nếp nhăn nhỏ cần thời gian và khác nhau giữa các cá nhân; **bong rát không phải dấu hiệu bắt buộc của hiệu quả**.
+Dùng kem chống nắng phổ rộng SPF 30 trở lên mỗi sáng, kết hợp che chắn. Khi ở ngoài trời, bôi lại theo [hướng dẫn của AAD](https://www.aad.org/public/everyday-care/sun-protection/shade-clothing-sunscreen/how-to-apply-sunscreen), mỗi hai giờ và ngay sau khi bơi hoặc đổ mồ hôi. Hiệu quả chăm sóc nếp nhăn nhỏ cần thời gian và khác nhau giữa các cá nhân; **bong rát không phải dấu hiệu bắt buộc của hiệu quả**.
 
 ## Routine tham khảo
 
@@ -68,9 +73,10 @@ Hãy ngừng sản phẩm nghi gây kích ứng và tìm tư vấn y tế nếu 
 - [American Academy of Dermatology — Pregnancy skin care](https://www.aad.org/public/everyday-care/skin-care-secrets/routine/pregnancy-skin-care)
 - [Cleveland Clinic — Retinol: Benefits, uses and side effects](https://my.clevelandclinic.org/health/treatments/23293-retinol)
 - [American Academy of Dermatology — How to select a sunscreen](https://www.aad.org/public/everyday-care/sun-protection/shade-clothing-sunscreen/how-to-select-sunscreen)
+- [American Academy of Dermatology — How to apply sunscreen](https://www.aad.org/public/everyday-care/sun-protection/shade-clothing-sunscreen/how-to-apply-sunscreen)
 
 ## Cần hỗ trợ chọn mỹ phẩm Hàn phù hợp?
 
-Bạn có thể [liên hệ Phùng Hà Korea để trao đổi về routine hiện tại](/tu-van-da/) hoặc [nhắn Messenger](https://m.me/PhungHa29) để hỏi thông tin và cách lựa chọn nhóm sản phẩm phù hợp trước khi mua. Không cần mua thêm retinol nếu routine hiện tại đã đáp ứng nhu cầu.
+Chị có thể [liên hệ Phùng Hà Korea để trao đổi về routine hiện tại](/tu-van-da/) hoặc [nhắn Messenger](https://m.me/PhungHa29) để hỏi thông tin và cách lựa chọn nhóm sản phẩm phù hợp trước khi mua. Không cần mua thêm retinol nếu routine hiện tại đã đáp ứng nhu cầu.
 
 **Lưu ý:** Bài viết chỉ cung cấp thông tin tham khảo, không chẩn đoán hoặc thay thế điều trị. Nếu đang mang thai, dự định mang thai, cho con bú, có bệnh da hoặc dùng thuốc, hãy hỏi bác sĩ da liễu trước khi cân nhắc retinoid.
